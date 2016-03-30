@@ -1,10 +1,10 @@
 CREATE TABLE users (
   id           VARCHAR(36) NOT NULL,
   username     VARCHAR(12) NOT NULL UNIQUE,
-  password     VARCHAR(50) NOT NULL,
+  password     VARCHAR(50) DEFAULT NULL,
   status       VARCHAR(20) NOT NULL,
   created_time TIMESTAMP   NOT NULL,
-  updated_time TIMESTAMP DEFAULT NULL,
+  updated_time TIMESTAMP   DEFAULT NULL,
   PRIMARY KEY (id)
 );
 
@@ -14,7 +14,6 @@ CREATE TABLE resources (
   pattern      VARCHAR(100) NOT NULL UNIQUE,
   method       VARCHAR(10)  NOT NULL,
   status       VARCHAR(20)  NOT NULL,
-  type         VARCHAR(50)  NOT NULL,
   created_time TIMESTAMP    NOT NULL,
   updated_time TIMESTAMP DEFAULT NULL,
   PRIMARY KEY (id)
