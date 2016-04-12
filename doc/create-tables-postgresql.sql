@@ -29,9 +29,9 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE role_resources (
-  role_id       VARCHAR(36) NOT NULL REFERENCES roles (id),
-  permission_id VARCHAR(36) NOT NULL REFERENCES resources (id),
-  PRIMARY KEY (role_id, permission_id)
+  role_id     VARCHAR(36) NOT NULL REFERENCES roles (id),
+  resource_id VARCHAR(36) NOT NULL REFERENCES resources (id),
+  PRIMARY KEY (role_id, resource_id)
 );
 
 CREATE TABLE role_users (
