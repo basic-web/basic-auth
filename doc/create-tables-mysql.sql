@@ -1,11 +1,14 @@
 /*
-DROP DATABASE IF EXISTS basic-auth;
+create user 'basic'@'localhost' identified by 'basic';
+grant all privileges on basic_auth.* to 'basic'@'localhost';
 
-CREATE DATABASE basic-auth
+DROP DATABASE IF EXISTS basic_auth;
+
+CREATE DATABASE basic_auth
   CHARACTER SET utf8
   COLLATE utf8_general_ci;
 
-USE basic-auth;
+USE basic_auth;
 */
 
 CREATE TABLE users (
