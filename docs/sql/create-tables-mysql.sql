@@ -81,3 +81,29 @@ CREATE TABLE role_users (
     ON UPDATE CASCADE,
   PRIMARY KEY (role_id, user_id)
 );
+
+CREATE TABLE menus (
+  id           VARCHAR(36)  NOT NULL,
+  name         VARCHAR(100) NOT NULL UNIQUE,
+  icon         VARCHAR(20) DEFAULT NULL,
+  order_num    SMALLINT    DEFAULT 1,
+  created_time DATETIME     NOT NULL,
+  updated_time DATETIME    DEFAULT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE menu_resources (
+  id           VARCHAR(36) NOT NULL,
+  menu_id      VARCHAR(20) NOT NULL,
+  resource_id  VARCHAR(36) NOT NULL,
+  order_num    SMALLINT DEFAULT 1,
+  CONSTRAINT `fk_menu_resources_menu` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_menu_resources_resource` FOREIGN KEY (`resource_id`) REFERENCES `resources` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  created_time DATETIME    NOT NULL,
+  updated_time DATETIME DEFAULT NULL,
+  PRIMARY KEY (id)
+);
