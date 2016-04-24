@@ -12,6 +12,7 @@
     <link href="/resources/css/animate.min.css" rel="stylesheet">
     <link href="/resources/css/custom.css" rel="stylesheet">
     <link href="/resources/css/icheck/flat/green.css" rel="stylesheet">
+    <link href="/resources/css/notie.css" rel="stylesheet">
     <script src="/resources/js/jquery.min.js"></script>
     <!--[if lt IE 9]>
     <script src="/resources/js/html5shiv.min.js"></script>
@@ -47,6 +48,8 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/resources/js/notie.min.js"></script>
+
 <script type="application/javascript">
     $(document).ready(function () {
         $('#btn-login').click(function (e) {
@@ -60,7 +63,7 @@
                     window.location.href = data.next;
                 },
                 error: function (data) {
-                    console.log('error:' + JSON.stringify(data.responseJSON));
+                    notie.alert(3, data.responseJSON.error, 2.5);
                 }
             });
         });
