@@ -24,7 +24,7 @@
     <div id="wrapper">
         <div id="login" class="animate form">
             <section class="login_content">
-                <form action="/login" method="POST">
+                <form id="form-login">
                     <h1>登录系统</h1>
                     <div>
                         <input name="username" type="text" class="form-control" placeholder="Username" required=""/>
@@ -33,7 +33,7 @@
                         <input name="password" type="password" class="form-control" placeholder="Password" required=""/>
                     </div>
                     <div>
-                        <btn class="btn btn-default submit">登录</btn>
+                        <btn class="btn btn-default submit" id="btn-login">登录</btn>
                     </div>
                     <div class="clearfix"></div>
                     <div class="separator">
@@ -47,5 +47,24 @@
         </div>
     </div>
 </div>
+<script type="application/javascript">
+    $(document).ready(function () {
+        $('#btn-login').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                method: 'POST',
+                url: '/login',
+                data: $('#form-login').serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    window.location.href = data.next;
+                },
+                error: function (data) {
+                    console.log('error:' + JSON.stringify(data.responseJSON));
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

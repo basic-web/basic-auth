@@ -1,10 +1,14 @@
 package com.github.ququzone.basicauth.web;
 
+import com.github.ququzone.basicauth.model.User;
 import com.github.ququzone.basicauth.service.AuthService;
 import com.github.ququzone.common.ServiceException;
+import com.github.ququzone.common.web.JsonResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,15 +39,15 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String doLogin(HttpServletRequest request,
-                          @RequestParam("username") String username, @RequestParam("password") String password) {
+    public ResponseEntity<String> doLogin(HttpServletRequest request,
+                                          @RequestParam("username") String username, @RequestParam("password") String password) {
         try {
-            authService.login(username, password);
+            User user = authService.login(username, password);
+            request.getSession().setAttribute("current_user", user.getId());
         } catch (ServiceException e) {
             LOG.error("user login exception", e);
-            request.setAttribute("message", e.getMessage());
-            return "error";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JsonResult.error(e.getMessage()).toString());
         }
-        return "redirect:/dashboard";
+        return ResponseEntity.ok(JsonResult.newJson().add("next", "/dashboard").toString());
     }
 }
