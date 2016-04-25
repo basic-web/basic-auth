@@ -2,7 +2,10 @@ package com.github.ququzone.basicauth.service;
 
 import com.github.ququzone.basicauth.model.Resource;
 import com.github.ququzone.basicauth.model.User;
+import com.github.ququzone.basicauth.model.UserFact;
+import com.github.ququzone.basicauth.model.UserVO;
 import com.github.ququzone.basicauth.persistence.ResourceMapper;
+import com.github.ququzone.basicauth.persistence.UserFactMapper;
 import com.github.ququzone.basicauth.persistence.UserMapper;
 import com.github.ququzone.common.MD5;
 import com.github.ququzone.common.ServiceException;
@@ -22,6 +25,9 @@ import sun.management.counter.perf.PerfInstrumentation;
 public class AuthServiceImpl implements AuthService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserFactMapper userFactMapper;
 
     @Autowired
     private ResourceMapper resourceMapper;
@@ -49,5 +55,21 @@ public class AuthServiceImpl implements AuthService {
             return true;
         }
         return resourceMapper.countByUserId(userId, resource.getId()) > 0;
+    }
+
+    @Override
+    public UserVO getUserVO(String userId) {
+        User user = userMapper.find(userId);
+        if (user != null) {
+            UserVO result = new UserVO();
+            result.setId(user.getId());
+            result.setUsername(user.getUsername());
+            UserFact userFact = userFactMapper.findByUserIdAndName(user.getId(), UserFact.Field.DISPLAY_NAME);
+            if (userFact != null) {
+                result.setDisplayName(userFact.getValue());
+            }
+            return result;
+        }
+        return null;
     }
 }

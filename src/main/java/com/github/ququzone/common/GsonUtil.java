@@ -12,5 +12,5 @@ import org.springframework.http.MediaType;
 public final class GsonUtil {
     public static final MediaType GSON_TYPE = MediaType.valueOf("application/json; charset=utf-8");
     public static final Gson DEFAULT_GSON = new GsonBuilder()
-            .setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+            .setDateFormat("yyyy-MM-dd HH:mm:ss").excludeFieldsWithoutExposeAnnotation().create();
 }
