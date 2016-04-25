@@ -9,4 +9,6 @@ import com.github.ququzone.basicauth.model.User;
  */
 public interface AuthService {
     User login(String username, String password);
+
+    boolean auditing(String userId, String pattern);
 }

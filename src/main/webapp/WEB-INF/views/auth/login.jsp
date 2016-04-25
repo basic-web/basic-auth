@@ -28,6 +28,7 @@
                 <form id="form-login">
                     <h1>登录系统</h1>
                     <div>
+                        <input name="next" type="hidden" value="${param.next}">
                         <input name="username" type="text" class="form-control" placeholder="Username" required=""/>
                     </div>
                     <div>

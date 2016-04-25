@@ -8,7 +8,6 @@ package com.github.ququzone.basicauth.model;
 public class Resource extends AbstractModel {
     private String name;
     private String pattern;
-    private Method method;
     private Status status;
 
     public String getName() {
@@ -25,14 +24,6 @@ public class Resource extends AbstractModel {
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
-    }
-
-    public Method getMethod() {
-        return method;
-    }
-
-    public void setMethod(Method method) {
-        this.method = method;
     }
 
     public Status getStatus() {

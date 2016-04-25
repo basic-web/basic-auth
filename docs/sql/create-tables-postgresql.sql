@@ -12,7 +12,6 @@ CREATE TABLE resources (
   id           VARCHAR(36)  NOT NULL,
   name         VARCHAR(100) NOT NULL,
   pattern      VARCHAR(100) NOT NULL UNIQUE,
-  method       VARCHAR(10)  NOT NULL,
   status       VARCHAR(20)  NOT NULL,
   created_time TIMESTAMP    NOT NULL,
   updated_time TIMESTAMP DEFAULT NULL,

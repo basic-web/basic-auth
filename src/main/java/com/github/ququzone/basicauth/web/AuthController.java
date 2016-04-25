@@ -40,14 +40,24 @@ public class AuthController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<String> doLogin(HttpServletRequest request,
-                                          @RequestParam("username") String username, @RequestParam("password") String password) {
+                                          @RequestParam("username") String username, @RequestParam("password") String password
+            , @RequestParam(name = "next", required = false) String next) {
         try {
             User user = authService.login(username, password);
-            request.getSession().setAttribute("current_user", user.getId());
+            request.getSession().setAttribute("user", user.getId());
         } catch (ServiceException e) {
             LOG.error("user login exception", e);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JsonResult.error(e.getMessage()).toString());
         }
-        return ResponseEntity.ok(JsonResult.newJson().add("next", "/dashboard").toString());
+        if (next == null || next.isEmpty()) {
+            next = "/dashboard";
+        }
+        return ResponseEntity.ok(JsonResult.newJson().add("next", next).toString());
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request) {
+        request.getSession().removeAttribute("user");
+        return "redirect:/login";
     }
 }
