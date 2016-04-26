@@ -1,6 +1,5 @@
 package com.github.ququzone.basicauth.web;
 
-import com.github.ququzone.basicauth.model.User;
 import com.github.ququzone.basicauth.service.AuthService;
 import com.github.ququzone.common.GsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +26,19 @@ public class UserController {
     String user(HttpServletRequest request) {
         String userId = (String) request.getSession().getAttribute("user");
         return GsonUtil.DEFAULT_GSON.toJson(authService.getUserVO(userId));
+    }
+
+    @RequestMapping(value = "/nav", method = RequestMethod.GET)
+    public String nav(HttpServletRequest request) {
+        String userId = (String) request.getSession().getAttribute("user");
+        request.setAttribute("user", authService.getUserVO(userId));
+        request.setAttribute("menus", "");
+        return "include/nav";
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String users() {
+        // TODO
+        return "auth/users";
     }
 }

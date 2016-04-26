@@ -1,4 +1,28 @@
+INSERT INTO roles (id, name, status, created_time)
+VALUES ('role_user', '系统用户', 'NORMAL', now());
+INSERT INTO roles (id, name, status, created_time)
+VALUES ('role_admin', '超级管理员', 'NORMAL', now());
+
 INSERT INTO users (id, username, password, status, created_time)
-VALUES ('58bb4399-084f-11e6-8927-c03fd592b5f9', 'admin', '7f3b41c9487adc40b70c7ac38dc7990a', 'NORMAL', now());
+VALUES ('admin', 'admin', '7f3b41c9487adc40b70c7ac38dc7990a', 'NORMAL', now());
 INSERT INTO user_facts (id, user_id, name, value, created_time)
-VALUES (uuid(), '58bb4399-084f-11e6-8927-c03fd592b5f9', 'DISPLAY_NAME', '管理员', now());
+VALUES (uuid(), 'admin', 'DISPLAY_NAME', '管理员', now());
+INSERT INTO role_users (role_id, user_id) VALUES ('role_user', 'admin');
+INSERT INTO role_users (role_id, user_id) VALUES ('role_admin', 'admin');
+
+INSERT INTO menus (id, name, icon, order_num, created_time)
+VALUES ('home', '主页', 'fa fa-home', 1, now());
+INSERT INTO menus (id, name, icon, order_num, created_time)
+VALUES ('system', '系统管理', 'fa fa-gears', 100, now());
+
+INSERT INTO resources (id, name, pattern, status, created_time)
+VALUES ('dashboard', 'Dashboard', '/dashboard', 'NORMAL', now());
+INSERT INTO role_resources (role_id, resource_id) VALUES ('role_user', 'dashboard');
+INSERT INTO menu_resources (id, menu_id, resource_id, order_num, created_time)
+VALUES ('home_dashboard', 'home', 'dashboard', 1, now());
+
+INSERT INTO resources (id, name, pattern, status, created_time)
+VALUES ('users', '用户管理', '/users', 'NORMAL', now());
+INSERT INTO role_resources (role_id, resource_id) VALUES ('role_admin', 'users');
+INSERT INTO menu_resources (id, menu_id, resource_id, order_num, created_time)
+VALUES ('system_users', 'system', 'users', 1, now());

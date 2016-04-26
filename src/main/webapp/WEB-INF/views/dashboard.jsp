@@ -9,7 +9,7 @@
 
 <div class="container body">
     <div class="main_container">
-        <jsp:include page="include/nav.jsp"/>
+        <jsp:include page="/nav"/>
 
         <div class="right_col" role="main">
         </div>

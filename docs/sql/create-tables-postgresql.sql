@@ -51,7 +51,7 @@ CREATE TABLE menus (
 
 CREATE TABLE menu_resources (
   id           VARCHAR(36) NOT NULL,
-  menu_id      VARCHAR(20) NOT NULL REFERENCES menus (id),
+  menu_id      VARCHAR(36) NOT NULL REFERENCES menus (id),
   resource_id  VARCHAR(36) NOT NULL REFERENCES resources (id),
   order_num    SMALLINT  DEFAULT 1,
   created_time TIMESTAMP   NOT NULL,

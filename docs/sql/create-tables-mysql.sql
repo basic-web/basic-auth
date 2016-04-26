@@ -93,7 +93,7 @@ CREATE TABLE menus (
 
 CREATE TABLE menu_resources (
   id           VARCHAR(36) NOT NULL,
-  menu_id      VARCHAR(20) NOT NULL,
+  menu_id      VARCHAR(36) NOT NULL,
   resource_id  VARCHAR(36) NOT NULL,
   order_num    SMALLINT DEFAULT 1,
   CONSTRAINT `fk_menu_resources_menu` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`)

@@ -4,14 +4,4 @@
 <script type="text/javascript" src="/resources/js/custom.js"></script>
 <script>
     NProgress.done();
-    $(document).ready(function () {
-       $.ajax({
-           method: 'GET',
-           url: '/user',
-           dataType: 'json',
-           success: function (data) {
-               $('.span-user').html(data.displayName);
-           }
-       });
-    });
 </script>

@@ -12,7 +12,7 @@
             </div>
             <div class="profile_info">
                 <span>欢迎您,</span>
-                <h2 class="span-user">User</h2>
+                <h2>${user.displayName}</h2>
             </div>
         </div>
 
@@ -22,9 +22,15 @@
             <h2>&nbsp;</h2>
             <div class="menu_section">
                 <ul class="nav side-menu">
-                    <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-home"></i> 主页 <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu" style="display: none">
                             <li><a href="/dashboard">Dashboard</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a><i class="fa fa-gears"></i> 系统管理 <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu" style="display: none">
+                            <li><a href="/users">用户管理</a>
                             </li>
                         </ul>
                     </li>
@@ -44,7 +50,7 @@
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
-                        <img src="/resources/images/user.png" alt=""><span class="span-user">User</span>
+                        <img src="/resources/images/user.png" alt=""> ${user.displayName}
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
