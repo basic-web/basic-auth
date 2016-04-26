@@ -12,7 +12,7 @@
         <interceptor>
             <mapping path="/**"/>
             <exclude-mapping path="/resources/**"/>
-            <mvc:exclude-mapping path="/login"/>
+            <exclude-mapping path="/login"/>
             <beans:bean class="com.github.ququzone.basicauth.web.AuthInterceptor"/>
         </interceptor>
     </mvc:interceptors>

@@ -32,6 +32,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             response.sendRedirect("/login?next=" + requestPath);
             return false;
         }
-        return authService.auditing(userId, requestPath);
+        if (!authService.auditing(userId, requestPath)) {
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("user not permission for request:" + requestPath);
+            }
+            response.sendRedirect("/no_permission?next=" + requestPath);
+            return false;
+        }
+        return true;
     }
 }

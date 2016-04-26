@@ -27,7 +27,7 @@
                         <li><a><i class="${menu.icon}"></i> ${menu.name} <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu" style="display: none">
                                 <c:forEach var="resource" items="${menu.resources}">
-                                    <li><a href="${resource.pattern}">${resource.name}</a>
+                                    <li><a class="link_menu" href="${resource.pattern}">${resource.name}</a>
                                     </li>
                                 </c:forEach>
                             </ul>

@@ -3,8 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+var GET_COOKIE = function(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+};
 
-var URL = window.location,
+var URL = GET_COOKIE('current_page'),
     $BODY = $('body'),
     $MENU_TOGGLE = $('#menu_toggle'),
     $SIDEBAR_MENU = $('#sidebar-menu'),
@@ -13,9 +27,14 @@ var URL = window.location,
     $RIGHT_COL = $('.right_col'),
     $NAV_MENU = $('.nav_menu'),
     $FOOTER = $('footer');
-
+console.log(URL);
 // Sidebar
 $(function () {
+    $('.link_menu').click(function (e) {
+        e.preventDefault();
+        document.cookie = 'current_page=' + $(this).attr('href') + '; path=/';
+        window.location.href = $(this).attr('href');
+    });
     $SIDEBAR_MENU.find('li ul').slideUp();
     $SIDEBAR_MENU.find('li').removeClass('active');
 
@@ -68,7 +87,7 @@ $(function () {
     $SIDEBAR_MENU.find('a[href="' + URL + '"]').parent('li').addClass('current-page');
 
     $SIDEBAR_MENU.find('a').filter(function () {
-        return this.href == URL;
+        return $(this).attr('href') == URL;
     }).parent('li').addClass('current-page').parent('ul').slideDown(function() {
         setContentHeight();
     }).parent().addClass('active');

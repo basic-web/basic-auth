@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * basic auth controller.
@@ -40,6 +42,7 @@ public class AuthController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<String> doLogin(HttpServletRequest request,
+                                          HttpServletResponse response,
                                           @RequestParam("username") String username, @RequestParam("password") String password
             , @RequestParam(name = "next", required = false) String next) {
         try {
@@ -52,12 +55,40 @@ public class AuthController {
         if (next == null || next.isEmpty()) {
             next = "/dashboard";
         }
+        Cookie pageCookie = new Cookie("current_page", next);
+        pageCookie.setMaxAge(-1);
+        pageCookie.setPath("/");
+        response.addCookie(pageCookie);
+
         return ResponseEntity.ok(JsonResult.newJson().add("next", next).toString());
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest request) {
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute("user");
+        Cookie pageCookie = new Cookie("current_page", "");
+        pageCookie.setMaxAge(0);
+        pageCookie.setPath("/");
+        response.addCookie(pageCookie);
         return "redirect:/login";
+    }
+
+    @RequestMapping(value = "/no_permission", method = RequestMethod.GET)
+    public String noPermission(HttpServletRequest request, HttpServletResponse response,
+                               @RequestParam(name = "next", required = false) String next) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("current_page".equals(cookie.getName())) {
+                    if (cookie.getValue().equals(next)) {
+                        cookie.setMaxAge(0);
+                        cookie.setValue("");
+                        response.addCookie(cookie);
+                    }
+                    break;
+                }
+            }
+        }
+        return "auth/no_permission";
     }
 }
