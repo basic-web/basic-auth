@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * resource mapper.
  *
@@ -20,4 +22,12 @@ public interface ResourceMapper {
     @Select("select count(1) from role_resources rr, role_users ru where rr.role_id = ru.role_id " +
             "and rr.resource_id = #{resourceId} and ru.user_id = #{userId}")
     Integer countByUserId(@Param("userId") String userId, @Param("resourceId") String resourceId);
+
+    @Select("select mr.menu_id, mr.order_num, t.* from" +
+            " (select distinct r.id, r.name, r.pattern, r.status, r.created_time, r.updated_time" +
+            " from resources r, role_resources rr, role_users ru" +
+            " where r.id = rr.resource_id and rr.role_id = ru.role_id and ru.user_id = #{userId}) t, menu_resources mr" +
+            " where t.id = mr.resource_id order by mr.menu_id, mr.order_num")
+    @ResultMap("ResourceOrderResult")
+    List<Resource> findUserResources(String userId);
 }

@@ -32,7 +32,7 @@ public class UserController {
     public String nav(HttpServletRequest request) {
         String userId = (String) request.getSession().getAttribute("user");
         request.setAttribute("user", authService.getUserVO(userId));
-        request.setAttribute("menus", "");
+        request.setAttribute("menus", authService.getUserMenus(userId));
         return "include/nav";
     }
 

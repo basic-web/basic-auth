@@ -7,5 +7,6 @@
         <mapper resource="persistence/mappers/UserMapper.xml"/>
         <mapper resource="persistence/mappers/UserFactMapper.xml"/>
         <mapper resource="persistence/mappers/ResourceMapper.xml"/>
+        <mapper resource="persistence/mappers/MenuMapper.xml"/>
     </mappers>
 </configuration>

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
@@ -22,18 +23,16 @@
             <h2>&nbsp;</h2>
             <div class="menu_section">
                 <ul class="nav side-menu">
-                    <li><a><i class="fa fa-home"></i> 主页 <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu" style="display: none">
-                            <li><a href="/dashboard">Dashboard</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a><i class="fa fa-gears"></i> 系统管理 <span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu" style="display: none">
-                            <li><a href="/users">用户管理</a>
-                            </li>
-                        </ul>
-                    </li>
+                    <c:forEach var="menu" items="${menus}">
+                        <li><a><i class="${menu.icon}"></i> ${menu.name} <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu" style="display: none">
+                                <c:forEach var="resource" items="${menu.resources}">
+                                    <li><a href="${resource.pattern}">${resource.name}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        </li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>

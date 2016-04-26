@@ -1,7 +1,10 @@
 package com.github.ququzone.basicauth.service;
 
+import com.github.ququzone.basicauth.model.Menu;
 import com.github.ququzone.basicauth.model.User;
 import com.github.ququzone.basicauth.model.UserVO;
+
+import java.util.List;
 
 /**
  * auth service.
@@ -14,4 +17,6 @@ public interface AuthService {
     boolean auditing(String userId, String pattern);
 
     UserVO getUserVO(String userId);
+
+    List<Menu> getUserMenus(String userId);
 }

@@ -1,9 +1,7 @@
 package com.github.ququzone.basicauth.service;
 
-import com.github.ququzone.basicauth.model.Resource;
-import com.github.ququzone.basicauth.model.User;
-import com.github.ququzone.basicauth.model.UserFact;
-import com.github.ququzone.basicauth.model.UserVO;
+import com.github.ququzone.basicauth.model.*;
+import com.github.ququzone.basicauth.persistence.MenuMapper;
 import com.github.ququzone.basicauth.persistence.ResourceMapper;
 import com.github.ququzone.basicauth.persistence.UserFactMapper;
 import com.github.ququzone.basicauth.persistence.UserMapper;
@@ -13,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.management.counter.perf.PerfInstrumentation;
+
+import java.util.*;
 
 /**
  * auth service implement.
@@ -31,6 +30,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private ResourceMapper resourceMapper;
+
+    @Autowired
+    private MenuMapper menuMapper;
 
     @Value("${password.salt}")
     private String salt;
@@ -69,6 +71,26 @@ public class AuthServiceImpl implements AuthService {
                 result.setDisplayName(userFact.getValue());
             }
             return result;
+        }
+        return null;
+    }
+
+    @Override
+    public List<Menu> getUserMenus(String userId) {
+        List<Resource> resources = resourceMapper.findUserResources(userId);
+        if (resources != null && !resources.isEmpty()) {
+            List<Menu> menus = new LinkedList<>();
+            Map<String, Menu> menuMap = new HashMap<>();
+            resources.forEach(x -> {
+                if (!menuMap.containsKey(x.getMenuId())) {
+                    Menu menu = menuMapper.find(x.getMenuId());
+                    menus.add(menu);
+                    menuMap.put(menu.getId(), menu);
+                }
+                menuMap.get(x.getMenuId()).addResource(x);
+            });
+            Collections.sort(menus, (a, b) -> a.getOrderNum().compareTo(b.getOrderNum()));
+            return menus;
         }
         return null;
     }

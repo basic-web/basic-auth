@@ -1,8 +1,11 @@
 package com.github.ququzone.basicauth.model;
 
 import com.google.gson.annotations.Expose;
+import org.springframework.beans.BeanUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -47,7 +50,18 @@ public class AbstractModel {
             id = UUID.randomUUID().toString();
     }
 
+    @Override
     public String toString() {
         return String.format("%s:[%s]", getClass().getCanonicalName(), this.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return Objects.equals(obj, this);
     }
 }

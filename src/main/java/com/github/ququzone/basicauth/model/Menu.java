@@ -1,5 +1,8 @@
 package com.github.ququzone.basicauth.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * menu model.
  *
@@ -11,6 +14,8 @@ public class Menu extends AbstractModel {
     private String icon;
 
     private Integer orderNum;
+
+    private List<Resource> resources;
 
     public String getName() {
         return name;
@@ -34,5 +39,20 @@ public class Menu extends AbstractModel {
 
     public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
+
+    public void addResource(Resource resource) {
+        if (this.resources == null) {
+            this.resources = new ArrayList<>();
+        }
+        this.resources.add(resource);
     }
 }

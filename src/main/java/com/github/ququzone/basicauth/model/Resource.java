@@ -9,6 +9,8 @@ public class Resource extends AbstractModel {
     private String name;
     private String pattern;
     private Status status;
+    private String menuId;
+    private Integer orderNum;
 
     public String getName() {
         return name;
@@ -34,8 +36,20 @@ public class Resource extends AbstractModel {
         this.status = status;
     }
 
-    public enum Method {
-        GET, POST, PUT, DELETE
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
     }
 
     public enum Status {
