@@ -20,7 +20,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <form id="form-settings" action="/user/settings" method="POST" data-parsley-validate
+                            <form id="form-settings" action="/user/settings" method="POST"
                                   class="form-horizontal form-label-left">
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">用户名

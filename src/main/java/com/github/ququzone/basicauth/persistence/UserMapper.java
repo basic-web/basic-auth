@@ -31,7 +31,7 @@ public interface UserMapper {
     @Select("select count(1) from users")
     long count();
 
-    @Select("select id, username, password, status, created_time, updated_time from users order by created_time limit #{limit} offset #{offset}")
+    @Select("select id, username, password, status, created_time, updated_time from users order by created_time desc limit #{limit} offset #{offset}")
     @ResultMap("UserResult")
     List<User> page(@Param("limit") int limit, @Param("offset") long offset);
 }

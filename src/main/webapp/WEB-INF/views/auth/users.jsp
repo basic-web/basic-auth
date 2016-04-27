@@ -23,7 +23,12 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <table class="table">
+                            <div class="pull-right">
+                                <button id="btn-add-modal" class="btn btn-success"><span
+                                        class="fa fa-plus-circle"></span> 新增
+                                </button>
+                            </div>
+                            <table class="table table-striped table-bordered dataTable no-footer">
                                 <thead>
                                 <tr>
                                     <th>用户名</th>
@@ -47,7 +52,28 @@
                                         </td>
                                         <td><fmt:formatDate value="${user.createdTime}"
                                                             pattern="yyyy-MM-dd HH:mm"/></td>
-                                        <td>&nbsp;</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-primary"><span class="fa fa-edit"></span> 编辑
+                                            </button>
+                                            <c:if test="${user.status == 'NORMAL'}">
+                                                <button class="btn btn-sm btn-danger"><span class="fa fa-lock"></span>
+                                                    禁用
+                                                </button>
+                                                <button class="btn btn-sm btn-info"><span
+                                                        class="fa fa-users"></span>
+                                                    分配角色
+                                                </button>
+                                                <button class="btn btn-sm btn-danger"><span
+                                                        class="fa fa-refresh"></span>
+                                                    重置密码
+                                                </button>
+                                            </c:if>
+                                            <c:if test="${user.status == 'DISABLE'}">
+                                                <button class="btn btn-sm btn-info"><span class="fa fa-unlock"></span>
+                                                    激活
+                                                </button>
+                                            </c:if>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -63,6 +89,60 @@
         <jsp:include page="../include/footer.jsp"/>
     </div>
 </div>
+<div class="modal fade" id="modal-add" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">新增用户</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-add" class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">用户名
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="display_name" type="text" id="username"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="display-name">姓名
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="display_name" type="text" id="display-name" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group password-area">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">密码
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="password" id="password" name="password"
+                                   class="form-control col-md-7 col-xs-12 input-password">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add-submit" type="button" class="btn btn-primary"><span
+                        class="fa fa-plus-circle"></span> 新增
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../include/script.jsp"/>
+<script type="application/javascript">
+    $(document).ready(function () {
+        $('#btn-add-modal').click(function () {
+            $('#modal-add').modal('toggle')
+        });
+    });
+</script>
 </body>
 </html>

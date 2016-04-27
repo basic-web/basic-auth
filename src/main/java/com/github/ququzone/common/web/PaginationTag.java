@@ -22,10 +22,10 @@ public class PaginationTag extends SimpleTagSupport {
         if (current > 1) {
             out.println("<li><a href='" + baseUrl + (hasParam ? "&" : "?") + "page=" + (current - 1) + "'>上一页</a></li>");
         } else {
-            out.println("<li class='disabled'><a href='#'>上一页</a></li>");
+            out.println("<li class='disabled'><a href='javascript:void();'>上一页</a></li>");
         }
         if (totalPage == 0) {
-            out.println("<li class='active'><a href='#'>1</a></li>");
+            out.println("<li class='active'><a href='javascript:void();'>1</a></li>");
         }
         if (totalPage <= 10) {
             for (int i = 1; i <= totalPage; i++) {
@@ -33,7 +33,7 @@ public class PaginationTag extends SimpleTagSupport {
                     out.println("<li><a href='" + baseUrl + (hasParam ? "&" : "?") + "page=" + i + "'>"
                             + i + "</a></li>");
                 } else {
-                    out.println("<li class='active'><a href='#'>" + i
+                    out.println("<li class='active'><a href='javascript:void();'>" + i
                             + "</a></li>");
                 }
             }
@@ -43,12 +43,12 @@ public class PaginationTag extends SimpleTagSupport {
                     out.println("<li><a href='" + baseUrl + (hasParam ? "&" : "?") + "page=" + i + "'>"
                             + i + "</a></li>");
                 } else {
-                    out.println("<li class='active'><a href='#'>" + i
+                    out.println("<li class='active'><a href='javascript:void();'>" + i
                             + "</a></li>");
                 }
             }
             if (totalPage > 11) {
-                out.println("<li class='disabled'><a href='#'>...</a></li>");
+                out.println("<li class='disabled'><a href='javascript:void();'>...</a></li>");
             }
             for (int i = totalPage - 1; i <= totalPage; i++) {
                 out.println("<li><a href='" + baseUrl + (hasParam ? "&" : "?") + "page=" + i + "'>" + i
@@ -59,13 +59,13 @@ public class PaginationTag extends SimpleTagSupport {
                 out.println("<li><a href='" + baseUrl + (hasParam ? "&" : "?") + "page=" + i + "'>" + i
                         + "</a></li>");
             }
-            out.println("<li class='disabled'><a href='#'>...</a></li>");
+            out.println("<li class='disabled'><a href='javascript:void();'>...</a></li>");
             for (int i = totalPage - 7; i <= totalPage; i++) {
                 if (current != i) {
                     out.println("<li><a href='" + baseUrl + (hasParam ? "&" : "?") + "page=" + i + "'>"
                             + i + "</a></li>");
                 } else {
-                    out.println("<li class='active'><a href='#'>" + i
+                    out.println("<li class='active'><a href='javascript:void();'>" + i
                             + "</a></li>");
                 }
             }
@@ -74,18 +74,18 @@ public class PaginationTag extends SimpleTagSupport {
                 out.println("<li><a href='" + baseUrl + (hasParam ? "&" : "?") + "page=" + i + "'>" + i
                         + "</a></li>");
             }
-            out.println("<li class='disabled'><a href='#'>...</a></li>");
+            out.println("<li class='disabled'><a href='javascript:void();'>...</a></li>");
             for (int i = current - 3; i <= current + 3; i++) {
                 if (current != i) {
                     out.println("<li><a href='" + baseUrl + (hasParam ? "&" : "?") + "page=" + i + "'>"
                             + i + "</a></li>");
                 } else {
-                    out.println("<li class='active'><a href='#'>" + i
+                    out.println("<li class='active'><a href='javascript:void();'>" + i
                             + "</a></li>");
                 }
             }
             if (totalPage - 1 != current + 2) {
-                out.println("<li class='disabled'><a href='#'>...</a></li>");
+                out.println("<li class='disabled'><a href='javascript:void();'>...</a></li>");
             }
             for (int i = totalPage - 1; i <= totalPage; i++) {
                 out.println("<li><a href='" + baseUrl + (hasParam ? "&" : "?") + "page=" + i + "'>" + i
@@ -96,7 +96,7 @@ public class PaginationTag extends SimpleTagSupport {
             out.println("<li><a href='" + baseUrl + (hasParam ? "&" : "?") + "page=" + (current + 1)
                     + "'>下一页</a></li>");
         } else {
-            out.println("<li class='disabled'><a href='#'>下一页</a></li>");
+            out.println("<li class='disabled'><a href='javascript:void();'>下一页</a></li>");
         }
         out.println("</ul>");
         super.doTag();
