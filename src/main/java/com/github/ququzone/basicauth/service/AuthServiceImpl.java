@@ -6,6 +6,7 @@ import com.github.ququzone.basicauth.persistence.ResourceMapper;
 import com.github.ququzone.basicauth.persistence.UserFactMapper;
 import com.github.ququzone.basicauth.persistence.UserMapper;
 import com.github.ququzone.common.MD5;
+import com.github.ququzone.common.Page;
 import com.github.ququzone.common.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * auth service implement.
@@ -61,7 +63,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserVO getUserVO(String userId) {
-        User user = userMapper.find(userId);
+        return transformUserVO(userMapper.find(userId));
+    }
+
+    private UserVO transformUserVO(User user) {
         if (user != null) {
             UserVO result = new UserVO();
             result.setId(user.getId());
@@ -70,6 +75,8 @@ public class AuthServiceImpl implements AuthService {
             if (userFact != null) {
                 result.setDisplayName(userFact.getValue());
             }
+            result.setStatus(user.getStatus());
+            result.setCreatedTime(user.getCreatedTime());
             return result;
         }
         return null;
@@ -109,5 +116,18 @@ public class AuthServiceImpl implements AuthService {
                 userMapper.updatePassword(userId, MD5.digestHexString(salt, password), now);
             }
         }
+    }
+
+    @Override
+    public Page<UserVO> userPage(int page, int pageSize) {
+        Page<UserVO> result = new Page<>();
+        result.setTotal(userMapper.count());
+        result.setPageSize(pageSize);
+        result.setCurrent(page);
+        if (result.getTotal() > 0) {
+            List<User> users = userMapper.page(pageSize, (page - 1) * pageSize);
+            result.setData(users.stream().map(this::transformUserVO).collect(Collectors.toList()));
+        }
+        return result;
     }
 }

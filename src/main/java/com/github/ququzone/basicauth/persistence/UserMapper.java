@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * user model mapper.
@@ -26,4 +27,11 @@ public interface UserMapper {
 
     @Update("update users set password = #{password}, updated_time = #{updatedTime} where id = #{id}")
     void updatePassword(@Param("id") String id, @Param("password") String password, @Param("updatedTime") Date updatedTime);
+
+    @Select("select count(1) from users")
+    long count();
+
+    @Select("select id, username, password, status, created_time, updated_time from users order by created_time limit #{limit} offset #{offset}")
+    @ResultMap("UserResult")
+    List<User> page(@Param("limit") int limit, @Param("offset") long offset);
 }

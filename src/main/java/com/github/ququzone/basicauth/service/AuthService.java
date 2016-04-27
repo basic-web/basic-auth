@@ -3,6 +3,7 @@ package com.github.ququzone.basicauth.service;
 import com.github.ququzone.basicauth.model.Menu;
 import com.github.ququzone.basicauth.model.User;
 import com.github.ququzone.basicauth.model.UserVO;
+import com.github.ququzone.common.Page;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface AuthService {
     List<Menu> getUserMenus(String userId);
 
     void settingUser(String userId, String displayName, boolean changePassword, String originPassword, String password);
+
+    Page<UserVO> userPage(int page, int pageSize);
 }

@@ -2,6 +2,7 @@ package com.github.ququzone.basicauth.web;
 
 import com.github.ququzone.basicauth.service.AuthService;
 import com.github.ququzone.common.GsonUtil;
+import com.github.ququzone.common.Page;
 import com.github.ququzone.common.ServiceException;
 import com.github.ququzone.common.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,8 +92,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users() {
-        // TODO
+    public String users(HttpServletRequest request,
+                        @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+        request.setAttribute("users", authService.userPage(page, Page.DEFAULT_PAGE_SIZE));
         return "auth/users";
     }
 }
