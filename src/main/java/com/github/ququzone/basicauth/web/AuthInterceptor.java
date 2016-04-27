@@ -24,6 +24,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String requestPath = request.getRequestURI().substring(
                 request.getContextPath().length());
+        if (requestPath.endsWith(".jsp")) {
+            return true;
+        }
         String userId = (String) request.getSession().getAttribute("user");
         if (userId == null || userId.isEmpty()) {
             if (LOG.isDebugEnabled()) {

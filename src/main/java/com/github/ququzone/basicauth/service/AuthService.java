@@ -19,4 +19,6 @@ public interface AuthService {
     UserVO getUserVO(String userId);
 
     List<Menu> getUserMenus(String userId);
+
+    void settingUser(String userId, String displayName, boolean changePassword, String originPassword, String password);
 }

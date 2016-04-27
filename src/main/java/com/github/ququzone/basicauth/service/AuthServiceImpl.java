@@ -94,4 +94,20 @@ public class AuthServiceImpl implements AuthService {
         }
         return null;
     }
+
+    @Override
+    public void settingUser(String userId, String displayName,
+                            boolean changePassword, String originPassword, String password) {
+        User user = userMapper.find(userId);
+        if (user != null) {
+            Date now = new Date();
+            userFactMapper.updateValueByUserId(userId, UserFact.Field.DISPLAY_NAME, displayName, now);
+            if (changePassword) {
+                if (!MD5.digestHexString(salt, originPassword).equals(user.getPassword())) {
+                    throw new ServiceException("原密码错误");
+                }
+                userMapper.updatePassword(userId, MD5.digestHexString(salt, password), now);
+            }
+        }
+    }
 }

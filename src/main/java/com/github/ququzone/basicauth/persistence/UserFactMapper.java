@@ -5,6 +5,9 @@ import com.github.ququzone.common.MybatisMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.Date;
 
 /**
  * user fact mapper.
@@ -17,4 +20,8 @@ public interface UserFactMapper {
             " where user_id = #{userId} and name = #{name}")
     @ResultMap("UserFactResult")
     UserFact findByUserIdAndName(@Param("userId") String userId, @Param("name") UserFact.Field name);
+
+    @Update("update user_facts set value = #{value}, updated_time = #{updatedTime} where user_id = #{userId} and name = #{name}")
+    void updateValueByUserId(@Param("userId") String userId, @Param("name") UserFact.Field name,
+                             @Param("value") String value, @Param("updatedTime") Date updatedTime);
 }

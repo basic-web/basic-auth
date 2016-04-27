@@ -50,10 +50,10 @@
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
                         <img src="/resources/images/user.png" alt=""> ${user.displayName}
-                        <span class=" fa fa-angle-down"></span>
+                        <span class="fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <li><a href="javascript:;"> 设置</a>
+                        <li><a href="/user/settings"> 设置</a>
                         </li>
                         <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> 退出</a>
                         </li>

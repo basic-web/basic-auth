@@ -9,7 +9,7 @@
 <link href="/resources/css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet" type="text/css"/>
 <link href="/resources/css/icheck/flat/green.css" rel="stylesheet"/>
 <link href="/resources/css/floatexamples.css" rel="stylesheet" type="text/css"/>
-
+<link href="/resources/css/notie.css" rel="stylesheet" type="text/css"/>
 <script src="/resources/js/jquery.min.js"></script>
 <script src="/resources/js/nprogress.js"></script>
 

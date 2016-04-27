@@ -27,7 +27,6 @@ var URL = GET_COOKIE('current_page'),
     $RIGHT_COL = $('.right_col'),
     $NAV_MENU = $('.nav_menu'),
     $FOOTER = $('footer');
-console.log(URL);
 // Sidebar
 $(function () {
     $('.link_menu').click(function (e) {
