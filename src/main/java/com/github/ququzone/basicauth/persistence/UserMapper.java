@@ -39,4 +39,8 @@ public interface UserMapper {
     @Select("select id, username, password, status, created_time, updated_time from users where username = #{username}")
     @ResultMap("UserResult")
     User findByUsername(@Param("username") String username);
+
+    @Update("update users set username = #{username}, password = #{password}," +
+            " status = #{status}, updated_time = #{updatedTime} where id = #{id}")
+    void update(User user);
 }

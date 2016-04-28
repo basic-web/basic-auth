@@ -153,4 +153,21 @@ public class AuthServiceImpl implements AuthService {
         roleMapper.insertUserRole("role_user", user.getId());
         userFactMapper.insert(fact);
     }
+
+    @Override
+    public void updateUser(String id, String username, String displayName, String password) {
+        User temp = userMapper.findByUsername(username);
+        if (temp != null && !temp.getId().equals(id)) {
+            throw new ServiceException("用户名已经存在");
+        }
+        User user = userMapper.find(id);
+        if (user != null) {
+            Date now = new Date();
+            user.setUsername(username);
+            user.setPassword(MD5.digestHexString(salt, password));
+            user.setUpdatedTime(now);
+            userMapper.update(user);
+            userFactMapper.updateValueByUserId(id, UserFact.Field.DISPLAY_NAME, displayName, now);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.github.ququzone.basicauth.web;
 
+import com.github.ququzone.basicauth.model.UserVO;
 import com.github.ququzone.basicauth.service.AuthService;
 import com.github.ququzone.common.GsonUtil;
 import com.github.ququzone.common.Page;
@@ -7,12 +8,10 @@ import com.github.ququzone.common.ServiceException;
 import com.github.ququzone.common.web.FlashMessage;
 import com.github.ququzone.common.web.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -106,6 +105,27 @@ public class UserController {
                                       @RequestParam("password") String password) {
         try {
             authService.addUser(username, displayName, password);
+            return ResponseEntity.ok("{}");
+        } catch (ServiceException e) {
+            return ResponseEntity.badRequest().body(JsonResult.error(e.getMessage()).toString());
+        }
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public ResponseEntity<String> get(@PathVariable("id") String id) {
+        UserVO user = authService.getUserVO(id);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(user));
+    }
+
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.POST)
+    public ResponseEntity<String> update(@PathVariable("id") String id, @RequestParam("username") String username,
+                                         @RequestParam("display_name") String displayName,
+                                         @RequestParam("password") String password) {
+        try {
+            authService.updateUser(id, username, displayName, password);
             return ResponseEntity.ok("{}");
         } catch (ServiceException e) {
             return ResponseEntity.badRequest().body(JsonResult.error(e.getMessage()).toString());

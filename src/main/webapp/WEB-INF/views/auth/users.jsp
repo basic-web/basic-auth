@@ -53,23 +53,25 @@
                                         <td><fmt:formatDate value="${user.createdTime}"
                                                             pattern="yyyy-MM-dd HH:mm"/></td>
                                         <td>
-                                            <button class="btn btn-sm btn-primary"><span class="fa fa-edit"></span> 编辑
+                                            <button class="btn btn-sm btn-primary btn-edit" data-id="${user.id}"><span
+                                                    class="fa fa-edit"></span> 编辑
                                             </button>
                                             <c:if test="${user.status == 'NORMAL'}">
-                                                <button class="btn btn-sm btn-danger"><span class="fa fa-lock"></span>
+                                                <button class="btn btn-sm btn-danger btn-disable"
+                                                        data-id="${user.id}"><span
+                                                        class="fa fa-lock"></span>
                                                     禁用
                                                 </button>
-                                                <button class="btn btn-sm btn-info"><span
+                                                <button class="btn btn-sm btn-info btn-assign_role"
+                                                        data-id="${user.id}"><span
                                                         class="fa fa-users"></span>
                                                     分配角色
                                                 </button>
-                                                <button class="btn btn-sm btn-danger"><span
-                                                        class="fa fa-refresh"></span>
-                                                    重置密码
-                                                </button>
                                             </c:if>
                                             <c:if test="${user.status == 'DISABLE'}">
-                                                <button class="btn btn-sm btn-info"><span class="fa fa-unlock"></span>
+                                                <button class="btn btn-sm btn-info btn-enable"
+                                                        data-id="${user.id}"><span
+                                                        class="fa fa-unlock"></span>
                                                     激活
                                                 </button>
                                             </c:if>
@@ -136,6 +138,53 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-edit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑用户</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-edit" class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">用户名
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="username" type="text" id="edit-username" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">姓名
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="display_name" type="text" id="edit-display_name" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group password-area">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">密码
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input type="password" name="password" id="edit-password" required="required"
+                                   class="form-control col-md-7 col-xs-12 input-password">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-edit-submit" type="button" class="btn btn-primary"><span
+                        class="fa fa-edit"></span> 编辑
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../include/script.jsp"/>
 <script type="text/javascript" src="/resources/js/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="/resources/js/parsley/parsley.min.js"></script>
@@ -143,7 +192,7 @@
 <script type="application/javascript">
     $(document).ready(function () {
         $('#btn-add-modal').click(function () {
-            $('#modal-add').modal('toggle')
+            $('#modal-add').modal('toggle');
         });
         $('#btn-add-submit').click(function (e) {
             e.preventDefault();
@@ -162,7 +211,43 @@
                     }
                 });
             }
-        })
+        });
+        $('.btn-edit').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '/user/' + id,
+                dataType: 'json',
+                success: function (data) {
+                    $('#edit-username').val(data.username);
+                    $('#edit-display_name').val(data.displayName);
+                    $('#btn-edit-submit').attr('data-id', id);
+                    $('#modal-edit').modal('toggle');
+                },
+                error: function () {
+                    notie.alert(3, '获取用户信息异常', 2.5);
+                }
+            });
+        });
+        $('#btn-edit-submit').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            $('#form-edit').parsley().validate();
+            if ($('#form-edit').parsley().isValid()) {
+                $.ajax({
+                    url: '/user/' + id,
+                    method: 'POST',
+                    dataType: 'json',
+                    data: $('#form-edit').serialize(),
+                    success: function () {
+                        window.location.reload();
+                    },
+                    error: function (data) {
+                        notie.alert(3, data.responseJSON.error, 2.5);
+                    }
+                });
+            }
+        });
     });
 </script>
 </body>
