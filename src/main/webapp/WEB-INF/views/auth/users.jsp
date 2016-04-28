@@ -148,6 +148,7 @@
             </div>
             <div class="modal-body">
                 <form id="form-edit" class="form-horizontal form-label-left">
+                    <input type="hidden" name="_method" value="PUT">
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">用户名
                             <span class="required">*</span>

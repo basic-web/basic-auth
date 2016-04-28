@@ -120,7 +120,7 @@ public class UserController {
         return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(user));
     }
 
-    @RequestMapping(value = "/user/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> update(@PathVariable("id") String id, @RequestParam("username") String username,
                                          @RequestParam("display_name") String displayName,
                                          @RequestParam("password") String password) {
