@@ -249,6 +249,28 @@
                 });
             }
         });
+        $('.btn-disable').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '/user/' + id + '/disable',
+                method: 'POST',
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        });
+        $('.btn-enable').click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '/user/' + id + '/enable',
+                method: 'POST',
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        });
     });
 </script>
 </body>

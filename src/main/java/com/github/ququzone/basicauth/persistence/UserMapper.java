@@ -43,4 +43,7 @@ public interface UserMapper {
     @Update("update users set username = #{username}, password = #{password}," +
             " status = #{status}, updated_time = #{updatedTime} where id = #{id}")
     void update(User user);
+
+    @Update("update users set status = #{status}, updated_time = #{updatedTime} where id = #{id}")
+    void updateStatus(@Param("id") String id, @Param("status") User.Status status, @Param("updatedTime") Date updatedTime);
 }

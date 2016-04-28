@@ -131,4 +131,16 @@ public class UserController {
             return ResponseEntity.badRequest().body(JsonResult.error(e.getMessage()).toString());
         }
     }
+
+    @RequestMapping(value = "/user/{id}/disable", method = RequestMethod.POST)
+    public ResponseEntity<String> disable(@PathVariable("id") String id) {
+        authService.disableUser(id);
+        return ResponseEntity.ok(null);
+    }
+
+    @RequestMapping(value = "/user/{id}/enable", method = RequestMethod.POST)
+    public ResponseEntity<String> enable(@PathVariable("id") String id) {
+        authService.enableUser(id);
+        return ResponseEntity.ok(null);
+    }
 }

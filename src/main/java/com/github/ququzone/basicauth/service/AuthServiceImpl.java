@@ -44,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
         password = MD5.digestHexString(salt, password);
         User user = userMapper.findByUsernameAndPassword(username, password);
         if (user == null) {
-            throw new ServiceException("用户不存在");
+            throw new ServiceException("用户名或者密码错误");
         }
         if (user.getStatus() != User.Status.NORMAL) {
             throw new ServiceException("用户状态异常");
@@ -169,5 +169,15 @@ public class AuthServiceImpl implements AuthService {
             userMapper.update(user);
             userFactMapper.updateValueByUserId(id, UserFact.Field.DISPLAY_NAME, displayName, now);
         }
+    }
+
+    @Override
+    public void disableUser(String id) {
+        userMapper.updateStatus(id, User.Status.DISABLE, new Date());
+    }
+
+    @Override
+    public void enableUser(String id) {
+        userMapper.updateStatus(id, User.Status.NORMAL, new Date());
     }
 }

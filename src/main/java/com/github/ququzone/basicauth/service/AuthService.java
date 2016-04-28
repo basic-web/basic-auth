@@ -28,4 +28,8 @@ public interface AuthService {
     void addUser(String username, String displayName, String password);
 
     void updateUser(String id, String username, String displayName, String password);
+
+    void disableUser(String id);
+
+    void enableUser(String id);
 }
