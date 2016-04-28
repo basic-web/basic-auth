@@ -7,7 +7,7 @@ package com.github.ququzone.basicauth.model;
  */
 public class UserFact extends AbstractModel {
     private String userId;
-    private String name;
+    private Field name;
     private String value;
 
     public String getUserId() {
@@ -18,11 +18,11 @@ public class UserFact extends AbstractModel {
         this.userId = userId;
     }
 
-    public String getName() {
+    public Field getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Field name) {
         this.name = name;
     }
 

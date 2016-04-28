@@ -26,7 +26,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="username">用户名
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input name="display_name" type="text" id="username" disabled="disabled"
+                                        <input name="username" type="text" id="username" disabled="disabled"
                                                class="form-control col-md-7 col-xs-12" value="${user.username}">
                                     </div>
                                 </div>
@@ -111,7 +111,6 @@
         });
         $('#btn-settings').click(function (e) {
             e.preventDefault();
-            console.log($('#form-settings').serialize());
             $('#form-settings').parsley().validate();
             if ($('#form-settings').parsley().isValid()) {
                 $('#form-settings').submit();

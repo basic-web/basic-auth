@@ -1,10 +1,7 @@
 package com.github.ququzone.basicauth.service;
 
 import com.github.ququzone.basicauth.model.*;
-import com.github.ququzone.basicauth.persistence.MenuMapper;
-import com.github.ququzone.basicauth.persistence.ResourceMapper;
-import com.github.ququzone.basicauth.persistence.UserFactMapper;
-import com.github.ququzone.basicauth.persistence.UserMapper;
+import com.github.ququzone.basicauth.persistence.*;
 import com.github.ququzone.common.MD5;
 import com.github.ququzone.common.Page;
 import com.github.ququzone.common.ServiceException;
@@ -35,6 +32,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private MenuMapper menuMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     @Value("${password.salt}")
     private String salt;
@@ -129,5 +129,28 @@ public class AuthServiceImpl implements AuthService {
             result.setData(users.stream().map(this::transformUserVO).collect(Collectors.toList()));
         }
         return result;
+    }
+
+    @Override
+    public void addUser(String username, String displayName, String password) {
+        if (userMapper.findByUsername(username) != null) {
+            throw new ServiceException("用户名已经存在");
+        }
+        Date now = new Date();
+        User user = new User();
+        user.generateId();
+        user.setUsername(username);
+        user.setPassword(MD5.digestHexString(salt, password));
+        user.setStatus(User.Status.NORMAL);
+        user.setCreatedTime(now);
+        userMapper.insert(user);
+        UserFact fact = new UserFact();
+        fact.generateId();
+        fact.setName(UserFact.Field.DISPLAY_NAME);
+        fact.setValue(displayName);
+        fact.setUserId(user.getId());
+        fact.setCreatedTime(now);
+        roleMapper.insertUserRole("role_user", user.getId());
+        userFactMapper.insert(fact);
     }
 }

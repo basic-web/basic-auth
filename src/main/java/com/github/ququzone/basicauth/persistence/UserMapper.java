@@ -2,10 +2,7 @@ package com.github.ququzone.basicauth.persistence;
 
 import com.github.ququzone.basicauth.model.User;
 import com.github.ququzone.common.MybatisMapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
 import java.util.List;
@@ -34,4 +31,12 @@ public interface UserMapper {
     @Select("select id, username, password, status, created_time, updated_time from users order by created_time desc limit #{limit} offset #{offset}")
     @ResultMap("UserResult")
     List<User> page(@Param("limit") int limit, @Param("offset") long offset);
+
+    @Insert("insert into users(id, username, password, status, created_time)" +
+            " values (#{id}, #{username}, #{password}, #{status}, #{createdTime})")
+    void insert(User user);
+
+    @Select("select id, username, password, status, created_time, updated_time from users where username = #{username}")
+    @ResultMap("UserResult")
+    User findByUsername(@Param("username") String username);
 }

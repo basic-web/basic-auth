@@ -104,7 +104,7 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input name="display_name" type="text" id="username"
+                            <input name="username" type="text" id="username" required="required"
                                    class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
@@ -122,7 +122,7 @@
                             <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="password" id="password" name="password"
+                            <input type="password" id="password" name="password" required="required"
                                    class="form-control col-md-7 col-xs-12 input-password">
                         </div>
                     </div>
@@ -137,11 +137,32 @@
     </div>
 </div>
 <jsp:include page="../include/script.jsp"/>
+<script type="text/javascript" src="/resources/js/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="/resources/js/parsley/parsley.min.js"></script>
+<script type="text/javascript" src="/resources/js/parsley/zh_cn.js"></script>
 <script type="application/javascript">
     $(document).ready(function () {
         $('#btn-add-modal').click(function () {
             $('#modal-add').modal('toggle')
         });
+        $('#btn-add-submit').click(function (e) {
+            e.preventDefault();
+            $('#form-add').parsley().validate();
+            if ($('#form-add').parsley().isValid()) {
+                $.ajax({
+                    url: '/user',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: $('#form-add').serialize(),
+                    success: function () {
+                        window.location.reload();
+                    },
+                    error: function (data) {
+                        notie.alert(3, data.responseJSON.error, 2.5);
+                    }
+                });
+            }
+        })
     });
 </script>
 </body>

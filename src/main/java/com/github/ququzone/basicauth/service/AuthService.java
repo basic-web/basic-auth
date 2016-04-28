@@ -24,4 +24,6 @@ public interface AuthService {
     void settingUser(String userId, String displayName, boolean changePassword, String originPassword, String password);
 
     Page<UserVO> userPage(int page, int pageSize);
+
+    void addUser(String username, String displayName, String password);
 }
