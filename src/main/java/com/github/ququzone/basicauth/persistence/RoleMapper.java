@@ -16,11 +16,11 @@ public interface RoleMapper {
     @Insert("insert into role_users(role_id, user_id) values (#{roleId}, #{userId})")
     void insertUserRole(@Param("roleId") String roleId, @Param("userId") String userId);
 
-    @Select("select id, name, status, created_time, updated_time from roles order by created_time")
+    @Select("select id, name, created_time, updated_time from roles order by created_time")
     @ResultMap("RoleResult")
     List<Role> all();
 
-    @Select("select r.id, r.name, r.status, r.created_time, r.updated_time from roles r, role_users ru" +
+    @Select("select r.id, r.name, r.created_time, r.updated_time from roles r, role_users ru" +
             " where r.id = ru.role_id and ru.user_id = #{userId}")
     @ResultMap("RoleResult")
     List<Role> userRoles(@Param("userId") String userId);
@@ -31,7 +31,7 @@ public interface RoleMapper {
     @Select("select count(1) from roles")
     long count();
 
-    @Select("select id, name, status, created_time, updated_time from roles" +
+    @Select("select id, name, created_time, updated_time from roles" +
             " order by created_time desc limit #{limit} offset #{offset}")
     @ResultMap("RoleResult")
     List<Role> page(@Param("limit") int limit, @Param("offset") long offset);

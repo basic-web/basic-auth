@@ -1,14 +1,17 @@
 package com.github.ququzone.basicauth.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * resource model.
  *
  * @author Yang XuePing
  */
 public class Resource extends AbstractModel {
+    @Expose
     private String name;
+    @Expose
     private String pattern;
-    private Status status;
     private String menuId;
     private Integer orderNum;
 
@@ -28,14 +31,6 @@ public class Resource extends AbstractModel {
         this.pattern = pattern;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public String getMenuId() {
         return menuId;
     }
@@ -50,9 +45,5 @@ public class Resource extends AbstractModel {
 
     public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum;
-    }
-
-    public enum Status {
-        NORMAL, DISABLE
     }
 }

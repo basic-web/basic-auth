@@ -6,7 +6,6 @@
     <resultMap id="RoleResult" type="com.github.ququzone.basicauth.model.Role">
         <id column="id" property="id"/>
         <result column="name" property="name"/>
-        <result column="status" property="status"/>
         <result column="created_time" property="createdTime"/>
         <result column="updated_time" property="updatedTime"/>
     </resultMap>

@@ -15,7 +15,7 @@ import java.util.List;
  */
 @MybatisMapper
 public interface ResourceMapper {
-    @Select("select id, name, pattern, status, created_time, updated_time from resources where pattern = #{pattern}")
+    @Select("select id, name, pattern, created_time, updated_time from resources where pattern = #{pattern}")
     @ResultMap("ResourceResult")
     Resource findByPattern(@Param("pattern") String pattern);
 
@@ -24,7 +24,7 @@ public interface ResourceMapper {
     Integer countByUserId(@Param("userId") String userId, @Param("resourceId") String resourceId);
 
     @Select("select mr.menu_id, mr.order_num, t.* from" +
-            " (select distinct r.id, r.name, r.pattern, r.status, r.created_time, r.updated_time" +
+            " (select distinct r.id, r.name, r.pattern, r.created_time, r.updated_time" +
             " from resources r, role_resources rr, role_users ru" +
             " where r.id = rr.resource_id and rr.role_id = ru.role_id and ru.user_id = #{userId}) t, menu_resources mr" +
             " where t.id = mr.resource_id order by mr.menu_id, mr.order_num")
