@@ -1,6 +1,7 @@
 package com.github.ququzone.basicauth.service;
 
 import com.github.ququzone.basicauth.model.Menu;
+import com.github.ququzone.basicauth.model.Role;
 import com.github.ququzone.basicauth.model.User;
 import com.github.ququzone.basicauth.model.UserVO;
 import com.github.ququzone.common.Page;
@@ -32,4 +33,10 @@ public interface AuthService {
     void disableUser(String id);
 
     void enableUser(String id);
+
+    List<Role> roles();
+
+    List<Role> userRoles(String userId);
+
+    void assignRole(String userId, String[] roles);
 }

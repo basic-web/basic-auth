@@ -180,4 +180,22 @@ public class AuthServiceImpl implements AuthService {
     public void enableUser(String id) {
         userMapper.updateStatus(id, User.Status.NORMAL, new Date());
     }
+
+    @Override
+    public List<Role> roles() {
+        return roleMapper.all();
+    }
+
+    @Override
+    public List<Role> userRoles(String userId) {
+        return roleMapper.userRoles(userId);
+    }
+
+    @Override
+    public void assignRole(String userId, String[] roles) {
+        roleMapper.deleteUserRole(userId);
+        for (String roleId : roles) {
+            roleMapper.insertUserRole(roleId, userId);
+        }
+    }
 }

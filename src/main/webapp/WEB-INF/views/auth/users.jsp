@@ -63,7 +63,8 @@
                                                     禁用
                                                 </button>
                                                 <button class="btn btn-sm btn-info btn-assign_role"
-                                                        data-id="${user.id}"><span
+                                                        data-id="${user.id}"
+                                                        data-name="${user.displayName}:${user.username}"><span
                                                         class="fa fa-users"></span>
                                                     分配角色
                                                 </button>
@@ -186,10 +187,31 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-roles" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">分配权限 - <span id="role-username"></span></h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-user-roles">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-roles-submit" type="button" class="btn btn-primary"><span
+                        class="fa fa-users"></span> 分配
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../include/script.jsp"/>
-<script type="text/javascript" src="/resources/js/icheck/icheck.min.js"></script>
 <script type="text/javascript" src="/resources/js/parsley/parsley.min.js"></script>
 <script type="text/javascript" src="/resources/js/parsley/zh_cn.js"></script>
+<script type="text/javascript" src="/resources/js/lodash.min.js"></script>
 <script type="application/javascript">
     $(document).ready(function () {
         $('#btn-add-modal').click(function () {
@@ -268,6 +290,47 @@
                 method: 'POST',
                 success: function () {
                     window.location.reload();
+                }
+            });
+        });
+        $('.btn-assign_role').click(function () {
+            var id = $(this).attr('data-id');
+            var name = $(this).attr('data-name');
+            $.ajax({
+                url: '/user/' + id + '/roles',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var html = '';
+                    _.each(data, function (role) {
+                        html += '<div class="col-md-6 col-sm-6 col-xs-12">'
+                                + '<div class="checkbox">'
+                                + '<label>'
+                                + '<input name="roles" type="checkbox" class="flat"';
+                        if (role.checked) {
+                            html += ' checked="checked"';
+                        }
+                        html += ' value="' + role.id + '"> ' + role.name
+                                + '</label>'
+                                + '</div>'
+                                + '</div>';
+                    });
+                    $('#btn-roles-submit').attr('data-id', id);
+                    $('#role-username').html(name);
+                    $('#form-user-roles').html(html);
+                    $('#modal-roles').modal('toggle');
+                }
+            });
+        });
+        $('#btn-roles-submit').click(function () {
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '/user/' + id + '/roles',
+                data: $('#form-user-roles').serialize(),
+                method: 'POST',
+                success: function () {
+                    $('#modal-roles').modal('hide');
+                    notie.alert(1, '角色分配成功', 2.5);
                 }
             });
         });

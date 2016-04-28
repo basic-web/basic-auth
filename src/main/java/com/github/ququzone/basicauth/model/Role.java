@@ -1,11 +1,14 @@
 package com.github.ququzone.basicauth.model;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * role model.
  *
  * @author Yang XuePing
  */
 public class Role extends AbstractModel {
+    @Expose
     private String name;
     private Status status;
 

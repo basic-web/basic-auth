@@ -1,5 +1,6 @@
 package com.github.ququzone.basicauth.web;
 
+import com.github.ququzone.basicauth.model.Role;
 import com.github.ququzone.basicauth.model.UserVO;
 import com.github.ququzone.basicauth.service.AuthService;
 import com.github.ququzone.common.GsonUtil;
@@ -7,6 +8,7 @@ import com.github.ququzone.common.Page;
 import com.github.ququzone.common.ServiceException;
 import com.github.ququzone.common.web.FlashMessage;
 import com.github.ququzone.common.web.JsonResult;
+import com.google.gson.annotations.Expose;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * user controller.
@@ -142,5 +146,46 @@ public class UserController {
     public ResponseEntity<String> enable(@PathVariable("id") String id) {
         authService.enableUser(id);
         return ResponseEntity.ok(null);
+    }
+
+    @RequestMapping(value = "/user/{id}/roles", method = RequestMethod.GET)
+    public ResponseEntity<String> roles(@PathVariable("id") String id) {
+        List<Role> all = authService.roles();
+        List<Role> userRoles = authService.userRoles(id);
+        List<UserRole> result = all.stream().map(role -> {
+            UserRole userRole = new UserRole();
+            userRole.setId(role.getId());
+            userRole.setName(role.getName());
+            userRole.setStatus(role.getStatus());
+            userRole.setCreatedTime(role.getCreatedTime());
+            userRole.setUpdatedTime(role.getUpdatedTime());
+            for (Role ur : userRoles) {
+                if (ur.getId().equals(role.getId())) {
+                    userRole.setChecked(true);
+                    break;
+                }
+            }
+            return userRole;
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(result));
+    }
+
+    @RequestMapping(value = "/user/{id}/roles", method = RequestMethod.POST)
+    public ResponseEntity<String> roles(@PathVariable("id") String id, @RequestParam("roles") String[] roles) {
+        authService.assignRole(id, roles);
+        return ResponseEntity.ok(null);
+    }
+
+    private static class UserRole extends Role {
+        @Expose
+        private boolean checked;
+
+        public boolean isChecked() {
+            return checked;
+        }
+
+        public void setChecked(boolean checked) {
+            this.checked = checked;
+        }
     }
 }

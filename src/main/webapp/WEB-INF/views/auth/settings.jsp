@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <jsp:include page="../include/head.jsp"/>
+    <link href="/resources/css/icheck/flat/green.css" rel="stylesheet"/>
     <title>个人信息设置</title>
 </head>
 <body class="nav-md">
