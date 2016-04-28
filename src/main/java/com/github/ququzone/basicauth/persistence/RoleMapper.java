@@ -27,4 +27,12 @@ public interface RoleMapper {
 
     @Delete("delete from role_users where user_id = #{userId}")
     void deleteUserRole(@Param("userId") String userId);
+
+    @Select("select count(1) from roles")
+    long count();
+
+    @Select("select id, name, status, created_time, updated_time from roles" +
+            " order by created_time desc limit #{limit} offset #{offset}")
+    @ResultMap("RoleResult")
+    List<Role> page(@Param("limit") int limit, @Param("offset") long offset);
 }

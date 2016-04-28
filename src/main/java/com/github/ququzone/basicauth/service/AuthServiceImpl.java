@@ -198,4 +198,16 @@ public class AuthServiceImpl implements AuthService {
             roleMapper.insertUserRole(roleId, userId);
         }
     }
+
+    @Override
+    public Page<Role> rolePage(int page, int pageSize) {
+        Page<Role> result = new Page<>();
+        result.setTotal(roleMapper.count());
+        result.setPageSize(pageSize);
+        result.setCurrent(page);
+        if (result.getTotal() > 0) {
+            result.setData(roleMapper.page(pageSize, (page - 1) * pageSize));
+        }
+        return result;
+    }
 }
