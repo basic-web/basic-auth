@@ -54,11 +54,13 @@
                                                 </button>
                                             </c:if>
                                             <button class="btn btn-sm btn-info btn-view_resource"
-                                                    data-id="${role.id}"><span
+                                                    data-id="${role.id}"
+                                                    data-name="${role.name}"><span
                                                     class="fa fa-unlock-alt"></span> 查看资源
                                             </button>
                                             <button class="btn btn-sm btn-info btn-view_user"
-                                                    data-id="${role.id}"><span
+                                                    data-id="${role.id}"
+                                                    data-name="${role.name}"><span
                                                     class="fa fa-users"></span> 查看用户
                                             </button>
                                         </td>
@@ -137,6 +139,42 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-resource" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">资源列表:<span id="resource-role-name"></span></h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered dataTable no-footer">
+                    <tr>
+                        <td>用户管理</td>
+                        <td>用户管理</td>
+                    </tr>
+                    <tr>
+                        <td>用户管理</td>
+                        <td>用户管理</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-user" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">用户列表:<span id="user-role-name"></span></h4>
+            </div>
+            <div class="modal-body">
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../include/script.jsp"/>
 <script type="text/javascript" src="/resources/js/parsley/parsley.min.js"></script>
 <script type="text/javascript" src="/resources/js/parsley/zh_cn.js"></script>
@@ -211,7 +249,13 @@
                     });
                 }
             });
-        })
+        });
+        $('.btn-view_resource').click(function () {
+            $('#modal-resource').modal('toggle');
+        });
+        $('.btn-view_user').click(function () {
+
+        });
     });
 </script>
 </body>
