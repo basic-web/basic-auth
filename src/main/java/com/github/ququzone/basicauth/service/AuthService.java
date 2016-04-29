@@ -41,4 +41,6 @@ public interface AuthService {
     void assignRole(String userId, String[] roles);
 
     Page<Role> rolePage(int page, int pageSize);
+
+    void addRole(String name);
 }

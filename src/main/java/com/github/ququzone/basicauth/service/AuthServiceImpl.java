@@ -210,4 +210,13 @@ public class AuthServiceImpl implements AuthService {
         }
         return result;
     }
+
+    @Override
+    public void addRole(String name) {
+        Role role = new Role();
+        role.generateId();
+        role.setName(name);
+        role.setCreatedTime(new Date());
+        roleMapper.insert(role);
+    }
 }

@@ -35,4 +35,7 @@ public interface RoleMapper {
             " order by created_time desc limit #{limit} offset #{offset}")
     @ResultMap("RoleResult")
     List<Role> page(@Param("limit") int limit, @Param("offset") long offset);
+
+    @Insert("insert into roles (id, name, created_time) values (#{id}, #{name}, #{createdTime})")
+    void insert(Role role);
 }
