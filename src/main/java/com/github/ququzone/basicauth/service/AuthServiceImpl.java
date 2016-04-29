@@ -229,4 +229,10 @@ public class AuthServiceImpl implements AuthService {
     public void updateRole(String id, String name) {
         roleMapper.update(id, name, new Date());
     }
+
+    @Override
+    public void deleteRole(String id) {
+        roleMapper.deleteRoleUser(id);
+        roleMapper.delete(id);
+    }
 }

@@ -48,4 +48,10 @@ public class RoleController {
         }
         return ResponseEntity.ok("{}");
     }
+
+    @RequestMapping(value = "/role/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> delete(@PathVariable("id") String id) {
+        authService.deleteRole(id);
+        return ResponseEntity.ok("{}");
+    }
 }

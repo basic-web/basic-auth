@@ -53,9 +53,13 @@
                                                         class="fa fa-trash"></span> 删除
                                                 </button>
                                             </c:if>
-                                            <button class="btn btn-sm btn-info btn-view"
+                                            <button class="btn btn-sm btn-info btn-view_resource"
                                                     data-id="${role.id}"><span
                                                     class="fa fa-unlock-alt"></span> 查看资源
+                                            </button>
+                                            <button class="btn btn-sm btn-info btn-view_user"
+                                                    data-id="${role.id}"><span
+                                                    class="fa fa-users"></span> 查看用户
                                             </button>
                                         </td>
                                     </tr>
@@ -136,6 +140,7 @@
 <jsp:include page="../include/script.jsp"/>
 <script type="text/javascript" src="/resources/js/parsley/parsley.min.js"></script>
 <script type="text/javascript" src="/resources/js/parsley/zh_cn.js"></script>
+<script type="text/javascript" src="/resources/js/bootstrap-confirmation.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#btn-add').click(function () {
@@ -190,6 +195,23 @@
                 });
             }
         });
+        $('.btn-delete').click(function () {
+            var id = $(this).attr('data-id');
+            $('.btn-delete').confirmation({
+                btnOkLabel: '删除',
+                btnCancelLabel: '取消',
+                onConfirm: function () {
+                    $.ajax({
+                        url: '/role/' + id,
+                        method: 'POST',
+                        data: '_method=DELETE',
+                        success: function () {
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
+        })
     });
 </script>
 </body>

@@ -46,4 +46,10 @@ public interface RoleMapper {
 
     @Update("update roles set name = #{name}, updated_time = #{updatedTime} where id = #{id}")
     void update(@Param("id") String id, @Param("name") String name, @Param("updatedTime") Date updatedTime);
+
+    @Delete("delete from roles where id = #{id}")
+    void delete(@Param("id") String id);
+
+    @Delete("delete from role_users where role_id = #{roleId}")
+    void deleteRoleUser(@Param("roleId") String roleId);
 }
