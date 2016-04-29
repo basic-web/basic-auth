@@ -4,6 +4,7 @@ import com.github.ququzone.basicauth.model.Role;
 import com.github.ququzone.common.MybatisMapper;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,4 +39,11 @@ public interface RoleMapper {
 
     @Insert("insert into roles (id, name, created_time) values (#{id}, #{name}, #{createdTime})")
     void insert(Role role);
+
+    @Select("select id, name, created_time, updated_time from roles where id = #{id}")
+    @ResultMap("RoleResult")
+    Role find(@Param("id") String id);
+
+    @Update("update roles set name = #{name}, updated_time = #{updatedTime} where id = #{id}")
+    void update(@Param("id") String id, @Param("name") String name, @Param("updatedTime") Date updatedTime);
 }

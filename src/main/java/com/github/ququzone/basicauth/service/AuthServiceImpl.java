@@ -219,4 +219,14 @@ public class AuthServiceImpl implements AuthService {
         role.setCreatedTime(new Date());
         roleMapper.insert(role);
     }
+
+    @Override
+    public Role getRole(String id) {
+        return roleMapper.find(id);
+    }
+
+    @Override
+    public void updateRole(String id, String name) {
+        roleMapper.update(id, name, new Date());
+    }
 }

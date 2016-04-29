@@ -24,7 +24,7 @@
                         </div>
                         <div class="x_content">
                             <div class="pull-right">
-                                <button id="btn-add-modal" class="btn btn-success"><span
+                                <button id="btn-add" class="btn btn-success"><span
                                         class="fa fa-plus-circle"></span> 新增
                                 </button>
                             </div>
@@ -214,7 +214,7 @@
 <script type="text/javascript" src="/resources/js/lodash.min.js"></script>
 <script type="application/javascript">
     $(document).ready(function () {
-        $('#btn-add-modal').click(function () {
+        $('#btn-add').click(function () {
             $('#modal-add').modal('toggle');
         });
         $('#btn-add-submit').click(function (e) {

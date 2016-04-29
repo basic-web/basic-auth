@@ -43,4 +43,8 @@ public interface AuthService {
     Page<Role> rolePage(int page, int pageSize);
 
     void addRole(String name);
+
+    Role getRole(String id);
+
+    void updateRole(String id, String name);
 }
