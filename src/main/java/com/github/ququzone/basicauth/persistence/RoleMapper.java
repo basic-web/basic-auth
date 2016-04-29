@@ -1,5 +1,6 @@
 package com.github.ququzone.basicauth.persistence;
 
+import com.github.ququzone.basicauth.model.Resource;
 import com.github.ququzone.basicauth.model.Role;
 import com.github.ququzone.common.MybatisMapper;
 import org.apache.ibatis.annotations.*;
@@ -52,4 +53,9 @@ public interface RoleMapper {
 
     @Delete("delete from role_users where role_id = #{roleId}")
     void deleteRoleUser(@Param("roleId") String roleId);
+
+    @Select("select r.id, r.name, r.pattern, r.created_time, r.updated_time from resources r, role_resources rr" +
+            " where r.id = rr.resource_id and rr.role_id = #{roleId}")
+    @ResultMap("ResourceResult")
+    List<Resource> findRoleResources(@Param("roleId") String roleId);
 }

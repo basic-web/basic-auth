@@ -235,4 +235,9 @@ public class AuthServiceImpl implements AuthService {
         roleMapper.deleteRoleUser(id);
         roleMapper.delete(id);
     }
+
+    @Override
+    public List<Resource> roleResources(String roleId) {
+        return roleMapper.findRoleResources(roleId);
+    }
 }

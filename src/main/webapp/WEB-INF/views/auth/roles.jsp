@@ -147,17 +147,7 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">资源列表:<span id="resource-role-name"></span></h4>
             </div>
-            <div class="modal-body">
-                <table class="table table-striped table-bordered dataTable no-footer">
-                    <tr>
-                        <td>用户管理</td>
-                        <td>用户管理</td>
-                    </tr>
-                    <tr>
-                        <td>用户管理</td>
-                        <td>用户管理</td>
-                    </tr>
-                </table>
+            <div class="modal-body" id="resources-area">
             </div>
         </div>
     </div>
@@ -251,7 +241,26 @@
             });
         });
         $('.btn-view_resource').click(function () {
-            $('#modal-resource').modal('toggle');
+            var id = $(this).attr('data-id');
+            var name = $(this).attr('data-name');
+            $.ajax({
+                url: '/role/' + id + '/resources',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var html = '<table class="table table-striped table-bordered dataTable no-footer">';
+                    for (var i = 0; i < data.length / 2; i++) {
+                        html += '<tr><td>' + data[i * 2].name + '</td><td>' + data[i * 2 + 1].name + '</td></tr>';
+                    }
+                    if (data.length > 1 && data.length % 2 !== 0) {
+                        html += '<tr><td>' + data[data.length - 1].name + '</td><td>&nbsp;</td></tr>';
+                    }
+                    html += '</table>';
+                    $('#resources-area').html(html);
+                    $('#resource-role-name').html(name);
+                    $('#modal-resource').modal('toggle');
+                }
+            });
         });
         $('.btn-view_user').click(function () {
 

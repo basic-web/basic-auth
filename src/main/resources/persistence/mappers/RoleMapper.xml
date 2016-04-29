@@ -9,4 +9,11 @@
         <result column="created_time" property="createdTime"/>
         <result column="updated_time" property="updatedTime"/>
     </resultMap>
+    <resultMap id="ResourceResult" type="com.github.ququzone.basicauth.model.Resource">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pattern" property="pattern"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
 </mapper>

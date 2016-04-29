@@ -1,9 +1,6 @@
 package com.github.ququzone.basicauth.service;
 
-import com.github.ququzone.basicauth.model.Menu;
-import com.github.ququzone.basicauth.model.Role;
-import com.github.ququzone.basicauth.model.User;
-import com.github.ququzone.basicauth.model.UserVO;
+import com.github.ququzone.basicauth.model.*;
 import com.github.ququzone.common.Page;
 
 import java.util.List;
@@ -49,4 +46,6 @@ public interface AuthService {
     void updateRole(String id, String name);
 
     void deleteRole(String id);
+
+    List<Resource> roleResources(String roleId);
 }

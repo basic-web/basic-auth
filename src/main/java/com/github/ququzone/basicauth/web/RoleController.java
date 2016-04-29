@@ -54,4 +54,9 @@ public class RoleController {
         authService.deleteRole(id);
         return ResponseEntity.ok("{}");
     }
+
+    @RequestMapping(value = "/role/{id}/resources", method = RequestMethod.GET)
+    public ResponseEntity<String> resources(@PathVariable("id") String id) {
+        return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(authService.roleResources(id)));
+    }
 }
