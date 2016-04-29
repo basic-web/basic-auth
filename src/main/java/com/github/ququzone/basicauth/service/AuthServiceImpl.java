@@ -240,4 +240,9 @@ public class AuthServiceImpl implements AuthService {
     public List<Resource> roleResources(String roleId) {
         return roleMapper.findRoleResources(roleId);
     }
+
+    @Override
+    public List<User> roleUsers(String roleId) {
+        return roleMapper.findRoleUsers(roleId);
+    }
 }

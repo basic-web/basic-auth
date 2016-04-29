@@ -160,7 +160,7 @@
                         aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">用户列表:<span id="user-role-name"></span></h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="users-area">
             </div>
         </div>
     </div>
@@ -249,10 +249,10 @@
                 dataType: 'json',
                 success: function (data) {
                     var html = '<table class="table table-striped table-bordered dataTable no-footer">';
-                    for (var i = 0; i < data.length / 2; i++) {
+                    for (var i = 0; i < parseInt(data.length / 2); i++) {
                         html += '<tr><td>' + data[i * 2].name + '</td><td>' + data[i * 2 + 1].name + '</td></tr>';
                     }
-                    if (data.length > 1 && data.length % 2 !== 0) {
+                    if (data.length % 2 !== 0) {
                         html += '<tr><td>' + data[data.length - 1].name + '</td><td>&nbsp;</td></tr>';
                     }
                     html += '</table>';
@@ -263,7 +263,26 @@
             });
         });
         $('.btn-view_user').click(function () {
-
+            var id = $(this).attr('data-id');
+            var name = $(this).attr('data-name');
+            $.ajax({
+                url: '/role/' + id + '/users',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var html = '<table class="table table-striped table-bordered dataTable no-footer">';
+                    for (var i = 0; i < parseInt(data.length / 2); i++) {
+                        html += '<tr><td>' + data[i * 2].username + '</td><td>' + data[i * 2 + 1].username + '</td></tr>';
+                    }
+                    if (data.length % 2 !== 0) {
+                        html += '<tr><td>' + data[data.length - 1].username + '</td><td>&nbsp;</td></tr>';
+                    }
+                    html += '</table>';
+                    $('#users-area').html(html);
+                    $('#user-role-name').html(name);
+                    $('#modal-user').modal('toggle');
+                }
+            });
         });
     });
 </script>

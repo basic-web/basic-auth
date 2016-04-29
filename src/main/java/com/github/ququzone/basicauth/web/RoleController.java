@@ -59,4 +59,9 @@ public class RoleController {
     public ResponseEntity<String> resources(@PathVariable("id") String id) {
         return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(authService.roleResources(id)));
     }
+
+    @RequestMapping(value = "/role/{id}/users", method = RequestMethod.GET)
+    public ResponseEntity<String> users(@PathVariable("id") String id) {
+        return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(authService.roleUsers(id)));
+    }
 }

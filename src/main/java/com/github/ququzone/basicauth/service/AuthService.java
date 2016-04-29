@@ -48,4 +48,6 @@ public interface AuthService {
     void deleteRole(String id);
 
     List<Resource> roleResources(String roleId);
+
+    List<User> roleUsers(String roleId);
 }

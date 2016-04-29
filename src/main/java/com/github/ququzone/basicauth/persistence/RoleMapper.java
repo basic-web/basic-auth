@@ -2,6 +2,7 @@ package com.github.ququzone.basicauth.persistence;
 
 import com.github.ququzone.basicauth.model.Resource;
 import com.github.ququzone.basicauth.model.Role;
+import com.github.ququzone.basicauth.model.User;
 import com.github.ququzone.common.MybatisMapper;
 import org.apache.ibatis.annotations.*;
 
@@ -58,4 +59,9 @@ public interface RoleMapper {
             " where r.id = rr.resource_id and rr.role_id = #{roleId}")
     @ResultMap("ResourceResult")
     List<Resource> findRoleResources(@Param("roleId") String roleId);
+
+    @Select("select u.id, u.username, u.status, u.created_time, u.updated_time from users u, role_users ru" +
+            " where u.id = ru.user_id and ru.role_id = #{roleId}")
+    @ResultMap("UserResult")
+    List<User> findRoleUsers(@Param("roleId") String roleId);
 }

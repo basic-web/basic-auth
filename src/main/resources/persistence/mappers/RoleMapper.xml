@@ -16,4 +16,11 @@
         <result column="created_time" property="createdTime"/>
         <result column="updated_time" property="updatedTime"/>
     </resultMap>
+    <resultMap id="UserResult" type="com.github.ququzone.basicauth.model.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="status" property="status"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
 </mapper>
