@@ -23,7 +23,7 @@ public class RoleController {
     @RequestMapping(value = "/roles", method = RequestMethod.GET)
     public String roles(HttpServletRequest request,
                         @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-        request.setAttribute("users", authService.rolePage(page, Page.DEFAULT_PAGE_SIZE));
+        request.setAttribute("roles", authService.rolePage(page, Page.DEFAULT_PAGE_SIZE));
         return "auth/roles";
     }
 }

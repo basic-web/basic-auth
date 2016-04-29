@@ -55,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public boolean auditing(String userId, String pattern) {
         Resource resource = resourceMapper.findByPattern(pattern);
-        if (resource == null || resource.getStatus() != Resource.Status.NORMAL) {
+        if (resource == null) {
             return true;
         }
         return resourceMapper.countByUserId(userId, resource.getId()) > 0;

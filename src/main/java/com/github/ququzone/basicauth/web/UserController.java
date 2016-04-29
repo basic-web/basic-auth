@@ -156,7 +156,6 @@ public class UserController {
             UserRole userRole = new UserRole();
             userRole.setId(role.getId());
             userRole.setName(role.getName());
-            userRole.setStatus(role.getStatus());
             userRole.setCreatedTime(role.getCreatedTime());
             userRole.setUpdatedTime(role.getUpdatedTime());
             for (Role ur : userRoles) {
