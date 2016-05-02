@@ -30,4 +30,12 @@ public interface ResourceMapper {
             " where t.id = mr.resource_id order by mr.menu_id, mr.order_num")
     @ResultMap("ResourceOrderResult")
     List<Resource> findUserResources(String userId);
+
+    @Select("select count(1) from resources")
+    long count();
+
+    @Select("select id, name, pattern, created_time, updated_time from resources" +
+            " order by created_time desc limit #{limit} offset #{offset}")
+    @ResultMap("ResourceResult")
+    List<Resource> page(@Param("limit") int limit, @Param("offset") long offset);
 }

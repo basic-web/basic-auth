@@ -245,4 +245,16 @@ public class AuthServiceImpl implements AuthService {
     public List<User> roleUsers(String roleId) {
         return roleMapper.findRoleUsers(roleId);
     }
+
+    @Override
+    public Page<Resource> resourcePage(int page, int pageSize) {
+        Page<Resource> result = new Page<>();
+        result.setTotal(resourceMapper.count());
+        result.setPageSize(pageSize);
+        result.setCurrent(page);
+        if (result.getTotal() > 0) {
+            result.setData(resourceMapper.page(pageSize, (page - 1) * pageSize));
+        }
+        return result;
+    }
 }

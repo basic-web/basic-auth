@@ -9,7 +9,7 @@
 
         <div class="profile">
             <div class="profile_pic">
-                <img src="/resources/images/user.png" alt="..." class="img-circle profile_img">
+                <img src="/static/images/user.png" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>欢迎您,</span>
@@ -49,7 +49,7 @@
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
                        aria-expanded="false">
-                        <img src="/resources/images/user.png" alt=""> ${user.displayName}
+                        <img src="/static/images/user.png" alt=""> ${user.displayName}
                         <span class="fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -70,7 +70,7 @@
                         <li>
                             <a>
                       <span class="image">
-                                        <img src="/resources/images/user.png" alt="Profile Image"/>
+                                        <img src="/static/images/user.png" alt="Profile Image"/>
                                     </span>
                       <span>
                                         <span>John Smith</span>

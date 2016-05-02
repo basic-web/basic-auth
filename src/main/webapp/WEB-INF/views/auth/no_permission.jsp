@@ -9,14 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>错误 - 没有权限</title>
 
-    <link href="/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/resources/fonts/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/resources/css/animate.min.css" rel="stylesheet">
-    <link href="/resources/css/custom.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/fonts/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/css/animate.min.css" rel="stylesheet">
+    <link href="/static/css/custom.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
-    <script src="/resources/js/html5shiv.min.js"></script>
-    <script src="/resources/js/respond.min.js"></script>
+    <script src="/static/js/html5shiv.min.js"></script>
+    <script src="/static/js/respond.min.js"></script>
     <![endif]-->
 </head>
 <body class="nav-md">
