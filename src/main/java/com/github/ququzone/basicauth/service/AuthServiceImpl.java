@@ -257,4 +257,14 @@ public class AuthServiceImpl implements AuthService {
         }
         return result;
     }
+
+    @Override
+    public void addResource(String name, String pattern) {
+        Resource resource = new Resource();
+        resource.generateId();
+        resource.setName(name);
+        resource.setPattern(pattern);
+        resource.setCreatedTime(new Date());
+        resourceMapper.insert(resource);
+    }
 }

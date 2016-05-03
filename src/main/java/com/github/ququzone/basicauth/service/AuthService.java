@@ -52,4 +52,6 @@ public interface AuthService {
     List<User> roleUsers(String roleId);
 
     Page<Resource> resourcePage(int page, int pageSize);
+
+    void addResource(String name, String pattern);
 }

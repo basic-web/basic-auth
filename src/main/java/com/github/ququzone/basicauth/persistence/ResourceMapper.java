@@ -2,6 +2,7 @@ package com.github.ququzone.basicauth.persistence;
 
 import com.github.ququzone.basicauth.model.Resource;
 import com.github.ququzone.common.MybatisMapper;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
@@ -38,4 +39,7 @@ public interface ResourceMapper {
             " order by created_time desc limit #{limit} offset #{offset}")
     @ResultMap("ResourceResult")
     List<Resource> page(@Param("limit") int limit, @Param("offset") long offset);
+
+    @Insert("insert into resources (id, name, pattern, created_time) values (#{id}, #{name}, #{pattern}, #{createdTime})")
+    void insert(Resource resource);
 }

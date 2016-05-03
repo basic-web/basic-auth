@@ -77,6 +77,73 @@
         <jsp:include page="../include/footer.jsp"/>
     </div>
 </div>
+
+<div class="modal fade" id="modal-add" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">新增资源</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-add" class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">名称
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="name" type="text" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">模式
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="pattern" type="text" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add-submit" type="button" class="btn btn-primary"><span
+                        class="fa fa-plus-circle"></span> 新增
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../include/script.jsp"/>
+<script type="text/javascript" src="/static/js/parsley/parsley.min.js"></script>
+<script type="text/javascript" src="/static/js/parsley/zh_cn.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-confirmation.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btn-add').click(function () {
+            $('#modal-add').modal('toggle');
+        });
+        $('#btn-add-submit').click(function (e) {
+            e.preventDefault();
+            $('#form-add').parsley().validate();
+            if ($('#form-add').parsley().isValid()) {
+                $.ajax({
+                    url: '/resource',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: $('#form-add').serialize(),
+                    success: function () {
+                        window.location.reload();
+                    },
+                    error: function (data) {
+                        notie.alert(3, data.responseJSON.error, 2.5);
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>
