@@ -58,4 +58,6 @@ public interface AuthService {
     Resource getResource(String id);
 
     void updateResource(String id, String name, String pattern);
+
+    void deleteResource(String id);
 }

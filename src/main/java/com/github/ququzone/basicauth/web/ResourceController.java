@@ -49,4 +49,10 @@ public class ResourceController {
         }
         return ResponseEntity.ok("{}");
     }
+
+    @RequestMapping(value = "/resource/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> delete(@PathVariable("id") String id) {
+        authService.deleteResource(id);
+        return ResponseEntity.ok("{}");
+    }
 }

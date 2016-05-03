@@ -48,4 +48,10 @@ public interface ResourceMapper {
     @Update("update resources set name = #{name}, pattern = #{pattern}, updated_time = #{updatedTime} where id = #{id}")
     void update(@Param("id") String id, @Param("name") String name,
                 @Param("pattern") String pattern, @Param("updatedTime") Date updatedTime);
+
+    @Delete("delete from role_resources where resource_id = #{resourceId}")
+    void deleteResourceRole(@Param("resourceId") String resourceId);
+
+    @Delete("delete from resources where id = #{id}")
+    void delete(@Param("id") String id);
 }

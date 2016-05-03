@@ -233,6 +233,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void deleteRole(String id) {
         roleMapper.deleteRoleUser(id);
+        roleMapper.deleteRoleResource(id);
         roleMapper.delete(id);
     }
 
@@ -276,5 +277,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void updateResource(String id, String name, String pattern) {
         resourceMapper.update(id, name, pattern, new Date());
+    }
+
+    @Override
+    public void deleteResource(String id) {
+        resourceMapper.deleteResourceRole(id);
+        resourceMapper.delete(id);
     }
 }
