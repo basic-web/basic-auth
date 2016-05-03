@@ -49,6 +49,18 @@
                                                     data-id="${resource.id}"><span
                                                     class="fa fa-edit"></span> 编辑
                                             </button>
+                                            <button class="btn btn-sm btn-danger btn-delete"
+                                                    data-id="${resource.id}"><span
+                                                    class="fa fa-trash"></span> 删除
+                                            </button>
+                                            <c:if test="${resource.id != 'dashboard'}">
+                                                <button class="btn btn-sm btn-info btn-assign_role"
+                                                        data-id="${resource.id}"
+                                                        data-name="${resource.name}"><span
+                                                        class="fa fa-users"></span>
+                                                    分配角色
+                                                </button>
+                                            </c:if>
                                         </td>
                                     </tr>
                                 </c:forEach>
