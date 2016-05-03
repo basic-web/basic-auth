@@ -54,4 +54,8 @@ public interface AuthService {
     Page<Resource> resourcePage(int page, int pageSize);
 
     void addResource(String name, String pattern);
+
+    Resource getResource(String id);
+
+    void updateResource(String id, String name, String pattern);
 }

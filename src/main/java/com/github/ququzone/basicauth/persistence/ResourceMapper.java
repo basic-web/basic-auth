@@ -2,11 +2,9 @@ package com.github.ququzone.basicauth.persistence;
 
 import com.github.ququzone.basicauth.model.Resource;
 import com.github.ququzone.common.MybatisMapper;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,4 +40,12 @@ public interface ResourceMapper {
 
     @Insert("insert into resources (id, name, pattern, created_time) values (#{id}, #{name}, #{pattern}, #{createdTime})")
     void insert(Resource resource);
+
+    @Select("select id, name, pattern, created_time, updated_time from resources where id = #{id}")
+    @ResultMap("ResourceResult")
+    Resource find(String id);
+
+    @Update("update resources set name = #{name}, pattern = #{pattern}, updated_time = #{updatedTime} where id = #{id}")
+    void update(@Param("id") String id, @Param("name") String name,
+                @Param("pattern") String pattern, @Param("updatedTime") Date updatedTime);
 }

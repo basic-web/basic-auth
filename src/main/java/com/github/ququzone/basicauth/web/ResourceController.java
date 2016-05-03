@@ -1,10 +1,12 @@
 package com.github.ququzone.basicauth.web;
 
 import com.github.ququzone.basicauth.service.AuthService;
+import com.github.ququzone.common.GsonUtil;
 import com.github.ququzone.common.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +33,20 @@ public class ResourceController {
     @RequestMapping(value = "/resource", method = RequestMethod.POST)
     public ResponseEntity<String> add(@RequestParam("name") String name, @RequestParam("pattern") String pattern) {
         authService.addResource(name, pattern);
+        return ResponseEntity.ok("{}");
+    }
+
+    @RequestMapping(value = "/resource/{id}", method = RequestMethod.GET)
+    public ResponseEntity<String> get(@PathVariable("id") String id) {
+        return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(authService.getResource(id)));
+    }
+
+    @RequestMapping(value = "/resource/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<String> edit(@PathVariable("id") String id, @RequestParam("name") String name,
+                                       @RequestParam("pattern") String pattern) {
+        if (!"dashboard".equals(id)) {
+            authService.updateResource(id, name, pattern);
+        }
         return ResponseEntity.ok("{}");
     }
 }

@@ -267,4 +267,14 @@ public class AuthServiceImpl implements AuthService {
         resource.setCreatedTime(new Date());
         resourceMapper.insert(resource);
     }
+
+    @Override
+    public Resource getResource(String id) {
+        return resourceMapper.find(id);
+    }
+
+    @Override
+    public void updateResource(String id, String name, String pattern) {
+        resourceMapper.update(id, name, pattern, new Date());
+    }
 }
