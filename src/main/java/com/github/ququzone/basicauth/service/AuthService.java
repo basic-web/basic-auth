@@ -35,7 +35,7 @@ public interface AuthService {
 
     List<Role> userRoles(String userId);
 
-    void assignRole(String userId, String[] roles);
+    void assignUserRole(String userId, String[] roles);
 
     Page<Role> rolePage(int page, int pageSize);
 
@@ -60,4 +60,8 @@ public interface AuthService {
     void updateResource(String id, String name, String pattern);
 
     void deleteResource(String id);
+
+    List<Role> resourceRoles(String id);
+
+    void assignResourceRole(String id, String[] roles);
 }

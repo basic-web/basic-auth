@@ -67,4 +67,15 @@ public interface RoleMapper {
 
     @Delete("delete from role_resources where role_id = #{roleId}")
     void deleteRoleResource(@Param("roleId") String roleId);
+
+    @Select("select r.id, r.name, r.created_time, r.updated_time from roles r, role_resources rr" +
+            " where r.id = rr.role_id and rr.resource_id = #{resourceId}")
+    @ResultMap("RoleResult")
+    List<Role> resourceRoles(@Param("resourceId") String resourceId);
+
+    @Delete("delete from role_resources where resource_id = #{resourceId}")
+    void deleteResourceRole(@Param("resourceId") String resourceId);
+
+    @Insert("insert into role_resources(role_id, resource_id) values (#{roleId}, #{resourceId})")
+    void insertResourceRole(@Param("roleId") String roleId, @Param("resourceId") String resourceId);
 }

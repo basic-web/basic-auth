@@ -171,7 +171,7 @@ public class UserController {
 
     @RequestMapping(value = "/user/{id}/roles", method = RequestMethod.POST)
     public ResponseEntity<String> roles(@PathVariable("id") String id, @RequestParam("roles") String[] roles) {
-        authService.assignRole(id, roles);
+        authService.assignUserRole(id, roles);
         return ResponseEntity.ok(null);
     }
 

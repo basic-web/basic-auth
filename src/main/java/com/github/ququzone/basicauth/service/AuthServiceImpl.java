@@ -192,7 +192,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void assignRole(String userId, String[] roles) {
+    public void assignUserRole(String userId, String[] roles) {
         roleMapper.deleteUserRole(userId);
         for (String roleId : roles) {
             roleMapper.insertUserRole(roleId, userId);
@@ -283,5 +283,18 @@ public class AuthServiceImpl implements AuthService {
     public void deleteResource(String id) {
         resourceMapper.deleteResourceRole(id);
         resourceMapper.delete(id);
+    }
+
+    @Override
+    public List<Role> resourceRoles(String id) {
+        return roleMapper.resourceRoles(id);
+    }
+
+    @Override
+    public void assignResourceRole(String resourceId, String[] roles) {
+        roleMapper.deleteResourceRole(resourceId);
+        for (String roleId : roles) {
+            roleMapper.insertResourceRole(roleId, resourceId);
+        }
     }
 }

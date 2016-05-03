@@ -1,8 +1,10 @@
 package com.github.ququzone.basicauth.web;
 
+import com.github.ququzone.basicauth.model.Role;
 import com.github.ququzone.basicauth.service.AuthService;
 import com.github.ququzone.common.GsonUtil;
 import com.github.ququzone.common.Page;
+import com.google.gson.annotations.Expose;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * resource controller.
@@ -54,5 +58,45 @@ public class ResourceController {
     public ResponseEntity<String> delete(@PathVariable("id") String id) {
         authService.deleteResource(id);
         return ResponseEntity.ok("{}");
+    }
+
+    @RequestMapping(value = "/resource/{id}/roles", method = RequestMethod.GET)
+    public ResponseEntity<String> roles(@PathVariable("id") String id) {
+        List<Role> all = authService.roles();
+        List<Role> userRoles = authService.resourceRoles(id);
+        List<ResourceController.ResourceRole> result = all.stream().map(role -> {
+            ResourceController.ResourceRole resourceRole = new ResourceController.ResourceRole();
+            resourceRole.setId(role.getId());
+            resourceRole.setName(role.getName());
+            resourceRole.setCreatedTime(role.getCreatedTime());
+            resourceRole.setUpdatedTime(role.getUpdatedTime());
+            for (Role ur : userRoles) {
+                if (ur.getId().equals(role.getId())) {
+                    resourceRole.setChecked(true);
+                    break;
+                }
+            }
+            return resourceRole;
+        }).collect(Collectors.toList());
+        return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(result));
+    }
+
+    @RequestMapping(value = "/resource/{id}/roles", method = RequestMethod.POST)
+    public ResponseEntity<String> roles(@PathVariable("id") String id, @RequestParam("roles") String[] roles) {
+        authService.assignResourceRole(id, roles);
+        return ResponseEntity.ok(null);
+    }
+
+    private static class ResourceRole extends Role {
+        @Expose
+        private boolean checked;
+
+        public boolean isChecked() {
+            return checked;
+        }
+
+        public void setChecked(boolean checked) {
+            this.checked = checked;
+        }
     }
 }
