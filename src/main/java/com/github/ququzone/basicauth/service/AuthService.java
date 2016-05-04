@@ -78,4 +78,6 @@ public interface AuthService {
     List<Resource> getUncheckedMenuResource(String menuId);
 
     void addMenuResource(String menuId, String resourceId);
+
+    void deleteMenuResource(String menuId, String resourceId);
 }

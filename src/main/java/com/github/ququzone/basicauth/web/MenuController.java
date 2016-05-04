@@ -71,4 +71,10 @@ public class MenuController {
         authService.addMenuResource(menuId, resourceId);
         return ResponseEntity.ok("{}");
     }
+
+    @RequestMapping(value = "/menu/{menuId}/resource/{resourceId}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteResource(@PathVariable("menuId") String menuId, @PathVariable("resourceId") String resourceId) {
+        authService.deleteMenuResource(menuId, resourceId);
+        return ResponseEntity.ok("{}");
+    }
 }

@@ -77,7 +77,8 @@
                                             <td>
                                                 <c:if test="${resource.id != 'dashboard'}">
                                                     <button class="btn btn-sm btn-danger btn-resource-delete"
-                                                            data-id="${resource.id}"><span
+                                                            data-id="${resource.id}"
+                                                            data-menu_id="${menu.id}"><span
                                                             class="fa fa-trash"></span> 删除
                                                     </button>
                                                 </c:if>
@@ -146,6 +147,7 @@
             </div>
         </div>
     </div>
+    resource
 </div>
 <div class="modal fade" id="modal-edit_menu" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -319,6 +321,22 @@
                     method: 'POST',
                     data: $('#form-add_resource').serialize(),
                     dataType: 'json',
+                    success: function () {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+        $('.btn-resource-delete').confirmation({
+            btnOkLabel: '删除',
+            btnCancelLabel: '取消',
+            onConfirm: function (event, element) {
+                var menuId = $(element).attr('data-menu_id');
+                var resourceId = $(element).attr('data-id');
+                $.ajax({
+                    url: '/menu/' + menuId + '/resource/' + resourceId,
+                    method: 'POST',
+                    data: '_method=DELETE',
                     success: function () {
                         window.location.reload();
                     }

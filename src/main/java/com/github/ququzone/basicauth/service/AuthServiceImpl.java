@@ -347,4 +347,9 @@ public class AuthServiceImpl implements AuthService {
         menuResource.setCreatedTime(new Date());
         menuMapper.insertMenuResource(menuResource);
     }
+
+    @Override
+    public void deleteMenuResource(String menuId, String resourceId) {
+        menuMapper.deleteMenuResource(menuId, resourceId);
+    }
 }

@@ -45,5 +45,8 @@ public interface MenuMapper {
     void insertMenuResource(MenuResource menuResource);
 
     @Select("select count(1) from menu_resources where menu_id = #{menuId}")
-    int countResource(String menuId);
+    int countResource(@Param("menuId") String menuId);
+
+    @Delete("delete from menu_resources where menu_id = #{menuId} and resource_id = #{resourceId}")
+    void deleteMenuResource(@Param("menuId") String menuId, @Param("resourceId") String resourceId);
 }
