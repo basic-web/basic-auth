@@ -315,4 +315,14 @@ public class AuthServiceImpl implements AuthService {
         menu.setCreatedTime(new Date());
         menuMapper.insert(menu);
     }
+
+    @Override
+    public Menu getMenu(String id) {
+        return menuMapper.find(id);
+    }
+
+    @Override
+    public void updateMenu(String id, String name, String icon) {
+        menuMapper.update(id, name, icon, new Date());
+    }
 }

@@ -146,6 +146,45 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-edit_menu" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">编辑菜单</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-edit_menu" class="form-horizontal form-label-left">
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">名称
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="name" id="edit-name" type="text" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">图标
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="icon" id="edit-icon" type="text" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-edit_menu-submit" type="button" class="btn btn-primary"><span
+                        class="fa fa-edit"></span> 编辑
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../include/script.jsp"/>
 <script type="text/javascript" src="/static/js/parsley/parsley.min.js"></script>
 <script type="text/javascript" src="/static/js/parsley/zh_cn.js"></script>
@@ -168,6 +207,38 @@
                     method: 'POST',
                     dataType: 'json',
                     data: $('#form-add_menu').serialize(),
+                    success: function () {
+                        window.location.reload();
+                    },
+                    error: function (data) {
+                        notie.alert(3, data.responseJSON.error, 2.5);
+                    }
+                });
+            }
+        });
+        $('.btn-edit').click(function () {
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '/menu/' + id,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#edit-name').val(data.name);
+                    $('#edit-icon').val(data.icon);
+                    $('#btn-edit_menu-submit').attr('data-id', id);
+                    $('#modal-edit_menu').modal('toggle');
+                }
+            });
+        });
+        $('#btn-edit_menu-submit').click(function () {
+            var id = $(this).attr('data-id');
+            $('#form-edit_menu').parsley().validate();
+            if ($('#form-edit_menu').parsley().isValid()) {
+                $.ajax({
+                    url: '/menu/' + id,
+                    method: 'POST',
+                    dataType: 'json',
+                    data: $('#form-edit_menu').serialize(),
                     success: function () {
                         window.location.reload();
                     },

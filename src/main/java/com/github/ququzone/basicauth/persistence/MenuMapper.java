@@ -2,10 +2,9 @@ package com.github.ququzone.basicauth.persistence;
 
 import com.github.ququzone.basicauth.model.Menu;
 import com.github.ququzone.common.MybatisMapper;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,4 +28,8 @@ public interface MenuMapper {
     @Insert("insert into menus (id, name, icon, order_num, created_time)" +
             " values (#{id}, #{name}, #{icon}, #{orderNum}, #{createdTime})")
     void insert(Menu menu);
+
+    @Update("update menus set name = #{name}, icon = #{icon}, updated_time = #{updatedTime} where id = #{id}")
+    void update(@Param("id") String id, @Param("name") String name,
+                @Param("icon") String icon, @Param("updatedTime") Date updatedTime);
 }

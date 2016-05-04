@@ -1,5 +1,7 @@
 package com.github.ququzone.basicauth.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +11,13 @@ import java.util.List;
  * @author Yang XuePing
  */
 public class Menu extends AbstractModel {
+    @Expose
     private String name;
 
+    @Expose
     private String icon;
 
+    @Expose
     private Integer orderNum;
 
     private List<Resource> resources;

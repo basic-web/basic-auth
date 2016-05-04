@@ -68,4 +68,8 @@ public interface AuthService {
     List<Menu> getAllMenus();
 
     void addMenu(String name, String icon);
+
+    Menu getMenu(String id);
+
+    void updateMenu(String id, String name, String icon);
 }
