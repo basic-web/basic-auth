@@ -32,4 +32,10 @@ public interface MenuMapper {
     @Update("update menus set name = #{name}, icon = #{icon}, updated_time = #{updatedTime} where id = #{id}")
     void update(@Param("id") String id, @Param("name") String name,
                 @Param("icon") String icon, @Param("updatedTime") Date updatedTime);
+
+    @Delete("delete from menu_resources where menu_id = #{menuId}")
+    void deleteMenuResources(@Param("menuId") String menuId);
+
+    @Delete("delete from menus where id = #{id}")
+    void delete(@Param("id") String id);
 }

@@ -72,4 +72,6 @@ public interface AuthService {
     Menu getMenu(String id);
 
     void updateMenu(String id, String name, String icon);
+
+    void deleteMenu(String id);
 }

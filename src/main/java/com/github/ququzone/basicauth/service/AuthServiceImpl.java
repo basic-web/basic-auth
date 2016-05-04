@@ -325,4 +325,10 @@ public class AuthServiceImpl implements AuthService {
     public void updateMenu(String id, String name, String icon) {
         menuMapper.update(id, name, icon, new Date());
     }
+
+    @Override
+    public void deleteMenu(String id) {
+        menuMapper.deleteMenuResources(id);
+        menuMapper.delete(id);
+    }
 }

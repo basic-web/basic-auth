@@ -50,4 +50,12 @@ public class MenuController {
         }
         return ResponseEntity.ok("{}");
     }
+
+    @RequestMapping(value = "/menu/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> delete(@PathVariable("id") String id) {
+        if (!"home".equals(id)) {
+            authService.deleteMenu(id);
+        }
+        return ResponseEntity.ok("{}");
+    }
 }
