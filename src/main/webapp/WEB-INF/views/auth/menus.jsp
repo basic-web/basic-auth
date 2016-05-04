@@ -31,25 +31,25 @@
                                 <thead>
                                 <tr>
                                     <th>名称</th>
-                                    <th>图标</th>
+                                    <th>模式</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach varStatus="ms" var="menu" items="${menus}">
                                     <tr class="treegrid-${ms.index}">
-                                        <td>${menu.name}</td>
-                                        <td><span class="${menu.icon}"></span></td>
+                                        <td><span class="${menu.icon}"></span> ${menu.name}</td>
+                                        <td>&nbsp;</td>
                                         <td>
                                             <button class="btn btn-sm btn-success btn-add"
                                                     data-id="${menu.id}"><span
                                                     class="fa fa-edit"></span> 添加资源
                                             </button>
-                                            <button class="btn btn-sm btn-primary btn-edit"
-                                                    data-id="${menu.id}"><span
-                                                    class="fa fa-edit"></span> 编辑
-                                            </button>
                                             <c:if test="${menu.id != 'home'}">
+                                                <button class="btn btn-sm btn-primary btn-edit"
+                                                        data-id="${menu.id}"><span
+                                                        class="fa fa-edit"></span> 编辑
+                                                </button>
                                                 <button class="btn btn-sm btn-danger btn-menu-delete"
                                                         data-id="${menu.id}"><span
                                                         class="fa fa-trash"></span> 删除
@@ -72,8 +72,14 @@
                                     <c:forEach varStatus="rs" var="resource" items="${menu.resources}">
                                         <tr class="treegrid-parent-${ms.index}">
                                             <td>${resource.name}</td>
-                                            <td>&nbsp;</td>
+                                            <td>${resource.pattern}</td>
                                             <td>
+                                                <c:if test="${resource.id != 'dashboard'}">
+                                                    <button class="btn btn-sm btn-danger btn-resource-delete"
+                                                            data-id="${resource.id}"><span
+                                                            class="fa fa-trash"></span> 删除
+                                                    </button>
+                                                </c:if>
                                                 <c:if test="${not rs.first}">
                                                     <button class="btn btn-sm btn-info btn-resource-up"
                                                             data-id="${resource.id}"><span
@@ -84,12 +90,6 @@
                                                     <button class="btn btn-sm btn-info btn-resource-down"
                                                             data-id="${resource.id}"><span
                                                             class="fa fa-chevron-down"></span> 下移
-                                                    </button>
-                                                </c:if>
-                                                <c:if test="${resource.id != 'dashboard'}">
-                                                    <button class="btn btn-sm btn-danger btn-resource-delete"
-                                                            data-id="${resource.id}"><span
-                                                            class="fa fa-trash"></span> 删除
                                                     </button>
                                                 </c:if>
                                             </td>
@@ -107,14 +107,76 @@
         <jsp:include page="../include/footer.jsp"/>
     </div>
 </div>
+
+<div class="modal fade" id="modal-add_menu" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">新增菜单</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-add_menu" class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">名称
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="name" type="text" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">图标
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input name="icon" value="fa fa-table" type="text" required="required"
+                                   class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add_menu-submit" type="button" class="btn btn-primary"><span
+                        class="fa fa-plus-circle"></span> 新增
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../include/script.jsp"/>
+<script type="text/javascript" src="/static/js/parsley/parsley.min.js"></script>
+<script type="text/javascript" src="/static/js/parsley/zh_cn.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-confirmation.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery.treegrid.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.tree').treegrid({
             expanderExpandedClass: 'glyphicon glyphicon-minus',
             expanderCollapsedClass: 'glyphicon glyphicon-plus'
-        })
+        });
+        $('#btn-add').click(function () {
+            $('#modal-add_menu').modal('toggle');
+        });
+        $('#btn-add_menu-submit').click(function () {
+            $('#form-add_menu').parsley().validate();
+            if ($('#form-add_menu').parsley().isValid()) {
+                $.ajax({
+                    url: '/menu',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: $('#form-add_menu').serialize(),
+                    success: function () {
+                        window.location.reload();
+                    },
+                    error: function (data) {
+                        notie.alert(3, data.responseJSON.error, 2.5);
+                    }
+                });
+            }
+        });
     });
 </script>
 </body>

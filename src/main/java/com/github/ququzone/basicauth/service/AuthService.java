@@ -66,4 +66,6 @@ public interface AuthService {
     void assignResourceRole(String id, String[] roles);
 
     List<Menu> getAllMenus();
+
+    void addMenu(String name, String icon);
 }

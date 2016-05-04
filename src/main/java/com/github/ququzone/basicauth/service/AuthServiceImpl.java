@@ -304,4 +304,15 @@ public class AuthServiceImpl implements AuthService {
         menus.forEach(menu -> menu.setResources(resourceMapper.findMenuResources(menu.getId())));
         return menus;
     }
+
+    @Override
+    public void addMenu(String name, String icon) {
+        Menu menu = new Menu();
+        menu.generateId();
+        menu.setName(name);
+        menu.setIcon(icon);
+        menu.setOrderNum(menuMapper.count() + 1);
+        menu.setCreatedTime(new Date());
+        menuMapper.insert(menu);
+    }
 }
