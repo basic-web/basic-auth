@@ -331,4 +331,20 @@ public class AuthServiceImpl implements AuthService {
         menuMapper.deleteMenuResources(id);
         menuMapper.delete(id);
     }
+
+    @Override
+    public List<Resource> getUncheckedMenuResource(String menuId) {
+        return resourceMapper.findUnMenuResources(menuId);
+    }
+
+    @Override
+    public void addMenuResource(String menuId, String resourceId) {
+        MenuResource menuResource = new MenuResource();
+        menuResource.generateId();
+        menuResource.setMenuId(menuId);
+        menuResource.setResourceId(resourceId);
+        menuResource.setOrderNum(menuMapper.countResource(menuId) + 1);
+        menuResource.setCreatedTime(new Date());
+        menuMapper.insertMenuResource(menuResource);
+    }
 }

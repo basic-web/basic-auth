@@ -13,7 +13,7 @@ INSERT INTO role_users (role_id, user_id) VALUES ('role_admin', 'admin');
 INSERT INTO menus (id, name, icon, order_num, created_time)
 VALUES ('home', '主页', 'fa fa-home', 1, now());
 INSERT INTO menus (id, name, icon, order_num, created_time)
-VALUES ('system', '系统管理', 'fa fa-gears', 100, now());
+VALUES ('system', '系统管理', 'fa fa-gears', 2, now());
 
 INSERT INTO resources (id, name, pattern, created_time)
 VALUES ('dashboard', 'Dashboard', '/dashboard', now());

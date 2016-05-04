@@ -74,4 +74,8 @@ public interface AuthService {
     void updateMenu(String id, String name, String icon);
 
     void deleteMenu(String id);
+
+    List<Resource> getUncheckedMenuResource(String menuId);
+
+    void addMenuResource(String menuId, String resourceId);
 }

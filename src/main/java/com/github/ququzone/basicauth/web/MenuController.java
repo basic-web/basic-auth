@@ -1,6 +1,7 @@
 package com.github.ququzone.basicauth.web;
 
 import com.github.ququzone.basicauth.model.Menu;
+import com.github.ququzone.basicauth.model.Resource;
 import com.github.ququzone.basicauth.service.AuthService;
 import com.github.ququzone.common.GsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,18 @@ public class MenuController {
         if (!"home".equals(id)) {
             authService.deleteMenu(id);
         }
+        return ResponseEntity.ok("{}");
+    }
+
+    @RequestMapping(value = "/menu/{id}/resources", method = RequestMethod.GET)
+    public ResponseEntity<String> resources(@PathVariable("id") String id) {
+        return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(authService.getUncheckedMenuResource(id)));
+    }
+
+    @RequestMapping(value = "/menu/{id}/resource", method = RequestMethod.POST)
+    public ResponseEntity<String> addResource(@PathVariable("id") String menuId,
+                                              @RequestParam("resource") String resourceId) {
+        authService.addMenuResource(menuId, resourceId);
         return ResponseEntity.ok("{}");
     }
 }

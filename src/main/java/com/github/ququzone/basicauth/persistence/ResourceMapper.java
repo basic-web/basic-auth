@@ -58,5 +58,10 @@ public interface ResourceMapper {
     @Select("select r.id, r.name, r.pattern, r.created_time, r.updated_time from resources r, menu_resources mr" +
             " where r.id = mr.resource_id and mr.menu_id = #{menuId} order by mr.order_num")
     @ResultMap("ResourceResult")
-    List<Resource> findMenuResources(String menuId);
+    List<Resource> findMenuResources(@Param("menuId") String menuId);
+
+    @Select("select r.id, r.name, r.pattern, r.created_time, r.updated_time from resources r where not exists" +
+            " (select * from menu_resources mr where r.id = mr.resource_id and mr.menu_id = #{menuId})")
+    @ResultMap("ResourceResult")
+    List<Resource> findUnMenuResources(@Param("menuId") String menuId);
 }

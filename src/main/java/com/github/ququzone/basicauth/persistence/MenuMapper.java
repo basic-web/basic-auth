@@ -1,6 +1,7 @@
 package com.github.ququzone.basicauth.persistence;
 
 import com.github.ququzone.basicauth.model.Menu;
+import com.github.ququzone.basicauth.model.MenuResource;
 import com.github.ququzone.common.MybatisMapper;
 import org.apache.ibatis.annotations.*;
 
@@ -38,4 +39,11 @@ public interface MenuMapper {
 
     @Delete("delete from menus where id = #{id}")
     void delete(@Param("id") String id);
+
+    @Insert("insert into menu_resources(id, menu_id, resource_id, order_num, created_time)" +
+            " values (#{id}, #{menuId}, #{resourceId}, #{orderNum}, #{createdTime})")
+    void insertMenuResource(MenuResource menuResource);
+
+    @Select("select count(1) from menu_resources where menu_id = #{menuId}")
+    int countResource(String menuId);
 }

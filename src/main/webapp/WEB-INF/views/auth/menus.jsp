@@ -42,7 +42,8 @@
                                         <td>&nbsp;</td>
                                         <td>
                                             <button class="btn btn-sm btn-success btn-add"
-                                                    data-id="${menu.id}"><span
+                                                    data-id="${menu.id}"
+                                                    data-name="${menu.name}"><span
                                                     class="fa fa-edit"></span> 添加资源
                                             </button>
                                             <c:if test="${menu.id != 'home'}">
@@ -185,11 +186,32 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-add_resource" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">新增资源: <span id="menu-name"></span></h4>
+            </div>
+            <div class="modal-body">
+                <form id="form-add_resource">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-add_resource-submit" type="button" class="btn btn-primary"><span
+                        class="fa fa-plus-circle"></span> 新增
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <jsp:include page="../include/script.jsp"/>
 <script type="text/javascript" src="/static/js/parsley/parsley.min.js"></script>
 <script type="text/javascript" src="/static/js/parsley/zh_cn.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap-confirmation.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery.treegrid.min.js"></script>
+<script type="text/javascript" src="/static/js/lodash.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.tree').treegrid({
@@ -248,22 +270,60 @@
                 });
             }
         });
-        $('.btn-menu-delete').click(function () {
+        $('.btn-menu-delete').confirmation({
+            btnOkLabel: '删除',
+            btnCancelLabel: '取消',
+            onConfirm: function (event, element) {
+                var id = $(element).attr('data-id');
+                $.ajax({
+                    url: '/menu/' + id,
+                    method: 'POST',
+                    data: '_method=DELETE',
+                    success: function () {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+        $('.btn-add').click(function () {
             var id = $(this).attr('data-id');
-            $('.btn-menu-delete').confirmation({
-                btnOkLabel: '删除',
-                btnCancelLabel: '取消',
-                onConfirm: function () {
-                    $.ajax({
-                        url: '/menu/' + id,
-                        method: 'POST',
-                        data: '_method=DELETE',
-                        success: function () {
-                            window.location.reload();
-                        }
+            var name = $(this).attr('data-name');
+            $.ajax({
+                url: '/menu/' + id + '/resources',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var html = '';
+                    _.each(data, function (resource) {
+                        html += '<div class="col-md-6 col-sm-6 col-xs-12">'
+                                + '<div class="radio">'
+                                + '<label>'
+                                + '<input name="resource" type="radio" required="required" value="' + resource.id + '"> ' + resource.name
+                                + '</label>'
+                                + '</div>'
+                                + '</div>';
                     });
+                    $('#form-add_resource').html(html);
+                    $('#menu-name').html(name);
+                    $('#btn-add_resource-submit').attr('data-id', id);
+                    $('#modal-add_resource').modal('toggle');
                 }
             });
+        });
+        $('#btn-add_resource-submit').click(function () {
+            var id = $(this).attr('data-id');
+            $('#form-add_resource').parsley().validate();
+            if ($('#form-add_resource').parsley().isValid()) {
+                $.ajax({
+                    url: '/menu/' + id + '/resource',
+                    method: 'POST',
+                    data: $('#form-add_resource').serialize(),
+                    dataType: 'json',
+                    success: function () {
+                        window.location.reload();
+                    }
+                });
+            }
         });
     });
 </script>
