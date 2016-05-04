@@ -54,4 +54,9 @@ public interface ResourceMapper {
 
     @Delete("delete from resources where id = #{id}")
     void delete(@Param("id") String id);
+
+    @Select("select r.id, r.name, r.pattern, r.created_time, r.updated_time from resources r, menu_resources mr" +
+            " where r.id = mr.resource_id and mr.menu_id = #{menuId} order by mr.order_num")
+    @ResultMap("ResourceResult")
+    List<Resource> findMenuResources(String menuId);
 }

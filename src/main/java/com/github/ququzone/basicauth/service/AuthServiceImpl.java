@@ -297,4 +297,11 @@ public class AuthServiceImpl implements AuthService {
             roleMapper.insertResourceRole(roleId, resourceId);
         }
     }
+
+    @Override
+    public List<Menu> getAllMenus() {
+        List<Menu> menus = menuMapper.all();
+        menus.forEach(menu -> menu.setResources(resourceMapper.findMenuResources(menu.getId())));
+        return menus;
+    }
 }

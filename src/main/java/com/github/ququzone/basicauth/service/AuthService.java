@@ -64,4 +64,6 @@ public interface AuthService {
     List<Role> resourceRoles(String id);
 
     void assignResourceRole(String id, String[] roles);
+
+    List<Menu> getAllMenus();
 }

@@ -6,7 +6,6 @@
 <link href="/static/fonts/css/font-awesome.min.css" rel="stylesheet">
 <link href="/static/css/animate.min.css" rel="stylesheet">
 <link href="/static/css/custom.css" rel="stylesheet">
-<link href="/static/css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet" type="text/css"/>
 <link href="/static/css/notie.css" rel="stylesheet" type="text/css"/>
 <script src="/static/js/jquery.min.js"></script>
 <script src="/static/js/nprogress.js"></script>
