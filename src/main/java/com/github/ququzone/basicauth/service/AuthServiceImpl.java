@@ -261,11 +261,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void addResource(String name, String pattern) {
+    public void addResource(String name, String pattern, ResourceMapping.RequestMethod method) {
         Resource resource = new Resource();
         resource.generateId();
         resource.setName(name);
         resource.setPattern(pattern);
+        resource.setMethod(method);
         resource.setCreatedTime(new Date());
         resourceMapper.insert(resource);
     }
@@ -276,8 +277,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void updateResource(String id, String name, String pattern) {
-        resourceMapper.update(id, name, pattern, new Date());
+    public void updateResource(String id, String name, String pattern, ResourceMapping.RequestMethod method) {
+        resourceMapper.update(id, name, pattern, method, new Date());
     }
 
     @Override

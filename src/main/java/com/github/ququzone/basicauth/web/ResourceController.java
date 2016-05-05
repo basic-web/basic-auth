@@ -1,5 +1,6 @@
 package com.github.ququzone.basicauth.web;
 
+import com.github.ququzone.basicauth.model.ResourceMapping;
 import com.github.ququzone.basicauth.model.Role;
 import com.github.ququzone.basicauth.service.AuthService;
 import com.github.ququzone.common.GsonUtil;
@@ -35,8 +36,9 @@ public class ResourceController {
     }
 
     @RequestMapping(value = "/resource", method = RequestMethod.POST)
-    public ResponseEntity<String> add(@RequestParam("name") String name, @RequestParam("pattern") String pattern) {
-        authService.addResource(name, pattern);
+    public ResponseEntity<String> add(@RequestParam("name") String name, @RequestParam("pattern") String pattern,
+                                      @RequestParam("method") ResourceMapping.RequestMethod method) {
+        authService.addResource(name, pattern, method);
         return ResponseEntity.ok("{}");
     }
 
@@ -47,9 +49,10 @@ public class ResourceController {
 
     @RequestMapping(value = "/resource/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> edit(@PathVariable("id") String id, @RequestParam("name") String name,
-                                       @RequestParam("pattern") String pattern) {
+                                       @RequestParam("pattern") String pattern,
+                                       @RequestParam("method") ResourceMapping.RequestMethod method) {
         if (!"dashboard".equals(id)) {
-            authService.updateResource(id, name, pattern);
+            authService.updateResource(id, name, pattern, method);
         }
         return ResponseEntity.ok("{}");
     }

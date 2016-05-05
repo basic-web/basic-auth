@@ -12,6 +12,8 @@ public class Resource extends AbstractModel {
     private String name;
     @Expose
     private String pattern;
+    @Expose
+    private ResourceMapping.RequestMethod method;
     private String menuId;
     private Integer orderNum;
 
@@ -29,6 +31,14 @@ public class Resource extends AbstractModel {
 
     public void setPattern(String pattern) {
         this.pattern = pattern;
+    }
+
+    public ResourceMapping.RequestMethod getMethod() {
+        return method;
+    }
+
+    public void setMethod(ResourceMapping.RequestMethod method) {
+        this.method = method;
     }
 
     public String getMenuId() {

@@ -33,6 +33,7 @@
                                 <tr>
                                     <th>名称</th>
                                     <th>模式</th>
+                                    <th>方法</th>
                                     <th>创建时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -42,6 +43,7 @@
                                     <tr>
                                         <td>${resource.name}</td>
                                         <td>${resource.pattern}</td>
+                                        <td>${resource.method}</td>
                                         <td><fmt:formatDate value="${resource.createdTime}"
                                                             pattern="yyyy-MM-dd HH:mm"/></td>
                                         <td>
@@ -106,6 +108,27 @@
                                    class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">方法
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" value="GET" name="method" required="required"> GET
+                                </label>
+                                <label>
+                                    <input type="radio" value="POST" name="method" required="required"> POST
+                                </label>
+                                <label>
+                                    <input type="radio" value="PUT" name="method" required="required"> PUT
+                                </label>
+                                <label>
+                                    <input type="radio" value="DELETE" name="method" required="required"> DELETE
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -144,6 +167,31 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <input name="pattern" type="text" required="required" id="edit-pattern"
                                    class="form-control col-md-7 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">方法
+                            <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" class="edit-method" value="GET" name="method"
+                                           required="required"> GET
+                                </label>
+                                <label>
+                                    <input type="radio" class="edit-method" value="POST" name="method"
+                                           required="required"> POST
+                                </label>
+                                <label>
+                                    <input type="radio" class="edit-method" value="PUT" name="method"
+                                           required="required"> PUT
+                                </label>
+                                <label>
+                                    <input type="radio" class="edit-method" value="DELETE" name="method"
+                                           required="required"> DELETE
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -213,6 +261,11 @@
                 success: function (data) {
                     $('#edit-name').val(data.name);
                     $('#edit-pattern').val(data.pattern);
+                    $('.edit-method').each(function (i, e) {
+                        if ($(e).val() === data.method) {
+                            $(e).attr('checked', 'checked');
+                        }
+                    });
                     $('#btn-edit-submit').attr('data-id', id);
                     $('#modal-edit').modal('toggle');
                 }

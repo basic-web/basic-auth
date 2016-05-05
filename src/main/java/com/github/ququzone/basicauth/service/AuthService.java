@@ -54,11 +54,11 @@ public interface AuthService {
 
     Page<Resource> resourcePage(int page, int pageSize);
 
-    void addResource(String name, String pattern);
+    void addResource(String name, String pattern, ResourceMapping.RequestMethod method);
 
     Resource getResource(String id);
 
-    void updateResource(String id, String name, String pattern);
+    void updateResource(String id, String name, String pattern, ResourceMapping.RequestMethod method);
 
     void deleteResource(String id);
 
