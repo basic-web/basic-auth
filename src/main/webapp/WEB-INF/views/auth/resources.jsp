@@ -301,22 +301,20 @@
                 });
             }
         });
-        $('.btn-delete').click(function () {
-            var id = $(this).attr('data-id');
-            $('.btn-delete').confirmation({
-                btnOkLabel: '删除',
-                btnCancelLabel: '取消',
-                onConfirm: function () {
-                    $.ajax({
-                        url: '/resource/' + id,
-                        method: 'POST',
-                        data: '_method=DELETE',
-                        success: function () {
-                            window.location.reload();
-                        }
-                    });
-                }
-            });
+        $('.btn-delete').confirmation({
+            btnOkLabel: '删除',
+            btnCancelLabel: '取消',
+            onConfirm: function (event, element) {
+                var id = $(element).attr('data-id');
+                $.ajax({
+                    url: '/resource/' + id,
+                    method: 'POST',
+                    data: '_method=DELETE',
+                    success: function () {
+                        window.location.reload();
+                    }
+                });
+            }
         });
         $('.btn-assign_role').click(function () {
             var id = $(this).attr('data-id');

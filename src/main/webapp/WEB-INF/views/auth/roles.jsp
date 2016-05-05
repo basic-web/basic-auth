@@ -223,22 +223,20 @@
                 });
             }
         });
-        $('.btn-delete').click(function () {
-            var id = $(this).attr('data-id');
-            $('.btn-delete').confirmation({
-                btnOkLabel: '删除',
-                btnCancelLabel: '取消',
-                onConfirm: function () {
-                    $.ajax({
-                        url: '/role/' + id,
-                        method: 'POST',
-                        data: '_method=DELETE',
-                        success: function () {
-                            window.location.reload();
-                        }
-                    });
-                }
-            });
+        $('.btn-delete').confirmation({
+            btnOkLabel: '删除',
+            btnCancelLabel: '取消',
+            onConfirm: function (event, element) {
+                var id = $(element).attr('data-id');
+                $.ajax({
+                    url: '/role/' + id,
+                    method: 'POST',
+                    data: '_method=DELETE',
+                    success: function () {
+                        window.location.reload();
+                    }
+                });
+            }
         });
         $('.btn-view_resource').click(function () {
             var id = $(this).attr('data-id');

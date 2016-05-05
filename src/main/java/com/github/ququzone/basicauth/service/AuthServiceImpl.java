@@ -2,7 +2,6 @@ package com.github.ququzone.basicauth.service;
 
 import com.github.ququzone.basicauth.model.*;
 import com.github.ququzone.basicauth.persistence.*;
-import com.github.ququzone.basicauth.web.MenuController;
 import com.github.ququzone.common.MD5;
 import com.github.ququzone.common.Page;
 import com.github.ququzone.common.ServiceException;
@@ -12,15 +11,10 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.expression.spel.support.ReflectionHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
-import java.text.Annotation;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
