@@ -2,6 +2,7 @@ package com.github.ququzone.basicauth.service;
 
 import com.github.ququzone.basicauth.model.*;
 import com.github.ququzone.basicauth.persistence.*;
+import com.github.ququzone.basicauth.web.MenuController;
 import com.github.ququzone.common.MD5;
 import com.github.ququzone.common.Page;
 import com.github.ququzone.common.ServiceException;
@@ -311,7 +312,7 @@ public class AuthServiceImpl implements AuthService {
         menu.generateId();
         menu.setName(name);
         menu.setIcon(icon);
-        menu.setOrderNum(menuMapper.count() + 1);
+        menu.setOrderNum(menuMapper.selectMenuMaxOrder() + 1);
         menu.setCreatedTime(new Date());
         menuMapper.insert(menu);
     }
@@ -343,7 +344,7 @@ public class AuthServiceImpl implements AuthService {
         menuResource.generateId();
         menuResource.setMenuId(menuId);
         menuResource.setResourceId(resourceId);
-        menuResource.setOrderNum(menuMapper.countResource(menuId) + 1);
+        menuResource.setOrderNum(menuMapper.selectMenuResourceMaxOrder(menuId) + 1);
         menuResource.setCreatedTime(new Date());
         menuMapper.insertMenuResource(menuResource);
     }
@@ -351,5 +352,25 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void deleteMenuResource(String menuId, String resourceId) {
         menuMapper.deleteMenuResource(menuId, resourceId);
+    }
+
+    @Override
+    public void exchangeMenu(String previousId, String nextId) {
+        Menu previous = menuMapper.find(previousId);
+        Menu next = menuMapper.find(nextId);
+        if (previous != null && next != null) {
+            menuMapper.updateOrderNum(previous.getId(), next.getOrderNum());
+            menuMapper.updateOrderNum(next.getId(), previous.getOrderNum());
+        }
+    }
+
+    @Override
+    public void exchangeMenuResource(String menuId, String previousId, String nextId) {
+        MenuResource previous = resourceMapper.findMenuResource(menuId, previousId);
+        MenuResource next = resourceMapper.findMenuResource(menuId, nextId);
+        if (previous != null && next != null) {
+            resourceMapper.updateMenuResourceOrderNum(previous.getId(), next.getOrderNum());
+            resourceMapper.updateMenuResourceOrderNum(next.getId(), previous.getOrderNum());
+        }
     }
 }

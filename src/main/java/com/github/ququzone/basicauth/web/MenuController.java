@@ -73,8 +73,24 @@ public class MenuController {
     }
 
     @RequestMapping(value = "/menu/{menuId}/resource/{resourceId}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> deleteResource(@PathVariable("menuId") String menuId, @PathVariable("resourceId") String resourceId) {
+    public ResponseEntity<String> deleteResource(@PathVariable("menuId") String menuId,
+                                                 @PathVariable("resourceId") String resourceId) {
         authService.deleteMenuResource(menuId, resourceId);
+        return ResponseEntity.ok("{}");
+    }
+
+    @RequestMapping(value = "/menu/exchange", method = RequestMethod.POST)
+    public ResponseEntity<String> exchangeMenu(@RequestParam("previous") String previous,
+                                               @RequestParam("next") String next) {
+        authService.exchangeMenu(previous, next);
+        return ResponseEntity.ok("{}");
+    }
+
+    @RequestMapping(value = "/menu/{id}/exchange", method = RequestMethod.POST)
+    public ResponseEntity<String> exchangeMenuResource(@PathVariable("id") String menuId,
+                                                       @RequestParam("previous") String previous,
+                                                       @RequestParam("next") String next) {
+        authService.exchangeMenuResource(menuId, previous, next);
         return ResponseEntity.ok("{}");
     }
 }

@@ -57,14 +57,16 @@
                                                 </button>
                                             </c:if>
                                             <c:if test="${not ms.first}">
-                                                <button class="btn btn-sm btn-info btn-menu-up"
-                                                        data-id="${menu.id}"><span
+                                                <button class="btn btn-sm btn-info btn-menu_exchange"
+                                                        data-previous="${menus[ms.index - 1].id}"
+                                                        data-next="${menu.id}"><span
                                                         class="fa fa-chevron-up"></span> 上移
                                                 </button>
                                             </c:if>
                                             <c:if test="${not ms.last}">
-                                                <button class="btn btn-sm btn-info btn-menu-down"
-                                                        data-id="${menu.id}"><span
+                                                <button class="btn btn-sm btn-info btn-menu_exchange"
+                                                        data-previous="${menu.id}"
+                                                        data-next="${menus[ms.index + 1].id}"><span
                                                         class="fa fa-chevron-down"></span> 下移
                                                 </button>
                                             </c:if>
@@ -83,14 +85,18 @@
                                                     </button>
                                                 </c:if>
                                                 <c:if test="${not rs.first}">
-                                                    <button class="btn btn-sm btn-info btn-resource-up"
-                                                            data-id="${resource.id}"><span
+                                                    <button class="btn btn-sm btn-info btn-resource_exchange"
+                                                            data-menu_id="${menu.id}"
+                                                            data-previous="${menu.resources[rs.index - 1].id}"
+                                                            data-next="${resource.id}"><span
                                                             class="fa fa-chevron-up"></span> 上移
                                                     </button>
                                                 </c:if>
                                                 <c:if test="${not rs.last}">
-                                                    <button class="btn btn-sm btn-info btn-resource-down"
-                                                            data-id="${resource.id}"><span
+                                                    <button class="btn btn-sm btn-info btn-resource_exchange"
+                                                            data-menu_id="${menu.id}"
+                                                            data-previous="${resource.id}"
+                                                            data-next="${menu.resources[rs.index + 1].id}"><span
                                                             class="fa fa-chevron-down"></span> 下移
                                                     </button>
                                                 </c:if>
@@ -342,6 +348,31 @@
                     }
                 });
             }
+        });
+        $('.btn-menu_exchange').click(function () {
+            var previous = $(this).attr('data-previous');
+            var next = $(this).attr('data-next');
+            $.ajax({
+                url: '/menu/exchange',
+                method: 'POST',
+                data: 'previous=' + previous + '&next=' + next,
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        });
+        $('.btn-resource_exchange').click(function () {
+            var menuId = $(this).attr('data-menu_id');
+            var previous = $(this).attr('data-previous');
+            var next = $(this).attr('data-next');
+            $.ajax({
+                url: '/menu/' + menuId + '/exchange',
+                method: 'POST',
+                data: 'previous=' + previous + '&next=' + next,
+                success: function () {
+                    window.location.reload();
+                }
+            });
         });
     });
 </script>

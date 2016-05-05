@@ -19,4 +19,12 @@
         <result column="created_time" property="createdTime"/>
         <result column="updated_time" property="updatedTime"/>
     </resultMap>
+    <resultMap id="MenuResourceResult" type="com.github.ququzone.basicauth.model.MenuResource">
+        <id column="id" property="id"/>
+        <result column="menu_id" property="menuId"/>
+        <result column="resource_id" property="resourceId"/>
+        <result column="order_num" property="orderNum"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
 </mapper>

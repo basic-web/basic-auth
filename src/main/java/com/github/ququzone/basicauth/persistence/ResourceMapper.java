@@ -1,5 +1,6 @@
 package com.github.ququzone.basicauth.persistence;
 
+import com.github.ququzone.basicauth.model.MenuResource;
 import com.github.ququzone.basicauth.model.Resource;
 import com.github.ququzone.common.MybatisMapper;
 import org.apache.ibatis.annotations.*;
@@ -64,4 +65,12 @@ public interface ResourceMapper {
             " (select * from menu_resources mr where r.id = mr.resource_id and mr.menu_id = #{menuId})")
     @ResultMap("ResourceResult")
     List<Resource> findUnMenuResources(@Param("menuId") String menuId);
+
+    @Select("select id, menu_id, resource_id, order_num, created_time, updated_time from menu_resources" +
+            " where menu_id = #{menuId} and resource_id = #{resourceId}")
+    @ResultMap("MenuResourceResult")
+    MenuResource findMenuResource(@Param("menuId") String menuId, @Param("resourceId") String resourceId);
+
+    @Update("update menu_resources set order_num = #{orderNum} where id = #{id}")
+    void updateMenuResourceOrderNum(@Param("id") String id, @Param("orderNum") Integer orderNum);
 }

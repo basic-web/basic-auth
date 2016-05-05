@@ -1,6 +1,7 @@
 package com.github.ququzone.basicauth.service;
 
 import com.github.ququzone.basicauth.model.*;
+import com.github.ququzone.basicauth.web.MenuController;
 import com.github.ququzone.common.Page;
 
 import java.util.List;
@@ -80,4 +81,8 @@ public interface AuthService {
     void addMenuResource(String menuId, String resourceId);
 
     void deleteMenuResource(String menuId, String resourceId);
+
+    void exchangeMenu(String previousId, String nextId);
+
+    void exchangeMenuResource(String menuId, String previousId, String nextId);
 }

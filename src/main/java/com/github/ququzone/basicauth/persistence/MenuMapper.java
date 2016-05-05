@@ -49,4 +49,13 @@ public interface MenuMapper {
 
     @Delete("delete from menu_resources where menu_id = #{menuId} and resource_id = #{resourceId}")
     void deleteMenuResource(@Param("menuId") String menuId, @Param("resourceId") String resourceId);
+
+    @Update("update menus set order_num = #{orderNum} where id = #{id}")
+    void updateOrderNum(@Param("id") String id, @Param("orderNum") Integer orderNum);
+
+    @Select("select max(order_num) from menus")
+    int selectMenuMaxOrder();
+
+    @Select("select max(order_num) from menu_resources where menu_id = #{menuId}")
+    int selectMenuResourceMaxOrder(@Param("menuId") String menuId);
 }
