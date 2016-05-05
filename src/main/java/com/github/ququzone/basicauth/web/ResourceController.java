@@ -91,7 +91,8 @@ public class ResourceController {
     }
 
     @RequestMapping(value = "/resource/{id}/roles", method = RequestMethod.POST)
-    public ResponseEntity<String> roles(@PathVariable("id") String id, @RequestParam("roles") String[] roles) {
+    public ResponseEntity<String> roles(@PathVariable("id") String id,
+                                        @RequestParam(value = "roles", required = false) String[] roles) {
         authService.assignResourceRole(id, roles);
         return ResponseEntity.ok(null);
     }

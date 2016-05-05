@@ -78,4 +78,8 @@ public interface ResourceMapper {
 
     @Update("update menu_resources set order_num = #{orderNum} where id = #{id}")
     void updateMenuResourceOrderNum(@Param("id") String id, @Param("orderNum") Integer orderNum);
+
+    @Select("select id, name, pattern, method, created_time, updated_time from resources")
+    @ResultMap("ResourceResult")
+    List<Resource> all();
 }

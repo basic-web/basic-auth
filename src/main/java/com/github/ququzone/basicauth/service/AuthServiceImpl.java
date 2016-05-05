@@ -22,6 +22,7 @@ import org.springframework.util.ReflectionUtils;
 import java.lang.reflect.Method;
 import java.text.Annotation;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -68,7 +69,22 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public boolean auditing(String userId, String pattern, ResourceMapping.RequestMethod method) {
-        Resource resource = resourceMapper.findByPatternAndMethod(pattern, method);
+        List<Resource> resources = resourceMapper.all().stream().sorted((e1, e2) -> e1.getPattern().compareTo(e2.getPattern())).collect(Collectors.toList());
+        Resource resource = null;
+        for (Resource r : resources) {
+            if (!r.getPattern().contains("{")) {
+                if (r.getPattern().equals(pattern) && r.getMethod() == method) {
+                    resource = r;
+                    break;
+                }
+            } else {
+                Pattern p = Pattern.compile(r.getPattern().replaceAll("\\{\\w+\\}", "\\\\w+"));
+                if (p.matcher(pattern).find() && r.getMethod() == method) {
+                    resource = r;
+                    break;
+                }
+            }
+        }
         if (resource == null) {
             return true;
         }
@@ -308,8 +324,10 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void assignResourceRole(String resourceId, String[] roles) {
         roleMapper.deleteResourceRole(resourceId);
-        for (String roleId : roles) {
-            roleMapper.insertResourceRole(roleId, resourceId);
+        if (roles != null) {
+            for (String roleId : roles) {
+                roleMapper.insertResourceRole(roleId, resourceId);
+            }
         }
     }
 
