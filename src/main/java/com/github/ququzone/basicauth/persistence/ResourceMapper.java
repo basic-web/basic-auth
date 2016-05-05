@@ -16,9 +16,11 @@ import java.util.List;
  */
 @MybatisMapper
 public interface ResourceMapper {
-    @Select("select id, name, pattern, method, created_time, updated_time from resources where pattern = #{pattern}")
+    @Select("select id, name, pattern, method, created_time, updated_time from resources" +
+            " where pattern = #{pattern} and method = #{method}")
     @ResultMap("ResourceResult")
-    Resource findByPattern(@Param("pattern") String pattern);
+    Resource findByPatternAndMethod(@Param("pattern") String pattern,
+                                    @Param("method") ResourceMapping.RequestMethod method);
 
     @Select("select count(1) from role_resources rr, role_users ru where rr.role_id = ru.role_id " +
             "and rr.resource_id = #{resourceId} and ru.user_id = #{userId}")

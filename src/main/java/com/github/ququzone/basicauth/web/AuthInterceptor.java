@@ -1,5 +1,6 @@
 package com.github.ququzone.basicauth.web;
 
+import com.github.ququzone.basicauth.model.ResourceMapping;
 import com.github.ququzone.basicauth.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,15 +30,16 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         }
         String userId = (String) request.getSession().getAttribute("user");
         if (userId == null || userId.isEmpty()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("user not login for request:" + requestPath);
+            if (LOG.isInfoEnabled()) {
+                LOG.info("user not login for request:" + requestPath);
             }
             response.sendRedirect("/login?next=" + requestPath);
             return false;
         }
-        if (!authService.auditing(userId, requestPath)) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("user not permission for request:" + requestPath);
+        if (!authService.auditing(userId, requestPath,
+                ResourceMapping.RequestMethod.valueOf(request.getMethod()))) {
+            if (LOG.isInfoEnabled()) {
+                LOG.info("user not permission for request:" + requestPath);
             }
             response.sendRedirect("/no_permission?next=" + requestPath);
             return false;

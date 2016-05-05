@@ -27,6 +27,9 @@
                                 <button id="btn-add" class="btn btn-success"><span
                                         class="fa fa-plus-circle"></span> 新增
                                 </button>
+                                <button id="btn-discover" class="btn btn-primary"><span
+                                        class="fa fa-search-plus"></span> 发现资源
+                                </button>
                             </div>
                             <table class="table table-striped table-bordered dataTable no-footer">
                                 <thead>
@@ -233,6 +236,15 @@
     $(document).ready(function () {
         $('#btn-add').click(function () {
             $('#modal-add').modal('toggle');
+        });
+        $('#btn-discover').click(function () {
+            $.ajax({
+                url: '/resource/discover',
+                method: 'POST',
+                success: function () {
+                    window.location.reload();
+                }
+            })
         });
         $('#btn-add-submit').click(function (e) {
             e.preventDefault();

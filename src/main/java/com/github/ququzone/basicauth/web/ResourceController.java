@@ -42,6 +42,12 @@ public class ResourceController {
         return ResponseEntity.ok("{}");
     }
 
+    @RequestMapping(value = "/resource/discover", method = RequestMethod.POST)
+    public ResponseEntity<String> discover() {
+        authService.discoverResource();
+        return ResponseEntity.ok("{}");
+    }
+
     @RequestMapping(value = "/resource/{id}", method = RequestMethod.GET)
     public ResponseEntity<String> get(@PathVariable("id") String id) {
         return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(authService.getResource(id)));

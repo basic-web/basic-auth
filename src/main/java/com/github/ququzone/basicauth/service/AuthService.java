@@ -14,7 +14,7 @@ import java.util.List;
 public interface AuthService {
     User login(String username, String password);
 
-    boolean auditing(String userId, String pattern);
+    boolean auditing(String userId, String pattern, ResourceMapping.RequestMethod method);
 
     UserVO getUserVO(String userId);
 
@@ -85,4 +85,6 @@ public interface AuthService {
     void exchangeMenu(String previousId, String nextId);
 
     void exchangeMenuResource(String menuId, String previousId, String nextId);
+
+    void discoverResource();
 }

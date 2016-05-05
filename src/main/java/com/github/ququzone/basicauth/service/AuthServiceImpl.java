@@ -6,11 +6,21 @@ import com.github.ququzone.basicauth.web.MenuController;
 import com.github.ququzone.common.MD5;
 import com.github.ququzone.common.Page;
 import com.github.ququzone.common.ServiceException;
+import org.reflections.Reflections;
+import org.reflections.scanners.MethodAnnotationsScanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.expression.spel.support.ReflectionHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Method;
+import java.text.Annotation;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,6 +50,9 @@ public class AuthServiceImpl implements AuthService {
     @Value("${password.salt}")
     private String salt;
 
+    @Value("${resource.scan.packages}")
+    private String packages;
+
     @Override
     public User login(String username, String password) {
         password = MD5.digestHexString(salt, password);
@@ -54,8 +67,8 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public boolean auditing(String userId, String pattern) {
-        Resource resource = resourceMapper.findByPattern(pattern);
+    public boolean auditing(String userId, String pattern, ResourceMapping.RequestMethod method) {
+        Resource resource = resourceMapper.findByPatternAndMethod(pattern, method);
         if (resource == null) {
             return true;
         }
@@ -372,6 +385,29 @@ public class AuthServiceImpl implements AuthService {
         if (previous != null && next != null) {
             resourceMapper.updateMenuResourceOrderNum(previous.getId(), next.getOrderNum());
             resourceMapper.updateMenuResourceOrderNum(next.getId(), previous.getOrderNum());
+        }
+    }
+
+    @Override
+    public void discoverResource() {
+        String[] pa = packages.split(",");
+        for (String pkg : pa) {
+            Reflections reflections = new Reflections(new ConfigurationBuilder()
+                    .setUrls(ClasspathHelper.forPackage(pkg))
+                    .setScanners(new MethodAnnotationsScanner()));
+            Set<Method> methods = reflections.getMethodsAnnotatedWith(ResourceMapping.class);
+            methods.forEach(method -> {
+                ResourceMapping resourceMapping = method.getAnnotation(ResourceMapping.class);
+                if (resourceMapper.findByPatternAndMethod(resourceMapping.pattern(), resourceMapping.method()) == null) {
+                    Resource resource = new Resource();
+                    resource.generateId();
+                    resource.setName(resourceMapping.name());
+                    resource.setPattern(resourceMapping.pattern());
+                    resource.setMethod(resourceMapping.method());
+                    resource.setCreatedTime(new Date());
+                    resourceMapper.insert(resource);
+                }
+            });
         }
     }
 }

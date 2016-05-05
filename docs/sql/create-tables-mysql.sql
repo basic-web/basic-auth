@@ -41,10 +41,10 @@ CREATE TABLE user_facts (
 CREATE TABLE resources (
   id           VARCHAR(36)  NOT NULL,
   name         VARCHAR(100) NOT NULL,
-  pattern      VARCHAR(100) NOT NULL UNIQUE,
-  method       VARCHAR(20) DEFAULT NULL,
+  pattern      VARCHAR(100) NOT NULL,
+  method       VARCHAR(20)  NOT NULL,
   created_time DATETIME     NOT NULL,
-  updated_time DATETIME    DEFAULT NULL,
+  updated_time DATETIME DEFAULT NULL,
   PRIMARY KEY (id)
 );
 
