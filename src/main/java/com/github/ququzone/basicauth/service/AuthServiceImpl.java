@@ -292,6 +292,7 @@ public class AuthServiceImpl implements AuthService {
         resource.setMethod(method);
         resource.setCreatedTime(new Date());
         resourceMapper.insert(resource);
+        roleMapper.insertResourceRole("role_admin", resource.getId());
     }
 
     @Override
@@ -418,6 +419,7 @@ public class AuthServiceImpl implements AuthService {
                     resource.setMethod(resourceMapping.method());
                     resource.setCreatedTime(new Date());
                     resourceMapper.insert(resource);
+                    roleMapper.insertResourceRole("role_admin", resource.getId());
                 }
             });
         }

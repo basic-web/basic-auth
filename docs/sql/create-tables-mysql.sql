@@ -4,7 +4,11 @@ grant all privileges on basic_auth.* to 'basic'@'localhost';
 
 DROP DATABASE IF EXISTS basic_auth;
 
+CREATE DATABASE basic_auth
+  CHARACTER SET utf8
+  COLLATE utf8_general_ci;
 
+USE basic_auth;
 */
 
 CREATE TABLE users (
