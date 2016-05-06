@@ -19,7 +19,8 @@ CREATE TABLE users (
   created_time DATETIME    NOT NULL,
   updated_time DATETIME    DEFAULT NULL,
   PRIMARY KEY (id)
-);
+)
+  ENGINE = InnoDB;
 
 CREATE TABLE user_facts (
   id           VARCHAR(36)  NOT NULL,
@@ -46,7 +47,8 @@ CREATE TABLE resources (
   created_time DATETIME     NOT NULL,
   updated_time DATETIME DEFAULT NULL,
   PRIMARY KEY (id)
-);
+)
+  ENGINE = InnoDB;
 
 CREATE TABLE roles (
   id           VARCHAR(36)  NOT NULL,
@@ -54,7 +56,8 @@ CREATE TABLE roles (
   created_time DATETIME     NOT NULL,
   updated_time DATETIME DEFAULT NULL,
   PRIMARY KEY (id)
-);
+)
+  ENGINE = InnoDB;
 
 CREATE TABLE role_resources (
   role_id     VARCHAR(36) NOT NULL,
@@ -66,7 +69,8 @@ CREATE TABLE role_resources (
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   PRIMARY KEY (role_id, resource_id)
-);
+)
+  ENGINE = InnoDB;
 
 CREATE TABLE role_users (
   role_id VARCHAR(36) NOT NULL,
@@ -88,7 +92,8 @@ CREATE TABLE menus (
   created_time DATETIME     NOT NULL,
   updated_time DATETIME    DEFAULT NULL,
   PRIMARY KEY (id)
-);
+)
+  ENGINE = InnoDB;
 
 CREATE TABLE menu_resources (
   id           VARCHAR(36) NOT NULL,
@@ -104,4 +109,5 @@ CREATE TABLE menu_resources (
   created_time DATETIME    NOT NULL,
   updated_time DATETIME DEFAULT NULL,
   PRIMARY KEY (id)
-);
+)
+  ENGINE = InnoDB;

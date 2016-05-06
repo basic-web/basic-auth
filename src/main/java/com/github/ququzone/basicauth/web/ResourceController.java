@@ -28,6 +28,7 @@ public class ResourceController {
     @Autowired
     private AuthService authService;
 
+    @ResourceMapping(name = "资源管理", pattern = "/resources", method = ResourceMapping.RequestMethod.GET)
     @RequestMapping(value = "/resources", method = RequestMethod.GET)
     public String resources(HttpServletRequest request,
                             @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
@@ -35,6 +36,7 @@ public class ResourceController {
         return "auth/resources";
     }
 
+    @ResourceMapping(name = "资源管理_新增资源", pattern = "/resource", method = ResourceMapping.RequestMethod.POST)
     @RequestMapping(value = "/resource", method = RequestMethod.POST)
     public ResponseEntity<String> add(@RequestParam("name") String name, @RequestParam("pattern") String pattern,
                                       @RequestParam("method") ResourceMapping.RequestMethod method) {
@@ -42,17 +44,20 @@ public class ResourceController {
         return ResponseEntity.ok("{}");
     }
 
+    @ResourceMapping(name = "资源管理_发现资源", pattern = "/resource/discover", method = ResourceMapping.RequestMethod.POST)
     @RequestMapping(value = "/resource/discover", method = RequestMethod.POST)
     public ResponseEntity<String> discover() {
         authService.discoverResource();
         return ResponseEntity.ok("{}");
     }
 
+    @ResourceMapping(name = "资源管理_查看资源", pattern = "/resource/{id}", method = ResourceMapping.RequestMethod.GET)
     @RequestMapping(value = "/resource/{id}", method = RequestMethod.GET)
     public ResponseEntity<String> get(@PathVariable("id") String id) {
         return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(authService.getResource(id)));
     }
 
+    @ResourceMapping(name = "资源管理_更新资源", pattern = "/resource/{id}", method = ResourceMapping.RequestMethod.PUT)
     @RequestMapping(value = "/resource/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> edit(@PathVariable("id") String id, @RequestParam("name") String name,
                                        @RequestParam("pattern") String pattern,
@@ -63,12 +68,14 @@ public class ResourceController {
         return ResponseEntity.ok("{}");
     }
 
+    @ResourceMapping(name = "资源管理_删除资源", pattern = "/resource/{id}", method = ResourceMapping.RequestMethod.DELETE)
     @RequestMapping(value = "/resource/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> delete(@PathVariable("id") String id) {
         authService.deleteResource(id);
         return ResponseEntity.ok("{}");
     }
 
+    @ResourceMapping(name = "资源管理_查看资源所属角色", pattern = "/resource/{id}/roles", method = ResourceMapping.RequestMethod.GET)
     @RequestMapping(value = "/resource/{id}/roles", method = RequestMethod.GET)
     public ResponseEntity<String> roles(@PathVariable("id") String id) {
         List<Role> all = authService.roles();
@@ -90,6 +97,7 @@ public class ResourceController {
         return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(result));
     }
 
+    @ResourceMapping(name = "资源管理_更新资源所属角色", pattern = "/resource/{id}/roles", method = ResourceMapping.RequestMethod.POST)
     @RequestMapping(value = "/resource/{id}/roles", method = RequestMethod.POST)
     public ResponseEntity<String> roles(@PathVariable("id") String id,
                                         @RequestParam(value = "roles", required = false) String[] roles) {

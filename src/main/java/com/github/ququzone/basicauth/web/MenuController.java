@@ -33,7 +33,7 @@ public class MenuController {
         return "auth/menus";
     }
 
-    @ResourceMapping(name = "菜单管理_添加菜单", pattern = "/menu", method = ResourceMapping.RequestMethod.POST)
+    @ResourceMapping(name = "菜单管理_新增菜单", pattern = "/menu", method = ResourceMapping.RequestMethod.POST)
     @RequestMapping(value = "/menu", method = RequestMethod.POST)
     public ResponseEntity<String> add(@RequestParam("name") String name, @RequestParam("icon") String icon) {
         authService.addMenu(name, icon);
@@ -46,7 +46,7 @@ public class MenuController {
         return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(authService.getMenu(id)));
     }
 
-    @ResourceMapping(name = "菜单管理_修改菜单", pattern = "/menu/{id}", method = ResourceMapping.RequestMethod.PUT)
+    @ResourceMapping(name = "菜单管理_编辑菜单", pattern = "/menu/{id}", method = ResourceMapping.RequestMethod.PUT)
     @RequestMapping(value = "/menu/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> update(@PathVariable("id") String id,
                                          @RequestParam("name") String name, @RequestParam("icon") String icon) {

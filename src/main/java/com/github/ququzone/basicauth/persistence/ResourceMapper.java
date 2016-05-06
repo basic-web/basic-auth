@@ -66,7 +66,8 @@ public interface ResourceMapper {
     @ResultMap("ResourceResult")
     List<Resource> findMenuResources(@Param("menuId") String menuId);
 
-    @Select("select r.id, r.name, r.pattern, r.method, r.created_time, r.updated_time from resources r where not exists" +
+    @Select("select r.id, r.name, r.pattern, r.method, r.created_time, r.updated_time from resources r" +
+            " where r.method = 'GET' and not exists" +
             " (select * from menu_resources mr where r.id = mr.resource_id and mr.menu_id = #{menuId})")
     @ResultMap("ResourceResult")
     List<Resource> findUnMenuResources(@Param("menuId") String menuId);

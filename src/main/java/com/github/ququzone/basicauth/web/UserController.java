@@ -1,5 +1,6 @@
 package com.github.ququzone.basicauth.web;
 
+import com.github.ququzone.basicauth.model.ResourceMapping;
 import com.github.ququzone.basicauth.model.Role;
 import com.github.ququzone.basicauth.model.UserVO;
 import com.github.ququzone.basicauth.service.AuthService;
@@ -96,6 +97,7 @@ public class UserController {
         return "redirect:/user/settings";
     }
 
+    @ResourceMapping(name = "用户管理", pattern = "/users", method = ResourceMapping.RequestMethod.GET)
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String users(HttpServletRequest request,
                         @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
@@ -103,6 +105,7 @@ public class UserController {
         return "auth/users";
     }
 
+    @ResourceMapping(name = "用户管理_新增用户", pattern = "/user", method = ResourceMapping.RequestMethod.POST)
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public ResponseEntity<String> add(@RequestParam("username") String username,
                                       @RequestParam("display_name") String displayName,
@@ -115,6 +118,7 @@ public class UserController {
         }
     }
 
+    @ResourceMapping(name = "用户管理_查看用户", pattern = "/user/{id}", method = ResourceMapping.RequestMethod.GET)
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     public ResponseEntity<String> get(@PathVariable("id") String id) {
         UserVO user = authService.getUserVO(id);
@@ -124,6 +128,7 @@ public class UserController {
         return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(user));
     }
 
+    @ResourceMapping(name = "用户管理_编辑用户", pattern = "/user/{id}", method = ResourceMapping.RequestMethod.PUT)
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> update(@PathVariable("id") String id, @RequestParam("username") String username,
                                          @RequestParam("display_name") String displayName,
@@ -136,18 +141,21 @@ public class UserController {
         }
     }
 
+    @ResourceMapping(name = "用户管理_禁用用户", pattern = "/user/{id}/disable", method = ResourceMapping.RequestMethod.POST)
     @RequestMapping(value = "/user/{id}/disable", method = RequestMethod.POST)
     public ResponseEntity<String> disable(@PathVariable("id") String id) {
         authService.disableUser(id);
         return ResponseEntity.ok(null);
     }
 
+    @ResourceMapping(name = "用户管理_启用用户", pattern = "/user/{id}/enable", method = ResourceMapping.RequestMethod.POST)
     @RequestMapping(value = "/user/{id}/enable", method = RequestMethod.POST)
     public ResponseEntity<String> enable(@PathVariable("id") String id) {
         authService.enableUser(id);
         return ResponseEntity.ok(null);
     }
 
+    @ResourceMapping(name = "用户管理_查看用户角色", pattern = "/user/{id}/roles", method = ResourceMapping.RequestMethod.GET)
     @RequestMapping(value = "/user/{id}/roles", method = RequestMethod.GET)
     public ResponseEntity<String> roles(@PathVariable("id") String id) {
         List<Role> all = authService.roles();
@@ -169,6 +177,7 @@ public class UserController {
         return ResponseEntity.ok(GsonUtil.DEFAULT_GSON.toJson(result));
     }
 
+    @ResourceMapping(name = "用户管理_分配用户角色", pattern = "/user/{id}/roles", method = ResourceMapping.RequestMethod.POST)
     @RequestMapping(value = "/user/{id}/roles", method = RequestMethod.POST)
     public ResponseEntity<String> roles(@PathVariable("id") String id, @RequestParam("roles") String[] roles) {
         authService.assignUserRole(id, roles);

@@ -362,7 +362,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public List<Resource> getUncheckedMenuResource(String menuId) {
-        return resourceMapper.findUnMenuResources(menuId);
+        return resourceMapper.findUnMenuResources(menuId).stream().filter(x -> x.getMethod() == ResourceMapping.RequestMethod.GET).collect(Collectors.toList());
     }
 
     @Override
