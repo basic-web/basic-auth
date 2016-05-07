@@ -339,7 +339,11 @@ public class AuthServiceImpl implements AuthService {
         menu.generateId();
         menu.setName(name);
         menu.setIcon(icon);
-        menu.setOrderNum(menuMapper.selectMenuMaxOrder() + 1);
+        Integer maxOrder = menuMapper.selectMenuMaxOrder();
+        if (maxOrder == null) {
+            maxOrder = 0;
+        }
+        menu.setOrderNum(maxOrder + 1);
         menu.setCreatedTime(new Date());
         menuMapper.insert(menu);
     }
@@ -371,7 +375,11 @@ public class AuthServiceImpl implements AuthService {
         menuResource.generateId();
         menuResource.setMenuId(menuId);
         menuResource.setResourceId(resourceId);
-        menuResource.setOrderNum(menuMapper.selectMenuResourceMaxOrder(menuId) + 1);
+        Integer maxOrder = menuMapper.selectMenuResourceMaxOrder(menuId);
+        if (maxOrder == null) {
+            maxOrder = 0;
+        }
+        menuResource.setOrderNum(maxOrder + 1);
         menuResource.setCreatedTime(new Date());
         menuMapper.insertMenuResource(menuResource);
     }
@@ -403,25 +411,22 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void discoverResource() {
-        String[] pa = packages.split(",");
-        for (String pkg : pa) {
-            Reflections reflections = new Reflections(new ConfigurationBuilder()
-                    .setUrls(ClasspathHelper.forPackage(pkg))
-                    .setScanners(new MethodAnnotationsScanner()));
-            Set<Method> methods = reflections.getMethodsAnnotatedWith(ResourceMapping.class);
-            methods.forEach(method -> {
-                ResourceMapping resourceMapping = method.getAnnotation(ResourceMapping.class);
-                if (resourceMapper.findByPatternAndMethod(resourceMapping.pattern(), resourceMapping.method()) == null) {
-                    Resource resource = new Resource();
-                    resource.generateId();
-                    resource.setName(resourceMapping.name());
-                    resource.setPattern(resourceMapping.pattern());
-                    resource.setMethod(resourceMapping.method());
-                    resource.setCreatedTime(new Date());
-                    resourceMapper.insert(resource);
-                    roleMapper.insertResourceRole("role_admin", resource.getId());
-                }
-            });
-        }
+        Reflections reflections = new Reflections(new ConfigurationBuilder()
+                .forPackages(packages.split(","))
+                .setScanners(new MethodAnnotationsScanner()));
+        Set<Method> methods = reflections.getMethodsAnnotatedWith(ResourceMapping.class);
+        methods.forEach(method -> {
+            ResourceMapping resourceMapping = method.getAnnotation(ResourceMapping.class);
+            if (resourceMapper.findByPatternAndMethod(resourceMapping.pattern(), resourceMapping.method()) == null) {
+                Resource resource = new Resource();
+                resource.generateId();
+                resource.setName(resourceMapping.name());
+                resource.setPattern(resourceMapping.pattern());
+                resource.setMethod(resourceMapping.method());
+                resource.setCreatedTime(new Date());
+                resourceMapper.insert(resource);
+                roleMapper.insertResourceRole("role_admin", resource.getId());
+            }
+        });
     }
 }

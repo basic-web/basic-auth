@@ -24,7 +24,7 @@ public interface MenuMapper {
     List<Menu> all();
 
     @Select("select count(1) from menus")
-    int count();
+    Long count();
 
     @Insert("insert into menus (id, name, icon, order_num, created_time)" +
             " values (#{id}, #{name}, #{icon}, #{orderNum}, #{createdTime})")
@@ -45,7 +45,7 @@ public interface MenuMapper {
     void insertMenuResource(MenuResource menuResource);
 
     @Select("select count(1) from menu_resources where menu_id = #{menuId}")
-    int countResource(@Param("menuId") String menuId);
+    Long countResource(@Param("menuId") String menuId);
 
     @Delete("delete from menu_resources where menu_id = #{menuId} and resource_id = #{resourceId}")
     void deleteMenuResource(@Param("menuId") String menuId, @Param("resourceId") String resourceId);
@@ -54,8 +54,8 @@ public interface MenuMapper {
     void updateOrderNum(@Param("id") String id, @Param("orderNum") Integer orderNum);
 
     @Select("select max(order_num) from menus")
-    int selectMenuMaxOrder();
+    Integer selectMenuMaxOrder();
 
     @Select("select max(order_num) from menu_resources where menu_id = #{menuId}")
-    int selectMenuResourceMaxOrder(@Param("menuId") String menuId);
+    Integer selectMenuResourceMaxOrder(@Param("menuId") String menuId);
 }

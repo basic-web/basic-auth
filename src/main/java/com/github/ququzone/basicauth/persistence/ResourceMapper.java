@@ -35,7 +35,7 @@ public interface ResourceMapper {
     List<Resource> findUserResources(String userId);
 
     @Select("select count(1) from resources")
-    long count();
+    Long count();
 
     @Select("select id, name, pattern, method, created_time, updated_time from resources" +
             " order by created_time desc limit #{limit} offset #{offset}")

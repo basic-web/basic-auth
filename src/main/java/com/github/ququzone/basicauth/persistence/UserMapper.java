@@ -26,7 +26,7 @@ public interface UserMapper {
     void updatePassword(@Param("id") String id, @Param("password") String password, @Param("updatedTime") Date updatedTime);
 
     @Select("select count(1) from users")
-    long count();
+    Long count();
 
     @Select("select id, username, password, status, created_time, updated_time from users order by created_time desc limit #{limit} offset #{offset}")
     @ResultMap("UserResult")

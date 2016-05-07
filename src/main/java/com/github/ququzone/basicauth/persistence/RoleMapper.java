@@ -32,7 +32,7 @@ public interface RoleMapper {
     void deleteUserRole(@Param("userId") String userId);
 
     @Select("select count(1) from roles")
-    long count();
+    Long count();
 
     @Select("select id, name, created_time, updated_time from roles" +
             " order by created_time desc limit #{limit} offset #{offset}")
