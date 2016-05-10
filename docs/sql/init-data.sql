@@ -6,7 +6,7 @@ VALUES ('role_admin', '超级管理员', now());
 INSERT INTO users (id, username, password, status, created_time)
 VALUES ('admin', 'admin', '7f3b41c9487adc40b70c7ac38dc7990a', 'NORMAL', now());
 INSERT INTO user_facts (id, user_id, name, value, created_time)
-VALUES (uuid(), 'admin', 'DISPLAY_NAME', '管理员', now());
+VALUES ('user_admin_name_fact', 'admin', 'DISPLAY_NAME', '管理员', now());
 INSERT INTO role_users (role_id, user_id) VALUES ('role_user', 'admin');
 INSERT INTO role_users (role_id, user_id) VALUES ('role_admin', 'admin');
 
