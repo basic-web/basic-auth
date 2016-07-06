@@ -82,21 +82,6 @@ $(function () {
         }
     });
 
-    // check active menu
-    $SIDEBAR_MENU.find('a[href="' + URL + '"]').parent('li').addClass('current-page');
-
-    $SIDEBAR_MENU.find('a').filter(function () {
-        return $(this).attr('href') == URL;
-    }).parent('li').addClass('current-page').parent('ul').slideDown(function() {
-        setContentHeight();
-    }).parent().addClass('active');
-
-    // recompute content when resizing
-    $(window).smartresize(function(){  
-        setContentHeight();
-    });
-
-    // TODO: This is some kind of easy fix, maybe we can improve this
     var setContentHeight = function () {
         // reset height
         $RIGHT_COL.css('min-height', $(window).height());
@@ -110,6 +95,20 @@ $(function () {
 
         $RIGHT_COL.css('min-height', contentHeight);
     };
+
+    // check active menu
+    $SIDEBAR_MENU.find('a[href="' + URL + '"]').parent('li').addClass('current-page');
+
+    $SIDEBAR_MENU.find('a').filter(function () {
+        return $(this).attr('href') == URL;
+    }).parent('li').addClass('current-page').parent('ul').slideDown(function() {
+        setContentHeight();
+    }).parent().addClass('active');
+
+    // recompute content when resizing
+    $(window).smartresize(function(){
+        setContentHeight();
+    });
 });
 
 // Panel toolbox

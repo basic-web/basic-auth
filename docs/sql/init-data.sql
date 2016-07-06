@@ -11,15 +11,11 @@ INSERT INTO role_users (role_id, user_id) VALUES ('role_user', 'admin');
 INSERT INTO role_users (role_id, user_id) VALUES ('role_admin', 'admin');
 
 INSERT INTO menus (id, name, icon, order_num, created_time)
-VALUES ('home', '主页', 'fa fa-home', 1, now());
-INSERT INTO menus (id, name, icon, order_num, created_time)
-VALUES ('system', '系统管理', 'fa fa-gears', 2, now());
+VALUES ('system', '系统管理', 'fa fa-gears', 1, now());
 
 INSERT INTO resources (id, name, pattern, method, created_time)
 VALUES ('dashboard', 'Dashboard', '/dashboard', 'GET', now());
 INSERT INTO role_resources (role_id, resource_id) VALUES ('role_user', 'dashboard');
-INSERT INTO menu_resources (id, menu_id, resource_id, order_num, created_time)
-VALUES ('home_dashboard', 'home', 'dashboard', 1, now());
 
 INSERT INTO resources (id, name, pattern, method, created_time)
 VALUES ('users', '用户管理', '/users', 'GET', now());

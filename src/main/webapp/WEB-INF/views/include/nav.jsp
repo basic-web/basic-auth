@@ -23,6 +23,8 @@
             <h2>&nbsp;</h2>
             <div class="menu_section">
                 <ul class="nav side-menu">
+                    <li><a class="link_menu" href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a>
+                    </li>
                     <c:forEach var="menu" items="${menus}">
                         <li><a><i class="${menu.icon}"></i> ${menu.name} <span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu" style="display: none">
