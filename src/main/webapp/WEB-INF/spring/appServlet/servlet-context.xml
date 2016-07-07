@@ -13,6 +13,7 @@
             <mapping path="/**"/>
             <exclude-mapping path="/static/**"/>
             <exclude-mapping path="/login"/>
+            <exclude-mapping path="/user/settings"/>
             <beans:bean class="com.github.ququzone.basicauth.web.AuthInterceptor"/>
         </interceptor>
     </mvc:interceptors>
