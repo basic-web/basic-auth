@@ -7,7 +7,6 @@ import com.github.ququzone.common.Page;
 import com.github.ququzone.common.ServiceException;
 import org.reflections.Reflections;
 import org.reflections.scanners.MethodAnnotationsScanner;
-import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -72,8 +71,8 @@ public class AuthServiceImpl implements AuthService {
                     break;
                 }
             } else {
-                Pattern p = Pattern.compile(r.getPattern().replaceAll("\\{\\w+\\}", "\\\\w+"));
-                if (p.matcher(pattern).find() && r.getMethod() == method) {
+                Pattern p = Pattern.compile(r.getPattern().replaceAll("\\{.+\\}", "[^/]+"));
+                if (p.matcher(pattern).matches() && r.getMethod() == method) {
                     resource = r;
                     break;
                 }
