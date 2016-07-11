@@ -64,7 +64,7 @@
                     window.location.href = data.next;
                 },
                 error: function (data) {
-                    notie.alert(3, data.responseJSON.error, 2.5);
+                    notie.alert(3, data.responseJSON.message, 2.5);
                 }
             });
         });

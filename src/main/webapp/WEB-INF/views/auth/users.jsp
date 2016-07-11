@@ -230,7 +230,7 @@
                         window.location.reload();
                     },
                     error: function (data) {
-                        notie.alert(3, data.responseJSON.error, 2.5);
+                        notie.alert(3, data.responseJSON.message, 2.5);
                     }
                 });
             }
@@ -266,7 +266,7 @@
                         window.location.reload();
                     },
                     error: function (data) {
-                        notie.alert(3, data.responseJSON.error, 2.5);
+                        notie.alert(3, data.responseJSON.message, 2.5);
                     }
                 });
             }

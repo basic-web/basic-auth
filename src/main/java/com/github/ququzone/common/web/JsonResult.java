@@ -18,8 +18,8 @@ public class JsonResult {
         return new JsonResult();
     }
 
-    public static JsonResult error(String error) {
-        return newJson().add("error", error);
+    public static JsonResult message(String message) {
+        return newJson().add("message", message);
     }
 
     public JsonResult add(String property, String value) {

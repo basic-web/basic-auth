@@ -50,7 +50,7 @@ public class AuthController {
             request.getSession().setAttribute("user", user.getId());
         } catch (ServiceException e) {
             LOG.error("user login exception", e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JsonResult.error(e.getMessage()).toString());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JsonResult.message(e.getMessage()).toString());
         }
         if (next == null || next.isEmpty()) {
             next = "/dashboard";

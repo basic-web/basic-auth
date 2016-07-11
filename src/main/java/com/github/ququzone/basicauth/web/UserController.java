@@ -114,7 +114,7 @@ public class UserController {
             authService.addUser(username, displayName, password);
             return ResponseEntity.ok("{}");
         } catch (ServiceException e) {
-            return ResponseEntity.badRequest().body(JsonResult.error(e.getMessage()).toString());
+            return ResponseEntity.badRequest().body(JsonResult.message(e.getMessage()).toString());
         }
     }
 
@@ -137,7 +137,7 @@ public class UserController {
             authService.updateUser(id, username, displayName, password);
             return ResponseEntity.ok("{}");
         } catch (ServiceException e) {
-            return ResponseEntity.badRequest().body(JsonResult.error(e.getMessage()).toString());
+            return ResponseEntity.badRequest().body(JsonResult.message(e.getMessage()).toString());
         }
     }
 
