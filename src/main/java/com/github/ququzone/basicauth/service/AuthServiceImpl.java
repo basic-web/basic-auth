@@ -216,7 +216,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void assignUserRole(String userId, String[] roles) {
-        roleMapper.deleteUserRole(userId);
+        roleMapper.deleteUserRoles(userId);
         for (String roleId : roles) {
             roleMapper.insertUserRole(roleId, userId);
         }

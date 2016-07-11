@@ -29,7 +29,7 @@ public interface RoleMapper {
     List<Role> userRoles(@Param("userId") String userId);
 
     @Delete("delete from role_users where user_id = #{userId}")
-    void deleteUserRole(@Param("userId") String userId);
+    void deleteUserRoles(@Param("userId") String userId);
 
     @Select("select count(1) from roles")
     Long count();
