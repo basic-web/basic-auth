@@ -78,4 +78,10 @@ public interface RoleMapper {
 
     @Insert("insert into role_resources(role_id, resource_id) values (#{roleId}, #{resourceId})")
     void insertResourceRole(@Param("roleId") String roleId, @Param("resourceId") String resourceId);
+
+    @Select("select count(1) from role_users where role_id = #{roleId} and user_id = #{userId}")
+    Long countUserRole(@Param("roleId") String roleId, @Param("userId") String userId);
+
+    @Delete("delete from role_users where role_id = #{roleId} and user_id = #{userId}")
+    void deleteUserRole(@Param("roleId") String roleId, @Param("userId") String userId);
 }
