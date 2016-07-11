@@ -24,12 +24,16 @@
                         </div>
                         <div class="x_content">
                             <div class="pull-right">
-                                <button id="btn-add" class="btn btn-success"><span
-                                        class="fa fa-plus-circle"></span> 新增
-                                </button>
-                                <button id="btn-discover" class="btn btn-primary"><span
-                                        class="fa fa-search-plus"></span> 发现资源
-                                </button>
+                                <pages:a pattern="/resource" method="POST">
+                                    <button id="btn-add" class="btn btn-success"><span
+                                            class="fa fa-plus-circle"></span> 新增
+                                    </button>
+                                </pages:a>
+                                <pages:a pattern="/resource/discover" method="POST">
+                                    <button id="btn-discover" class="btn btn-primary"><span
+                                            class="fa fa-search-plus"></span> 发现资源
+                                    </button>
+                                </pages:a>
                             </div>
                             <table class="table table-striped table-bordered dataTable no-footer">
                                 <thead>
@@ -50,22 +54,28 @@
                                         <td><fmt:formatDate value="${resource.createdTime}"
                                                             pattern="yyyy-MM-dd HH:mm"/></td>
                                         <td>
-                                            <button class="btn btn-sm btn-primary btn-edit"
-                                                    data-id="${resource.id}"><span
-                                                    class="fa fa-edit"></span> 编辑
-                                            </button>
-                                            <button class="btn btn-sm btn-danger btn-delete"
-                                                    data-id="${resource.id}"><span
-                                                    class="fa fa-trash"></span> 删除
-                                            </button>
-                                            <c:if test="${resource.id != 'dashboard'}">
-                                                <button class="btn btn-sm btn-info btn-assign_role"
-                                                        data-id="${resource.id}"
-                                                        data-name="${resource.name}"><span
-                                                        class="fa fa-users"></span>
-                                                    分配角色
+                                            <pages:a pattern="/resource/${resource.id}" method="PUT">
+                                                <button class="btn btn-sm btn-primary btn-edit"
+                                                        data-id="${resource.id}"><span
+                                                        class="fa fa-edit"></span> 编辑
                                                 </button>
-                                            </c:if>
+                                            </pages:a>
+                                            <pages:a pattern="/resource/${resource.id}" method="DELETE">
+                                                <button class="btn btn-sm btn-danger btn-delete"
+                                                        data-id="${resource.id}"><span
+                                                        class="fa fa-trash"></span> 删除
+                                                </button>
+                                            </pages:a>
+                                            <pages:a pattern="/resource/${resource.id}/roles" method="POST">
+                                                <c:if test="${resource.id != 'dashboard'}">
+                                                    <button class="btn btn-sm btn-info btn-assign_role"
+                                                            data-id="${resource.id}"
+                                                            data-name="${resource.name}"><span
+                                                            class="fa fa-users"></span>
+                                                        分配角色
+                                                    </button>
+                                                </c:if>
+                                            </pages:a>
                                         </td>
                                     </tr>
                                 </c:forEach>

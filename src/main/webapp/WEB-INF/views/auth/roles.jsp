@@ -23,11 +23,13 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <div class="pull-right">
-                                <button id="btn-add" class="btn btn-success"><span
-                                        class="fa fa-plus-circle"></span> 新增
-                                </button>
-                            </div>
+                            <pages:a pattern="/role" method="POST">
+                                <div class="pull-right">
+                                    <button id="btn-add" class="btn btn-success"><span
+                                            class="fa fa-plus-circle"></span> 新增
+                                    </button>
+                                </div>
+                            </pages:a>
                             <table class="table table-striped table-bordered dataTable no-footer">
                                 <thead>
                                 <tr>
@@ -44,25 +46,33 @@
                                                             pattern="yyyy-MM-dd HH:mm"/></td>
                                         <td>
                                             <c:if test="${role.id != 'role_admin' and role.id != 'role_user'}">
-                                                <button class="btn btn-sm btn-primary btn-edit"
-                                                        data-id="${role.id}"><span
-                                                        class="fa fa-edit"></span> 编辑
-                                                </button>
-                                                <button class="btn btn-sm btn-danger btn-delete"
-                                                        data-id="${role.id}"><span
-                                                        class="fa fa-trash"></span> 删除
-                                                </button>
+                                                <pages:a pattern="/role/${role.id}" method="PUT">
+                                                    <button class="btn btn-sm btn-primary btn-edit"
+                                                            data-id="${role.id}"><span
+                                                            class="fa fa-edit"></span> 编辑
+                                                    </button>
+                                                </pages:a>
+                                                <pages:a pattern="/role/${role.id}" method="DELETE">
+                                                    <button class="btn btn-sm btn-danger btn-delete"
+                                                            data-id="${role.id}"><span
+                                                            class="fa fa-trash"></span> 删除
+                                                    </button>
+                                                </pages:a>
                                             </c:if>
-                                            <button class="btn btn-sm btn-info btn-view_resource"
-                                                    data-id="${role.id}"
-                                                    data-name="${role.name}"><span
-                                                    class="fa fa-unlock-alt"></span> 查看资源
-                                            </button>
-                                            <button class="btn btn-sm btn-info btn-view_user"
-                                                    data-id="${role.id}"
-                                                    data-name="${role.name}"><span
-                                                    class="fa fa-users"></span> 查看用户
-                                            </button>
+                                            <pages:a pattern="/role/${role.id}/resources" method="GET">
+                                                <button class="btn btn-sm btn-info btn-view_resource"
+                                                        data-id="${role.id}"
+                                                        data-name="${role.name}"><span
+                                                        class="fa fa-unlock-alt"></span> 查看资源
+                                                </button>
+                                            </pages:a>
+                                            <pages:a pattern="/role/${role.id}/users" method="GET">
+                                                <button class="btn btn-sm btn-info btn-view_user"
+                                                        data-id="${role.id}"
+                                                        data-name="${role.name}"><span
+                                                        class="fa fa-users"></span> 查看用户
+                                                </button>
+                                            </pages:a>
                                         </td>
                                     </tr>
                                 </c:forEach>

@@ -23,11 +23,13 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <div class="pull-right">
-                                <button id="btn-add" class="btn btn-success"><span
-                                        class="fa fa-plus-circle"></span> 新增
-                                </button>
-                            </div>
+                            <pages:a pattern="/user" method="POST">
+                                <div class="pull-right">
+                                    <button id="btn-add" class="btn btn-success"><span
+                                            class="fa fa-plus-circle"></span> 新增
+                                    </button>
+                                </div>
+                            </pages:a>
                             <table class="table table-striped table-bordered dataTable no-footer">
                                 <thead>
                                 <tr>
@@ -57,24 +59,30 @@
                                                     class="fa fa-edit"></span> 编辑
                                             </button>
                                             <c:if test="${user.status == 'NORMAL'}">
-                                                <button class="btn btn-sm btn-danger btn-disable"
-                                                        data-id="${user.id}"><span
-                                                        class="fa fa-lock"></span>
-                                                    禁用
-                                                </button>
-                                                <button class="btn btn-sm btn-info btn-assign_role"
-                                                        data-id="${user.id}"
-                                                        data-name="${user.displayName}:${user.username}"><span
-                                                        class="fa fa-users"></span>
-                                                    分配角色
-                                                </button>
+                                                <pages:a pattern="/user/{user.id}/disable" method="POST">
+                                                    <button class="btn btn-sm btn-danger btn-disable"
+                                                            data-id="${user.id}"><span
+                                                            class="fa fa-lock"></span>
+                                                        禁用
+                                                    </button>
+                                                </pages:a>
+                                                <pages:a pattern="/user/{user.id}/roles" method="POST">
+                                                    <button class="btn btn-sm btn-info btn-assign_role"
+                                                            data-id="${user.id}"
+                                                            data-name="${user.displayName}:${user.username}"><span
+                                                            class="fa fa-users"></span>
+                                                        分配角色
+                                                    </button>
+                                                </pages:a>
                                             </c:if>
                                             <c:if test="${user.status == 'DISABLE'}">
-                                                <button class="btn btn-sm btn-info btn-enable"
-                                                        data-id="${user.id}"><span
-                                                        class="fa fa-unlock"></span>
-                                                    激活
-                                                </button>
+                                                <pages:a pattern="/user/{user.id}/enable" method="POST">
+                                                    <button class="btn btn-sm btn-info btn-enable"
+                                                            data-id="${user.id}"><span
+                                                            class="fa fa-unlock"></span>
+                                                        激活
+                                                    </button>
+                                                </pages:a>
                                             </c:if>
                                         </td>
                                     </tr>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="pages" uri="http://ququzone.github.com/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,11 +23,13 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <div class="pull-right">
-                                <button id="btn-add" class="btn btn-success"><span
-                                        class="fa fa-plus-circle"></span> 新增菜单
-                                </button>
-                            </div>
+                            <pages:a pattern="/menu" method="POST">
+                                <div class="pull-right">
+                                    <button id="btn-add" class="btn btn-success"><span
+                                            class="fa fa-plus-circle"></span> 新增菜单
+                                    </button>
+                                </div>
+                            </pages:a>
                             <table class="table table-striped table-bordered dataTable no-footer tree">
                                 <thead>
                                 <tr>
@@ -41,35 +44,43 @@
                                         <td><span class="${menu.icon}"></span> ${menu.name}</td>
                                         <td>&nbsp;</td>
                                         <td>
-                                            <button class="btn btn-sm btn-success btn-add"
-                                                    data-id="${menu.id}"
-                                                    data-name="${menu.name}"><span
-                                                    class="fa fa-edit"></span> 添加资源
-                                            </button>
+                                            <pages:a pattern="/menu/${menu.id}/resource" method="POST">
+                                                <button class="btn btn-sm btn-success btn-add"
+                                                        data-id="${menu.id}"
+                                                        data-name="${menu.name}"><span
+                                                        class="fa fa-edit"></span> 添加资源
+                                                </button>
+                                            </pages:a>
                                             <c:if test="${menu.id != 'home'}">
-                                                <button class="btn btn-sm btn-primary btn-edit"
-                                                        data-id="${menu.id}"><span
-                                                        class="fa fa-edit"></span> 编辑
-                                                </button>
-                                                <button class="btn btn-sm btn-danger btn-menu-delete"
-                                                        data-id="${menu.id}"><span
-                                                        class="fa fa-trash"></span> 删除
-                                                </button>
+                                                <pages:a pattern="/menu/${menu.id}" method="PUT">
+                                                    <button class="btn btn-sm btn-primary btn-edit"
+                                                            data-id="${menu.id}"><span
+                                                            class="fa fa-edit"></span> 编辑
+                                                    </button>
+                                                </pages:a>
+                                                <pages:a pattern="/menu/${menu.id}" method="DELETE">
+                                                    <button class="btn btn-sm btn-danger btn-menu-delete"
+                                                            data-id="${menu.id}"><span
+                                                            class="fa fa-trash"></span> 删除
+                                                    </button>
+                                                </pages:a>
                                             </c:if>
-                                            <c:if test="${not ms.first}">
-                                                <button class="btn btn-sm btn-info btn-menu_exchange"
-                                                        data-previous="${menus[ms.index - 1].id}"
-                                                        data-next="${menu.id}"><span
-                                                        class="fa fa-chevron-up"></span> 上移
-                                                </button>
-                                            </c:if>
-                                            <c:if test="${not ms.last}">
-                                                <button class="btn btn-sm btn-info btn-menu_exchange"
-                                                        data-previous="${menu.id}"
-                                                        data-next="${menus[ms.index + 1].id}"><span
-                                                        class="fa fa-chevron-down"></span> 下移
-                                                </button>
-                                            </c:if>
+                                            <pages:a pattern="/menu/exchange" method="POST">
+                                                <c:if test="${not ms.first}">
+                                                    <button class="btn btn-sm btn-info btn-menu_exchange"
+                                                            data-previous="${menus[ms.index - 1].id}"
+                                                            data-next="${menu.id}"><span
+                                                            class="fa fa-chevron-up"></span> 上移
+                                                    </button>
+                                                </c:if>
+                                                <c:if test="${not ms.last}">
+                                                    <button class="btn btn-sm btn-info btn-menu_exchange"
+                                                            data-previous="${menu.id}"
+                                                            data-next="${menus[ms.index + 1].id}"><span
+                                                            class="fa fa-chevron-down"></span> 下移
+                                                    </button>
+                                                </c:if>
+                                            </pages:a>
                                         </td>
                                     </tr>
                                     <c:forEach varStatus="rs" var="resource" items="${menu.resources}">
@@ -78,28 +89,33 @@
                                             <td>${resource.pattern}</td>
                                             <td>
                                                 <c:if test="${resource.id != 'dashboard'}">
-                                                    <button class="btn btn-sm btn-danger btn-resource-delete"
-                                                            data-id="${resource.id}"
-                                                            data-menu_id="${menu.id}"><span
-                                                            class="fa fa-trash"></span> 删除
-                                                    </button>
+                                                    <pages:a pattern="/menu/${menu.id}/resource/${resource.id}"
+                                                             method="DELETE">
+                                                        <button class="btn btn-sm btn-danger btn-resource-delete"
+                                                                data-id="${resource.id}"
+                                                                data-menu_id="${menu.id}"><span
+                                                                class="fa fa-trash"></span> 删除
+                                                        </button>
+                                                    </pages:a>
                                                 </c:if>
-                                                <c:if test="${not rs.first}">
-                                                    <button class="btn btn-sm btn-info btn-resource_exchange"
-                                                            data-menu_id="${menu.id}"
-                                                            data-previous="${menu.resources[rs.index - 1].id}"
-                                                            data-next="${resource.id}"><span
-                                                            class="fa fa-chevron-up"></span> 上移
-                                                    </button>
-                                                </c:if>
-                                                <c:if test="${not rs.last}">
-                                                    <button class="btn btn-sm btn-info btn-resource_exchange"
-                                                            data-menu_id="${menu.id}"
-                                                            data-previous="${resource.id}"
-                                                            data-next="${menu.resources[rs.index + 1].id}"><span
-                                                            class="fa fa-chevron-down"></span> 下移
-                                                    </button>
-                                                </c:if>
+                                                <pages:a pattern="/menu/${menu.id}/exchange" method="POST">
+                                                    <c:if test="${not rs.first}">
+                                                        <button class="btn btn-sm btn-info btn-resource_exchange"
+                                                                data-menu_id="${menu.id}"
+                                                                data-previous="${menu.resources[rs.index - 1].id}"
+                                                                data-next="${resource.id}"><span
+                                                                class="fa fa-chevron-up"></span> 上移
+                                                        </button>
+                                                    </c:if>
+                                                    <c:if test="${not rs.last}">
+                                                        <button class="btn btn-sm btn-info btn-resource_exchange"
+                                                                data-menu_id="${menu.id}"
+                                                                data-previous="${resource.id}"
+                                                                data-next="${menu.resources[rs.index + 1].id}"><span
+                                                                class="fa fa-chevron-down"></span> 下移
+                                                        </button>
+                                                    </c:if>
+                                                </pages:a>
                                             </td>
                                         </tr>
                                     </c:forEach>
