@@ -43,7 +43,7 @@ $(function () {
         // prevent event bubbling on parent menu
         if (link) {
             ev.stopPropagation();
-        } 
+        }
         // execute slidedown if parent menu
         else {
             if ($(this).is('.active')) {
@@ -54,7 +54,7 @@ $(function () {
             } else {
                 $SIDEBAR_MENU.find('li').removeClass('active');
                 $SIDEBAR_MENU.find('li ul').slideUp();
-                
+
                 $(this).addClass('active');
                 $('ul', this).slideDown(function() {
                     setContentHeight();
@@ -117,15 +117,15 @@ $(function () {
         var $BOX_PANEL = $(this).closest('.x_panel'),
             $ICON = $(this).find('i'),
             $BOX_CONTENT = $BOX_PANEL.find('.x_content');
-        
+
         // fix for some div with hardcoded fix class
         if ($BOX_PANEL.attr('style')) {
             $BOX_CONTENT.slideToggle(200, function(){
                 $BOX_PANEL.removeAttr('style');
             });
         } else {
-            $BOX_CONTENT.slideToggle(200); 
-            $BOX_PANEL.css('height', 'auto');  
+            $BOX_CONTENT.slideToggle(200);
+            $BOX_PANEL.css('height', 'auto');
         }
 
         $ICON.toggleClass('fa-chevron-up fa-chevron-down');
@@ -184,7 +184,7 @@ var __slice = [].slice;
 
         function Starrr($el, options) {
             var i, _, _ref,
-                    _this = this;
+                _this = this;
 
             this.options = $.extend({}, this.defaults, options);
             this.$el = $el;
@@ -365,7 +365,7 @@ if (typeof NProgress != 'undefined') {
 
 /**
  * Resize function without multiple trigger
- * 
+ *
  * Usage:
  * $(window).smartresize(function(){  
  *     // code here
@@ -375,14 +375,14 @@ if (typeof NProgress != 'undefined') {
     // debouncing function from John Hann
     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
     var debounce = function (func, threshold, execAsap) {
-      var timeout;
+        var timeout;
 
         return function debounced () {
             var obj = this, args = arguments;
             function delayed () {
                 if (!execAsap)
                     func.apply(obj, args);
-                timeout = null; 
+                timeout = null;
             }
 
             if (timeout)
@@ -390,7 +390,7 @@ if (typeof NProgress != 'undefined') {
             else if (execAsap)
                 func.apply(obj, args);
 
-            timeout = setTimeout(delayed, threshold || 100); 
+            timeout = setTimeout(delayed, threshold || 100);
         };
     };
 
