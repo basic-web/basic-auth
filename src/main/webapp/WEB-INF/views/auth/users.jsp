@@ -55,9 +55,12 @@
                                         <td><fmt:formatDate value="${user.createdTime}"
                                                             pattern="yyyy-MM-dd HH:mm"/></td>
                                         <td>
-                                            <button class="btn btn-sm btn-primary btn-edit" data-id="${user.id}"><span
-                                                    class="fa fa-edit"></span> 编辑
-                                            </button>
+                                            <pages:a pattern="/user/{user.id}" method="PUT">
+                                                <button class="btn btn-sm btn-primary btn-edit"
+                                                        data-id="${user.id}"><span
+                                                        class="fa fa-edit"></span> 编辑
+                                                </button>
+                                            </pages:a>
                                             <c:if test="${user.status == 'NORMAL'}">
                                                 <pages:a pattern="/user/{user.id}/disable" method="POST">
                                                     <button class="btn btn-sm btn-danger btn-disable"
