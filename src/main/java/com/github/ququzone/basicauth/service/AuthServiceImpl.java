@@ -71,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
                     break;
                 }
             } else {
-                Pattern p = Pattern.compile(r.getPattern().replaceAll("\\{.+\\}", "[^/]+"));
+                Pattern p = Pattern.compile(r.getPattern().replaceAll("\\{[^/]+\\}", "[^/]+"));
                 if (p.matcher(pattern).matches() && r.getMethod() == method) {
                     resource = r;
                     break;

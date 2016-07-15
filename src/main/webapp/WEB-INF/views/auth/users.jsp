@@ -55,21 +55,21 @@
                                         <td><fmt:formatDate value="${user.createdTime}"
                                                             pattern="yyyy-MM-dd HH:mm"/></td>
                                         <td>
-                                            <pages:a pattern="/user/{user.id}" method="PUT">
+                                            <pages:a pattern="/user/${user.id}" method="PUT">
                                                 <button class="btn btn-sm btn-primary btn-edit"
                                                         data-id="${user.id}"><span
                                                         class="fa fa-edit"></span> 编辑
                                                 </button>
                                             </pages:a>
                                             <c:if test="${user.status == 'NORMAL'}">
-                                                <pages:a pattern="/user/{user.id}/disable" method="POST">
+                                                <pages:a pattern="/user/${user.id}/disable" method="POST">
                                                     <button class="btn btn-sm btn-danger btn-disable"
                                                             data-id="${user.id}"><span
                                                             class="fa fa-lock"></span>
                                                         禁用
                                                     </button>
                                                 </pages:a>
-                                                <pages:a pattern="/user/{user.id}/roles" method="POST">
+                                                <pages:a pattern="/user/${user.id}/roles" method="POST">
                                                     <button class="btn btn-sm btn-info btn-assign_role"
                                                             data-id="${user.id}"
                                                             data-name="${user.displayName}:${user.username}"><span
@@ -79,7 +79,7 @@
                                                 </pages:a>
                                             </c:if>
                                             <c:if test="${user.status == 'DISABLE'}">
-                                                <pages:a pattern="/user/{user.id}/enable" method="POST">
+                                                <pages:a pattern="/user/${user.id}/enable" method="POST">
                                                     <button class="btn btn-sm btn-info btn-enable"
                                                             data-id="${user.id}"><span
                                                             class="fa fa-unlock"></span>
