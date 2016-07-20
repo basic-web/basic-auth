@@ -169,7 +169,6 @@
             </div>
         </div>
     </div>
-    resource
 </div>
 <div class="modal fade" id="modal-edit_menu" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
