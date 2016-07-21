@@ -8,6 +8,18 @@ CREATE TABLE users (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE user_facts (
+  id           VARCHAR(36)  NOT NULL,
+  user_id      VARCHAR(36)  NOT NULL REFERENCES users (id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+  name         VARCHAR(100) NOT NULL,
+  value        TEXT      DEFAULT NULL,
+  created_time TIMESTAMP    NOT NULL,
+  updated_time TIMESTAMP DEFAULT NULL,
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE resources (
   id           VARCHAR(36)  NOT NULL,
   name         VARCHAR(100) NOT NULL,
@@ -28,13 +40,19 @@ CREATE TABLE roles (
 
 CREATE TABLE role_resources (
   role_id     VARCHAR(36) NOT NULL REFERENCES roles (id),
-  resource_id VARCHAR(36) NOT NULL REFERENCES resources (id),
+  resource_id VARCHAR(36) NOT NULL REFERENCES resources (id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
   PRIMARY KEY (role_id, resource_id)
 );
 
 CREATE TABLE role_users (
-  role_id VARCHAR(36) NOT NULL REFERENCES roles (id),
-  user_id VARCHAR(36) NOT NULL REFERENCES users (id),
+  role_id VARCHAR(36) NOT NULL REFERENCES roles (id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+  user_id VARCHAR(36) NOT NULL REFERENCES users (id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
   PRIMARY KEY (role_id, user_id)
 );
 
@@ -50,8 +68,12 @@ CREATE TABLE menus (
 
 CREATE TABLE menu_resources (
   id           VARCHAR(36) NOT NULL,
-  menu_id      VARCHAR(36) NOT NULL REFERENCES menus (id),
-  resource_id  VARCHAR(36) NOT NULL REFERENCES resources (id),
+  menu_id      VARCHAR(36) NOT NULL REFERENCES menus (id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+  resource_id  VARCHAR(36) NOT NULL REFERENCES resources (id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
   order_num    SMALLINT  DEFAULT 1,
   created_time TIMESTAMP   NOT NULL,
   updated_time TIMESTAMP DEFAULT NULL,
