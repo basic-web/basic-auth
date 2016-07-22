@@ -182,7 +182,7 @@ body.nav-sm .menu_section {
     margin: 0;
 }
 
-body.nav-sm span.fa, body.nav-sm .menu_section h3 {
+body.nav-sm .main_menu_side span.fa, body.nav-sm .menu_section h3 {
     display: none !important;
 }
 
