@@ -61,4 +61,7 @@ public interface MenuMapper {
 
     @Select("select id, name, icon, order_num, created_time, updated_time from menus where name = #{name}")
     Menu findByName(@Param("name") String name);
+
+    @Select("select count(1) from menu_resources where menu_id = #{menuId} and resource_id = #{resourceId}")
+    Integer countMenuResource(@Param("menuId") String menuId, @Param("resourceId") String resourceId);
 }

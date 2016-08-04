@@ -442,17 +442,19 @@ public class AuthServiceImpl implements AuthService {
                     menu.setIcon(resourceMapping.menuIcon());
                     menuMapper.update(menu.getId(), menu.getName(), menu.getIcon(), now);
                 }
-                MenuResource menuResource = new MenuResource();
-                menuResource.generateId();
-                menuResource.setMenuId(menu.getId());
-                menuResource.setResourceId(resource.getId());
-                Integer maxOrder = menuMapper.selectMenuResourceMaxOrder(menu.getId());
-                if (maxOrder == null) {
-                    maxOrder = 0;
+                if (menuMapper.countMenuResource(menu.getId(), resource.getId()) == 0) {
+                    MenuResource menuResource = new MenuResource();
+                    menuResource.generateId();
+                    menuResource.setMenuId(menu.getId());
+                    menuResource.setResourceId(resource.getId());
+                    Integer maxOrder = menuMapper.selectMenuResourceMaxOrder(menu.getId());
+                    if (maxOrder == null) {
+                        maxOrder = 0;
+                    }
+                    menuResource.setOrderNum(maxOrder + 1);
+                    menuResource.setCreatedTime(now);
+                    menuMapper.insertMenuResource(menuResource);
                 }
-                menuResource.setOrderNum(maxOrder + 1);
-                menuResource.setCreatedTime(now);
-                menuMapper.insertMenuResource(menuResource);
             }
         });
     }
