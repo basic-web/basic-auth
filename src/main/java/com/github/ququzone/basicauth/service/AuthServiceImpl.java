@@ -416,15 +416,43 @@ public class AuthServiceImpl implements AuthService {
         Set<Method> methods = reflections.getMethodsAnnotatedWith(ResourceMapping.class);
         methods.forEach(method -> {
             ResourceMapping resourceMapping = method.getAnnotation(ResourceMapping.class);
-            if (resourceMapper.findByPatternAndMethod(resourceMapping.pattern(), resourceMapping.method()) == null) {
-                Resource resource = new Resource();
+            Resource resource = resourceMapper.findByPatternAndMethod(resourceMapping.pattern(), resourceMapping.method());
+            Date now = new Date();
+            if (resource == null) {
+                resource = new Resource();
                 resource.generateId();
                 resource.setName(resourceMapping.name());
                 resource.setPattern(resourceMapping.pattern());
                 resource.setMethod(resourceMapping.method());
-                resource.setCreatedTime(new Date());
+                resource.setCreatedTime(now);
                 resourceMapper.insert(resource);
                 roleMapper.insertResourceRole("role_admin", resource.getId());
+            }
+            if (!resourceMapping.menu().isEmpty()) {
+                Menu menu = menuMapper.findByName(resourceMapping.menu());
+                if (menu == null) {
+                    menu = new Menu();
+                    menu.generateId();
+                    menu.setName(resourceMapping.menu());
+                    menu.setIcon(resourceMapping.menuIcon());
+                    menu.setOrderNum(menuMapper.selectMenuMaxOrder() + 1);
+                    menu.setCreatedTime(now);
+                    menuMapper.insert(menu);
+                } else if (!resourceMapping.menuIcon().isEmpty()) {
+                    menu.setIcon(resourceMapping.menuIcon());
+                    menuMapper.update(menu.getId(), menu.getName(), menu.getIcon(), now);
+                }
+                MenuResource menuResource = new MenuResource();
+                menuResource.generateId();
+                menuResource.setMenuId(menu.getId());
+                menuResource.setResourceId(resource.getId());
+                Integer maxOrder = menuMapper.selectMenuResourceMaxOrder(menu.getId());
+                if (maxOrder == null) {
+                    maxOrder = 0;
+                }
+                menuResource.setOrderNum(maxOrder + 1);
+                menuResource.setCreatedTime(now);
+                menuMapper.insertMenuResource(menuResource);
             }
         });
     }

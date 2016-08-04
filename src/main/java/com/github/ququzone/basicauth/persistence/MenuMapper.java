@@ -58,4 +58,7 @@ public interface MenuMapper {
 
     @Select("select max(order_num) from menu_resources where menu_id = #{menuId}")
     Integer selectMenuResourceMaxOrder(@Param("menuId") String menuId);
+
+    @Select("select id, name, icon, order_num, created_time, updated_time from menus where name = #{name}")
+    Menu findByName(@Param("name") String name);
 }

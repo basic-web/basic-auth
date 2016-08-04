@@ -17,6 +17,10 @@ public @interface ResourceMapping {
 
     String pattern();
 
+    String menu() default "";
+
+    String menuIcon() default "";
+
     RequestMethod method();
 
     enum RequestMethod {
