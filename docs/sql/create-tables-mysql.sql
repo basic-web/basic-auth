@@ -13,7 +13,7 @@ USE basic_auth;
 
 CREATE TABLE users (
   id           VARCHAR(36) NOT NULL,
-  username     VARCHAR(12) NOT NULL UNIQUE,
+  username     VARCHAR(50) NOT NULL UNIQUE,
   password     VARCHAR(50) DEFAULT NULL,
   status       VARCHAR(20) NOT NULL,
   created_time DATETIME    NOT NULL,
