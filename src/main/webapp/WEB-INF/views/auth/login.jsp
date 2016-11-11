@@ -7,23 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>登录</title>
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/fonts/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/static/css/animate.min.css" rel="stylesheet">
-    <link href="/static/css/custom.css" rel="stylesheet">
-    <link href="/static/css/icheck/flat/green.css" rel="stylesheet">
-    <link href="/static/css/notie.css" rel="stylesheet">
-    <script src="/static/js/jquery.min.js"></script>
-    <!--[if lt IE 9]>
-    <script src="/static/js/html5shiv.min.js"></script>
-    <script src="/static/js/respond.min.js"></script>
-    <![endif]-->
+    <jsp:include page="../include/head.jsp"/>
 </head>
 
-<body style="background:#F7F7F7;">
-<div class="">
-    <div id="wrapper">
-        <div id="login" class="animate form">
+<body class="login">
+<div>
+    <div class="login_wrapper">
+        <div class="animate form login_form">
             <section class="login_content">
                 <form id="form-login">
                     <h1>登录系统</h1>
@@ -49,7 +39,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/static/js/notie.min.js"></script>
+<jsp:include page="../include/script.jsp"/>
 
 <script type="application/javascript">
     $(document).ready(function () {
