@@ -1,8 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static/js/progressbar/bootstrap-progressbar.min.js"></script>
-<script type="text/javascript" src="/static/js/notie.min.js"></script>
+<script src="/static/vendors/jquery/jquery.min.js"></script>
+<script src="/static/vendors/nprogress/nprogress.js"></script>
+<script type="text/javascript" src="/static/vendors/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/vendors/notie/notie.min.js"></script>
 <script type="text/javascript" src="/static/js/custom.js"></script>
 <script>
     NProgress.done();

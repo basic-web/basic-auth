@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <jsp:include page="../include/head.jsp"/>
-    <link href="/static/css/icheck/flat/green.css" rel="stylesheet"/>
+    <link href="/static/vendors/icheck/skins/flat/green.css" rel="stylesheet"/>
     <title>个人信息设置</title>
 </head>
 <body class="nav-md">
@@ -97,9 +97,9 @@
     </div>
 </div>
 <jsp:include page="../include/script.jsp"/>
-<script type="text/javascript" src="/static/js/icheck/icheck.min.js"></script>
-<script type="text/javascript" src="/static/js/parsley/parsley.min.js"></script>
-<script type="text/javascript" src="/static/js/parsley/zh_cn.js"></script>
+<script type="text/javascript" src="/static/vendors/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="/static/vendors/parsleyjs/parsley.min.js"></script>
+<script type="text/javascript" src="/static/vendors/parsleyjs/i18n/zh_cn.js"></script>
 <script type="application/javascript">
     $(document).ready(function () {
         $('#check-change-password').on('ifChecked', function () {
