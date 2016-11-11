@@ -220,8 +220,8 @@
     </div>
 </div>
 <jsp:include page="../include/script.jsp"/>
-<script type="text/javascript" src="/static/js/parsley/parsley.min.js"></script>
-<script type="text/javascript" src="/static/js/parsley/zh_cn.js"></script>
+<script type="text/javascript" src="/static/vendors/parsleyjs/parsley.min.js"></script>
+<script type="text/javascript" src="/static/vendors/parsleyjs/i18n/zh_cn.js"></script>
 <script type="text/javascript" src="/static/js/lodash.min.js"></script>
 <script type="application/javascript">
     $(document).ready(function () {
