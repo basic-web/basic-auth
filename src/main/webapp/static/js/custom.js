@@ -6,6 +6,22 @@
  *     // code here
  * });
  */
+var GET_COOKIE = function(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+};
+var URL = GET_COOKIE('current_page');
+
 (function($,sr){
     // debouncing function from John Hann
     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
@@ -39,7 +55,7 @@
  * and open the template in the editor.
  */
 
-var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
+var CURRENT_URL = URL,
     $BODY = $('body'),
     $MENU_TOGGLE = $('#menu_toggle'),
     $SIDEBAR_MENU = $('#sidebar-menu'),
@@ -51,7 +67,12 @@ var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
 
 // Sidebar
 $(document).ready(function() {
-    // TODO: This is some kind of easy fix, maybe we can improve this
+    $('.link_menu').click(function (e) {
+        e.preventDefault();
+        document.cookie = 'current_page=' + $(this).attr('href') + '; path=/';
+        window.location.href = $(this).attr('href');
+    });
+
     var setContentHeight = function () {
         // reset height
         $RIGHT_COL.css('min-height', $(window).height());
@@ -109,7 +130,7 @@ $(document).ready(function() {
     $SIDEBAR_MENU.find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
 
     $SIDEBAR_MENU.find('a').filter(function () {
-        return this.href == CURRENT_URL;
+        return $(this).attr('href') == CURRENT_URL;
     }).parent('li').addClass('current-page').parents('ul').slideDown(function() {
         setContentHeight();
     }).parent().addClass('active');
