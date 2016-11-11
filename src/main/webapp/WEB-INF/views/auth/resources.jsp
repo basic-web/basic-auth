@@ -20,6 +20,16 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2>资源列表</h2>
+                            <div class="pull-right">
+                                <form action="/resources" method="get" target="_self">
+                                    <div class="search-form-nav">
+                                        <input class="search-content-nav form-control" name="q" value="${param.q}"
+                                               placeholder="搜索" type="text">
+                                        <button class="btn search-btn-nav glyphicon glyphicon-search"
+                                                type="submit"></button>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -81,8 +91,17 @@
                                 </c:forEach>
                                 </tbody>
                             </table>
-                            <pages:p current="${resources.current}" totalPage="${resources.totalPage}"
-                                     baseUrl="/resources"/>
+                            <c:choose>
+                                <c:when test="${not empty param.q}">
+                                    <pages:p current="${resources.current}" totalPage="${resources.totalPage}"
+                                             baseUrl="/resources?q=${param.q}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <pages:p current="${resources.current}" totalPage="${resources.totalPage}"
+                                             baseUrl="/resources"/>
+                                </c:otherwise>
+                            </c:choose>
+
                         </div>
                     </div>
                 </div>
