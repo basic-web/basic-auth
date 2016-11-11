@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>错误 - 没有权限</title>
 
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/fonts/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/static/css/animate.min.css" rel="stylesheet">
+    <link href="/static/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/static/vendors/animate/animate.min.css" rel="stylesheet">
     <link href="/static/css/custom.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
