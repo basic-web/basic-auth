@@ -7,6 +7,7 @@
 <link href="/static/vendors/animate/animate.min.css" rel="stylesheet">
 <link href="/static/vendors/notie/notie.css" rel="stylesheet">
 <link href="/static/css/custom.css" rel="stylesheet">
+<link href="/static/css/base.css" rel="stylesheet">
 <!--[if lt IE 9]>
 <script src="/static/js/html5shiv.min.js"></script>
 <script src="/static/js/respond.min.js"></script>

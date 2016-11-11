@@ -34,13 +34,9 @@ public interface ResourceMapper {
     @ResultMap("ResourceOrderResult")
     List<Resource> findUserResources(String userId);
 
-    @Select("select count(1) from resources")
-    Long count();
+    Long count(@Param("q") String q);
 
-    @Select("select id, name, pattern, method, created_time, updated_time from resources" +
-            " order by name desc limit #{limit} offset #{offset}")
-    @ResultMap("ResourceResult")
-    List<Resource> page(@Param("limit") int limit, @Param("offset") long offset);
+    List<Resource> page(@Param("q") String q, @Param("limit") int limit, @Param("offset") long offset);
 
     @Insert("insert into resources (id, name, pattern, method, created_time)" +
             " values (#{id}, #{name}, #{pattern}, #{method}, #{createdTime})")

@@ -271,13 +271,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public Page<Resource> resourcePage(int page, int pageSize) {
+    public Page<Resource> resourcePage(String q, int page, int pageSize) {
         Page<Resource> result = new Page<>();
-        result.setTotal(resourceMapper.count());
+        result.setTotal(resourceMapper.count(q));
         result.setPageSize(pageSize);
         result.setCurrent(page);
         if (result.getTotal() > 0) {
-            result.setData(resourceMapper.page(pageSize, (page - 1) * pageSize));
+            result.setData(resourceMapper.page(q, pageSize, (page - 1) * pageSize));
         }
         return result;
     }

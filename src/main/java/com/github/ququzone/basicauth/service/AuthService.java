@@ -1,7 +1,6 @@
 package com.github.ququzone.basicauth.service;
 
 import com.github.ququzone.basicauth.model.*;
-import com.github.ququzone.basicauth.web.MenuController;
 import com.github.ququzone.common.Page;
 
 import java.util.List;
@@ -52,7 +51,7 @@ public interface AuthService {
 
     List<User> roleUsers(String roleId);
 
-    Page<Resource> resourcePage(int page, int pageSize);
+    Page<Resource> resourcePage(String q, int page, int pageSize);
 
     void addResource(String name, String pattern, ResourceMapping.RequestMethod method);
 

@@ -31,8 +31,12 @@ public class ResourceController {
     @ResourceMapping(name = "资源管理", pattern = "/resources", method = ResourceMapping.RequestMethod.GET)
     @RequestMapping(value = "/resources", method = RequestMethod.GET)
     public String resources(HttpServletRequest request,
+                            @RequestParam(value = "q", required = false) String q,
                             @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-        request.setAttribute("resources", authService.resourcePage(page, Page.DEFAULT_PAGE_SIZE));
+        if (q != null && "".equals(q.trim())) {
+            q = null;
+        }
+        request.setAttribute("resources", authService.resourcePage(q, page, Page.DEFAULT_PAGE_SIZE));
         return "auth/resources";
     }
 
