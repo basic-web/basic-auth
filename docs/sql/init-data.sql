@@ -3,8 +3,8 @@ VALUES ('role_user', '系统用户', now());
 INSERT INTO roles (id, name, created_time)
 VALUES ('role_admin', '超级管理员', now());
 
-INSERT INTO users (id, username, password, status, created_time)
-VALUES ('admin', 'admin', '7f3b41c9487adc40b70c7ac38dc7990a', 'NORMAL', now());
+INSERT INTO users (id, username, password, salt, status, created_time)
+VALUES ('admin', 'admin', 'f50ef1e9bcdfb22039e56aa0adff1c99', 'admin_salt', 'NORMAL', now());
 INSERT INTO user_facts (id, user_id, name, value, created_time)
 VALUES ('user_admin_name_fact', 'admin', 'DISPLAY_NAME', '管理员', now());
 INSERT INTO role_users (role_id, user_id) VALUES ('role_user', 'admin');
