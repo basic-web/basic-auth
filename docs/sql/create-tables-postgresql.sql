@@ -2,6 +2,7 @@ CREATE TABLE users (
   id           VARCHAR(36) NOT NULL,
   username     VARCHAR(50) NOT NULL UNIQUE,
   password     VARCHAR(50) DEFAULT NULL,
+  salt         VARCHAR(50) NOT NULL,
   status       VARCHAR(20) NOT NULL,
   created_time TIMESTAMP   NOT NULL,
   updated_time TIMESTAMP   DEFAULT NULL,

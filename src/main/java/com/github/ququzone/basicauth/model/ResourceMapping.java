@@ -21,6 +21,8 @@ public @interface ResourceMapping {
 
     String menuIcon() default "";
 
+    String roles() default "";
+
     RequestMethod method();
 
     enum RequestMethod {

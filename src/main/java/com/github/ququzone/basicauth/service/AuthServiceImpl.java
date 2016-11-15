@@ -428,6 +428,20 @@ public class AuthServiceImpl implements AuthService {
                 resourceMapper.insert(resource);
                 roleMapper.insertResourceRole("role_admin", resource.getId());
             }
+            if (!resourceMapping.roles().isEmpty()) {
+                String[] roles = resourceMapping.roles().split(",");
+                for (String roleName : roles) {
+                    Role role = roleMapper.findByName(roleName.trim());
+                    if (role == null) {
+                        role = new Role();
+                        role.generateId();
+                        role.setName(roleName.trim());
+                        role.setCreatedTime(now);
+                        roleMapper.insert(role);
+                    }
+                    roleMapper.insertResourceRole(role.getId(), resource.getId());
+                }
+            }
             if (!resourceMapping.menu().isEmpty()) {
                 Menu menu = menuMapper.findByName(resourceMapping.menu());
                 if (menu == null) {

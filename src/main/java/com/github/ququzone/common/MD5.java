@@ -30,6 +30,6 @@ public class MD5 {
     }
 
     public static void main(String[] args) {
-        System.out.println(MD5.digestHexString("23&5#9%^IFDS8*(_9785!dsfRDF35(P", "admin"));
+        System.out.println(MD5.digestHexString("23&5#9%^IFDS8*(_9785!dsfRDF35(P", "admin", "admin_salt"));
     }
 }
