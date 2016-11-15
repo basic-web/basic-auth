@@ -439,7 +439,10 @@ public class AuthServiceImpl implements AuthService {
                         role.setCreatedTime(now);
                         roleMapper.insert(role);
                     }
-                    roleMapper.insertResourceRole(role.getId(), resource.getId());
+                    try {
+                        roleMapper.insertResourceRole(role.getId(), resource.getId());
+                    } catch (Exception e) {
+                    }
                 }
             }
             if (!resourceMapping.menu().isEmpty()) {
