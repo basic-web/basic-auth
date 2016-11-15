@@ -84,4 +84,8 @@ public interface RoleMapper {
 
     @Delete("delete from role_users where role_id = #{roleId} and user_id = #{userId}")
     void deleteUserRole(@Param("roleId") String roleId, @Param("userId") String userId);
+
+    @Select("select id, name, created_time, updated_time from roles where name = #{name}")
+    @ResultMap("RoleResult")
+    Role findByName(@Param("name") String name);
 }
