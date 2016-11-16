@@ -28,10 +28,14 @@
                     <h1 class="error-number">错误</h1>
                     <p>
                     <h2>${exception.message} - <a href="javascript:history.go(-1);">返回</a> - <a class="more"
-                                                                                              href="javascript:void(0)">查看更多</a>
+                                                                                                href="javascript:void(0)">查看更多</a>
                     </h2>
-                    <div class="hidden">
-                        ${exception.stackTrace}
+                    <div id="stack" class="hidden">
+                        <pre>
+                        <%
+                            ((Exception) request.getAttribute("exception")).printStackTrace(new java.io.PrintWriter(out));
+                        %>
+                        </pre>
                     </div>
                     </p>
                 </div>
@@ -43,10 +47,15 @@
 <script type="application/javascript">
     $(document).ready(function () {
         $('.more').click(function () {
-            $('.hidden').show();
+            if ($('#stack').hasClass('hidden')) {
+                $(this).text('关闭更多');
+                $('#stack').removeClass('hidden');
+            } else {
+                $(this).text('查看更多');
+                $('#stack').addClass('hidden');
+            }
         })
     });
 </script>
 </body>
 </html>
-
